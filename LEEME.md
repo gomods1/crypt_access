@@ -119,14 +119,33 @@ combates, y zonas, niveles de jefe y jefes.
 ## Multijugador
 
 - El cooperativo local (dos jugadores en un ordenador) funciona: el mod sigue al jugador 1, muestra al
-  otro jugador en el escáner y dice "Tu compañero ha muerto" cuando cae.
-- Partidas en línea: el juego solo carga mods empaquetados en línea, y Crypt Access se instala sin
-  empaquetar, así que el juego lo desactiva al crear o unirse a una partida en línea. El ajuste avanzado
-  del juego "Modo de desarrollo de mods de red" (Opciones, Ajustes de mods, Ajustes del sistema de mods,
-  con los ajustes avanzados visibles) permite cargar mods sin empaquetar en línea, para desarrollo y
-  pruebas; entonces todos los jugadores necesitan el mod.
-- En un ordenador sin el cambio de config.json del instalador (un amigo que ve), el mod se queda en
-  silencio y deja todas las teclas al juego.
+  otro jugador en el escáner con su nombre y dice cuándo muere.
+- Las partidas en línea funcionan cuando todos los jugadores tienen el mismo paquete de Crypt Access:
+  - El juego solo lleva mods empaquetados a una partida en línea, y cada jugador carga exactamente los
+    mods del anfitrión. El instalador pone el paquete `CryptAccess-<versión>.necromod` en
+    `%LOCALAPPDATA%\NecroDancer\mods`, y el mod lo vuelve a poner ahí cada vez que arranca el juego. Al
+    crear una partida, el juego cambia Crypt Access a ese paquete por sí solo.
+  - Tus amigos necesitan el mismo archivo: que descarguen `CryptAccess-<versión>.necromod` de la misma
+    versión publicada y lo pongan en su carpeta `%LOCALAPPDATA%\NecroDancer\mods` (el juego la crea). No
+    ejecutan el instalador, así que el mod se queda en silencio en su ordenador y deja todas las teclas a
+    su juego.
+  - Crea la partida por dirección IP, o desactiva "Habilitar juego cruzado" en el menú de anfitrión antes
+    de crearla. Con el juego cruzado activado, el juego desactiva todos los mods que su servidor no ha
+    aprobado, Crypt Access incluido. El menú de anfitrión te avisa.
+  - Cuando llega la lista de mods de la partida, el mod dice "Crypt Access está activo en esta partida en
+    línea", o explica por qué el juego va a desactivarlo (juego cruzado, falta el paquete, otra versión).
+- En una partida en línea:
+  - Se leen en voz alta los mensajes del chat y los avisos del juego (alguien entra o sale). T abre el
+    chat. Ajuste: "Leer en voz alta los mensajes del chat".
+  - O: los jugadores de la partida, con personaje, vida y dónde están. Control más Arriba lee la lista
+    jugador por jugador.
+  - El escáner nombra a los demás jugadores ("Ana, Melody"), y sus muertes se anuncian con su nombre.
+  - Cuando mueres observas a otro jugador: el mod dice a quién, Izquierda o Derecha cambia e Intro
+    vuelve a la partida cuando el juego lo permite. El escáner y las teclas de estado siguen al jugador
+    que observas.
+  - Se anuncian las pausas del anfitrión, su final y el aviso de "problemas de red" del juego. Solo el
+    anfitrión puede pausar con Espacio.
+- El desafío diario desactiva todos los mods, en línea o no.
 
 ## Créditos y licencias
 

@@ -65,6 +65,12 @@ tutorialHints = Settings.user.bool({
 	default = true,
 })
 
+speakChat = Settings.user.bool({
+	id = "speech.chat",
+	name = name("speakChat"),
+	default = true,
+})
+
 describeCutscenes = Settings.user.bool({
 	id = "describe.cutscenes",
 	name = name("describeCutscenes"),
@@ -131,6 +137,8 @@ function Config.get(key)
 		return autoFreeze
 	elseif key == "tutorialHints" then
 		return tutorialHints
+	elseif key == "speakChat" then
+		return speakChat
 	elseif key == "describeCutscenes" then
 		return describeCutscenes
 	elseif key == "describeNew" then

@@ -9,3 +9,5 @@ __pycache__/
 shots/
 mod/CryptAccess/dev/
 dist/
+# Built by tools/build_package.py (a binary built from the scripts; ship it, never edit it).
+mod/CryptAccess/package/

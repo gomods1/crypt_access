@@ -80,7 +80,23 @@ local function labelText(entity)
 	return Text.joinWrapped(lines)
 end
 
+local baseName
+
+--- Display name of an entity. Other players are "player name, character" (online and local co-op).
 function World.name(entity)
+	local name = baseName(entity)
+	if entity and entity.controllable and entity.controllable.playerID ~= 0 and name ~= "" and not World.isPlayer(entity) then
+		local ok, playerName = pcall(function()
+			return require("necro.client.PlayerList").getName(entity.controllable.playerID)
+		end)
+		if ok and type(playerName) == "string" and playerName ~= "" then
+			return Strings.get("scan.player", { player = Text.clean(playerName), character = name })
+		end
+	end
+	return name
+end
+
+baseName = function(entity)
 	if not entity then
 		return ""
 	end

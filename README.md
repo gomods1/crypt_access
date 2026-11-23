@@ -116,13 +116,32 @@ or off: cutscenes and title screens, new kinds of enemies, fights, and zones, bo
 ## Multiplayer
 
 - Local co-op (two players on one computer) works: the mod follows player 1, lists the other player in
-  the scanner, and says "Your partner died" when they fall.
-- Online sessions: the game loads only packaged mods online, and Crypt Access is installed unpacked, so
-  the game turns it off while you host or join an online game. The game's advanced setting "Network mod
-  dev mode" (Options, Mod settings, Mod system settings, with advanced settings shown) lets unpacked mods
-  load online, for development and testing; every player then needs the mod.
-- On a computer without the installer's config.json change (a sighted friend), the mod stays silent and
-  leaves every key to the game.
+  the scanner with their name, and says when they die.
+- Online games work when every player has the same Crypt Access package:
+  - The game only takes packaged mods into an online game, and every player loads exactly the host's
+    mods. The installer puts the package `CryptAccess-<version>.necromod` in
+    `%LOCALAPPDATA%\NecroDancer\mods`, and the mod puts it back there each time the game starts. When you
+    host, the game switches Crypt Access to this package by itself.
+  - Your friends need the same file: download `CryptAccess-<version>.necromod` from the same release and
+    put it in their `%LOCALAPPDATA%\NecroDancer\mods` folder (the game creates it). They do not run the
+    installer, so the mod stays silent on their computer and leaves every key to their game.
+  - Host by IP address, or turn off "Enable cross-play" in the host menu before hosting. With
+    cross-play on, the game turns off every mod its own server has not approved, Crypt Access included.
+    The host menu warns you about this.
+  - When the session's mod list arrives, the mod says "Crypt Access is on in this online session", or
+    explains why the game is about to turn it off (cross-play, a missing package, another version).
+- In an online game:
+  - Chat messages and the game's notices (a player joins or leaves) are read aloud. T opens the chat.
+    Settings: "Read chat messages aloud".
+  - O: the players in the game, with character, health and where they are. Control plus Up reads the
+    list one player at a time.
+  - Other players are named in the scanner ("Ana, Melody"), and their deaths are announced with their
+    name.
+  - After you die you watch another player: the mod says who, Left or Right changes, Enter joins again
+    when the game allows it. The scanner and the HUD keys follow the player you watch.
+  - Pauses by the host, the end of the pause, and the game's "network issues" notice are spoken. Only
+    the host can pause with Space.
+- The daily challenge unloads every mod, online or not.
 
 ## Credits and licences
 

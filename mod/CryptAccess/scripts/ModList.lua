@@ -33,12 +33,32 @@ function ModList.ensureRegistered()
 		return false
 	end
 	local version, packaged = latestVersion(scriptLoader)
+	-- The installed version is the one in the mod folder's mod.json. After an update the saved entry still
+	-- names the old version, and the game's startup (Mods.unloadInvalidVersions) would unload the mod for
+	-- that; correct it now, while the mod is preloaded. The unpacked folder always exists, so point there;
+	-- hosting switches to the package by itself.
+	local okInstalled, installed = pcall(function()
+		return require("CryptAccess.Package").modVersion()
+	end)
+	installed = okInstalled and installed or nil
+	if installed then
+		version, packaged = installed, false
+	end
 	for _, entry in ipairs(list) do
 		if type(entry) == "table" and entry.name == MOD_NAME then
-			if entry.version == nil and version then
+			if (entry.version == nil or (installed and entry.version ~= installed)) and version then
+				log.info("ModList: entry version %s -> %s", tostring(entry.version), tostring(version))
 				entry.version = version
 				entry.package = packaged or false
-				log.info("ModList: set version %s on the existing entry", tostring(version))
+			elseif entry.package and installed then
+				-- Loaded as a package (after hosting): fall back to the folder if the package file is gone.
+				local okFile, present = pcall(function()
+					return require("CryptAccess.Package").isInstalled(installed)
+				end)
+				if okFile and present == false then
+					log.info("ModList: package %s missing, using the mod folder", tostring(installed))
+					entry.package = false
+				end
 			end
 			return true
 		end

@@ -75,7 +75,8 @@ event.gameStateLevel.add("cryptAccessAutoFreeze", { order = "levelLoadingDone", 
 end)
 
 event.tick.add("cryptAccessAutoFreeze", { order = "hud", sequence = 61 }, function()
-	if pendingAutoFreeze and World.playing() then
+	-- A friend's game without the native door runs the mod silently: never pause for them.
+	if pendingAutoFreeze and World.playing() and require("CryptAccess.Native").available then
 		pendingAutoFreeze = false
 		local ok, lobby = pcall(require("necro.game.level.CurrentLevel").isLobby)
 		if not (ok and lobby) and not isPaused() then

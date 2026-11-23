@@ -16,6 +16,8 @@ Help.register({
 				lines[#lines + 1] = line
 			end
 		end
+		-- Multiplayer: O lists the players; chat is read aloud.
+		lines[#lines + 1] = Strings.get("help.online")
 		return lines
 	end,
 })

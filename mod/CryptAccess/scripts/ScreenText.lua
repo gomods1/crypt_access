@@ -137,7 +137,14 @@ event.tick.add("cryptAccessScreenText", { order = "flyaway", sequence = 10 }, fu
 			if summary.playerID and myID and summary.playerID ~= myID and not summary.victory then
 				local Strings = require("CryptAccess.Strings")
 				local who = summary.killerName and Text.clean(summary.killerName) or ""
-				announce(Strings.get("summary.partnerDied", { who = who }))
+				local okName, playerName = pcall(function()
+					return require("necro.client.PlayerList").getName(summary.playerID)
+				end)
+				if okName and type(playerName) == "string" and playerName ~= "" then
+					announce(Strings.get("summary.playerDied", { player = Text.clean(playerName), who = who }))
+				else
+					announce(Strings.get("summary.partnerDied", { who = who }))
+				end
 			else
 				announce(summaryText(summary))
 			end

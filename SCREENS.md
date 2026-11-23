@@ -27,7 +27,7 @@ MenuReader, not opened in a test yet), gap (known not to read well). Menu names 
 - main, credits, changeLog, changeLanguage, changeResolution, changeSoundtrack, audioChannels (values read with each slider), audioChannelCustom, settingsOverview, settingsPresets, powerSettings, customize, touchOptions, optionsGame: verified by the menu crawl.
 - bestiary (the image-framed confirm and message boxes: Bard confirmation, character unlock notices): verified; the portrait is described after the message and is the last details line (verified 2026-11-23).
 - runSummary after a win ("¡Has ganado!"): verified. replaySelector (replays listed with date, mode, character, score), weeklyChallenge, retry, win: verified by the menu crawl.
-- networkMultiplayer, networkHost (host settings, visibility descriptions, unavailable state) and localCoop (adding and removing a player, announced): verified. A local co-op run with two players: verified (mod follows player 1, partner death announced as such). Hosting an online (IP) session: verified that the game unmounts unpacked Crypt Access. networkJoin, networkJoinUDP, networkLobbySettings, networkPlayerList, inviteFriend, blockList: verified by the menu crawl. networkGameBrowser: not opened (it queries online lobbies).
+- networkMultiplayer, networkHost (host settings, visibility descriptions, unavailable state) and localCoop (adding and removing a player, announced): verified. A local co-op run with two players: verified (mod follows player 1, partner death announced as such). Hosting an online (IP) session: verified that the game unmounts unpacked Crypt Access. networkJoin, networkJoinUDP, networkLobbySettings, networkPlayerList, inviteFriend, blockList: verified by the menu crawl. networkGameBrowser: not opened (it queries online lobbies); its rows are text cells (name, host, ping, players, content, mods, level), read by the row reader. networkHost: Crypt Access adds a cross-play warning on open, and a hint in F1 and the details (written; opening it was refused by the permission classifier in session 4).
 - modList, modConfig: verified by the menu crawl. modVersionSelector, modCompiler, lobbyMenu, customMusic (custom soundtrack per zone), fileSelector and confirmResolution (its countdown is read as the No button's label changes): verified by the menu crawl (2026-11-23). modPriorityChanger only opens from a mod in the list. modGrid (the Mods screen from Customize): verified; tool buttons speak their toolLabel and mod tiles their name from the tile id. Mod creation tools and mod.io sign-in menus: generic (not opened: they start uploads or account flows).
 - feedback (segmented choices read as "Error, option 1 of 3"), gameError, audioError, accountNotification: verified by the menu crawl. onlineFeatureCheck and globalNotification open empty without a server message; feedbackConfirm follows sending (not sent).
 - autoSaveLoad ("Loading saved run") and autoSaveConfirmLoad ("restore last session?"): verified.
@@ -61,3 +61,13 @@ MenuReader, not opened in a test yet), gap (known not to read well). Menu names 
   and sleepers waking, parries, enemy spells, explosions, enemies appearing. Verified: freeze, confusion,
   an enemy's confusion spell, a spawned slime appearing. Not yet seen in a test: grab, charge, wake-up,
   parry, breath spells, explosions.
+
+## Online (session 4: written, not yet tested online)
+
+- Session mod list: when it arrives the mod says it is on, or why the game will turn it off (not in the host's
+  list, usually because of cross-play; another version).
+- Chat and the game's notices: spoken (verified offline with chat.print and chat.addMessage).
+- Spectating after death: "Now watching <name>" with the controls, and F1 help.
+- Pauses by the host and their end; the game's "network issues" notice.
+- O: the players, with character, health and position (verified offline: "no other players").
+- Other players named in the scanner and in death announcements.

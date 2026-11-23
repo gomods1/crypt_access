@@ -6,7 +6,8 @@
 #   1. Finds the game through Steam (registry and libraryfolders.vdf), or uses -GameDir.
 #   2. Patches Necrodancer64\config.json: adds "core.StandardLibrary" to wos.game.mods.scriptWhitelist
 #      and {"name":"CryptAccess"} to wos.game.mods.preload. A backup config.json.cryptaccess.bak is kept.
-#   3. Copies the CryptAccess folder to %LOCALAPPDATA%\NecroDancer\mods\CryptAccess.
+#   3. Copies the CryptAccess folder to %LOCALAPPDATA%\NecroDancer\mods\CryptAccess, and the packaged copy
+#      for online play (CryptAccess-<version>.necromod) to %LOCALAPPDATA%\NecroDancer\mods.
 # Steam may restore config.json after a game update or a file check: run this installer again then.
 param(
     [string]$GameDir = "",
@@ -101,6 +102,10 @@ try {
             if ($item.Attributes -band [IO.FileAttributes]::ReparsePoint) { $item.Delete() } else { Remove-Item -Recurse -Force $target }
             Say "Removed $target."
         }
+        foreach ($old in Get-ChildItem -File -Path $modsDir -Filter "CryptAccess-*.necromod" -ErrorAction SilentlyContinue) {
+            Remove-Item -Force $old.FullName
+            Say "Removed $($old.Name)."
+        }
         Say "Crypt Access is uninstalled."
     } else {
         $source = Join-Path $here "CryptAccess"
@@ -119,6 +124,17 @@ try {
         }
         if ($missing.Count -gt 0) { throw ("These files were not copied: " + ($missing -join ", ")) }
         Say "Installed the mod in $target."
+        # The packaged copy online sessions need, next to the mod folder; older versions are removed so the
+        # game never picks a stale package.
+        $version = (Get-Content -Raw (Join-Path $source "mod.json") | ConvertFrom-Json).version
+        $package = Join-Path $source "package\CryptAccess-$version.necromod"
+        foreach ($old in Get-ChildItem -File -Path $modsDir -Filter "CryptAccess-*.necromod" -ErrorAction SilentlyContinue) {
+            if ($old.Name -ne "CryptAccess-$version.necromod") { Remove-Item -Force $old.FullName }
+        }
+        if (Test-Path $package) {
+            Copy-Item -Force $package $modsDir
+            Say "Installed the online package CryptAccess-$version.necromod."
+        }
         Say "Done. Start the game; you should hear: Crypt Access loaded. Press F1 for help."
     }
     $code = 0
