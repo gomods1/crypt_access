@@ -101,7 +101,7 @@
 
 ## Open questions
 
-- Online multiplayer: hosting an IP session unmounts Crypt Access, because `networkMods` drops unpackaged mods online unless the advanced setting `mod.system.allowUnpackagedNetworkMods` ("Modo de desarrollo de mods de red", visible since config.multiplayer and config.modPermissive are true) is on (base/necro/mod/NetworkMods.lua 36-40, 82-125; proven by log 2026-11-23). Turning that setting on from the dev console was refused by the permission classifier. The lasting route is a packaged mod (the game sends packaged mods to every player); with that in mind the mod now stays silent and passes every key through when Native.available is false. Decision pending with the user.
+- Online multiplayer: hosting an IP session unmounts Crypt Access, because `networkMods` drops unpackaged mods online unless the advanced setting `mod.system.allowUnpackagedNetworkMods` ("Modo de desarrollo de mods de red", visible since config.multiplayer and config.modPermissive are true) is on (base/necro/mod/NetworkMods.lua 36-40, 82-125; proven by log 2026-11-23). Turning that setting on from the dev console was refused by the permission classifier. The lasting route is a packaged mod (the game sends packaged mods to every player); with that in mind the mod now stays silent and passes every key through when Native.available is false. Decision (user, 2026-11-23): document only; online play is explained in the README, no packaged release for now.
 - The user's ear test of the cue design is still to come.
 
 - Does `SynchronyOptions.lua` keep CryptAccess in `modLoader.list` after a clean quit? (Not verified: the game was force-killed.)
