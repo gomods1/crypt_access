@@ -47,8 +47,10 @@ function Cues.play(name, dx, dy, volume)
 	local pitch = 2 ^ (math.max(-4, math.min(4, -dy)) * 0.12)
 	local distance = math.abs(dx) + math.abs(dy)
 	local radius = Config.get("cueRadius") or 4
-	local falloff = 1 - math.min(0.75, math.max(0, distance - 1) / (radius + 1))
-	pcall(Audio.setVolume, id, (volume or 1) * falloff * (Config.get("cueVolume") or 0.7))
+	-- Distance lowers the volume to at most half, so far cues still stand out from the music
+	-- (measured with the per-application audio meter, tools/cue_meter.py).
+	local falloff = 1 - math.min(0.5, math.max(0, distance - 1) / (radius + 1))
+	pcall(Audio.setVolume, id, (volume or 1) * falloff * (Config.get("cueVolume") or 0.9))
 	pcall(Audio.setPitch, id, pitch)
 	pcall(Audio.setPosition, id, h, 0, z)
 	pcall(Audio.setMinimumDistance, id, 1)

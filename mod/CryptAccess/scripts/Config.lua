@@ -36,7 +36,7 @@ cueRadius = Settings.user.number({
 cueVolume = Settings.user.percent({
 	id = "cues.volume",
 	name = name("cueVolume"),
-	default = 0.7,
+	default = 0.9,
 })
 metronome = Settings.user.bool({
 	id = "cues.metronome",
