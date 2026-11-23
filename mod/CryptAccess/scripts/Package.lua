@@ -108,6 +108,16 @@ local function once()
 	if not loaded or loaded["CryptAccess.packageChecked"] then
 		return
 	end
+	-- Development copy (dev\enabled, never shipped): keep running the unpacked folder and leave the mods
+	-- folder alone, so a freshly built package never replaces the code being edited.
+	local folder = Native.io and Native.modFolder()
+	local devFlag = folder and Native.io.open(folder .. "\\dev\\enabled", "rb")
+	if devFlag then
+		devFlag:close()
+		loaded["CryptAccess.packageChecked"] = true
+		log.info("Package: dev copy, package not installed")
+		return
+	end
 	local ok, status = pcall(Package.install)
 	log.info("Package: %s", tostring(ok and status or ("failed: " .. tostring(status))))
 	-- The first mount at startup cannot reach necro.mod.Mods yet (see NOTEBOOK), so the clean-up of old
