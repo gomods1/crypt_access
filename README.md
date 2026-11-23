@@ -84,6 +84,12 @@ In the game: Options, Mod settings, Crypt Access. There you can turn the enemy, 
 off, set their range and volume, add a metronome tick, freeze automatically at the start of each floor,
 and choose whether hits on enemies and menu positions are spoken.
 
+## Modes where the mod cannot help
+
+- The daily challenge: the game unloads every mod for it, so the game is silent there.
+- The level editor: it is worked with the mouse. The mod says so when you enter it and turns its own
+  keys off so they reach the editor.
+
 ## Multiplayer
 
 - Local co-op (two players on one computer) works: the mod follows player 1, lists the other player in

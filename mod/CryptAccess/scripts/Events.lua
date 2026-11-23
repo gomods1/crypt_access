@@ -83,6 +83,7 @@ event.objectCurrency.add("cryptAccessCurrency", { order = "statistics", sequence
 end)
 
 local lastCharacter = false
+local modeStates = {}
 
 local exitWasUnlocked = true
 local levelAnnounced = false
@@ -97,13 +98,28 @@ event.tick.add("cryptAccessEventsPoll", { order = "hud", sequence = 50 }, functi
 	if not World.inLevel() then
 		return
 	end
-	if not levelAnnounced and World.playing() then
+	if not levelAnnounced and World.inEditor() then
+		levelAnnounced = true
+		say(Strings.get("event.editor"))
+	elseif not levelAnnounced and World.playing() then
 		levelAnnounced = true
 		say(HUD.levelText())
 	end
+	-- Extra-mode altars in the lobby: say the mode and its new state when it is toggled.
+	local okModes, Entities = pcall(require, "system.game.Entities")
+	if okModes then
+		for e in Entities.entitiesWithComponents({ "interactableToggleExtraMode" }) do
+			local active = e.interactableToggleExtraMode.active and true or false
+			local previous = modeStates[e.id]
+			if previous ~= nil and previous ~= active then
+				say(World.name(e), true)
+			end
+			modeStates[e.id] = active
+		end
+	end
 	local player = World.player()
 	if player and player.name ~= lastCharacter then
-		if lastCharacter then
+		if lastCharacter and not World.inEditor() then
 			say(Strings.get("event.character", { name = World.name(player) }))
 		end
 		lastCharacter = player.name

@@ -200,4 +200,7 @@ return {
 	["menu.added"] = "追加：{items}",
 	["summary.partnerDied"] = "相棒がやられた。{who}にやられた",
 	["menu.choiceOf"] = "{count}個中{index}番目の選択肢",
+	["detail.toggleMode"] = "ぶつかるとこのモードのオンとオフを切り替えます",
+	["event.editor"] = "レベルエディター。マウス操作で、Crypt Access は対応していません。ここでは MOD のキーは無効です。Esc キーでメニューを開いて終了します。",
+	["detail.needsKey"] = "カギのかかったドア：カギが必要です",
 }

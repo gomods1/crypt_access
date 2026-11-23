@@ -86,6 +86,12 @@ En el juego: Opciones, Ajustes de mods, Crypt Access. Ahí puedes activar o desa
 enemigos, objetos y paredes, ajustar su alcance y volumen, añadir un tic de metrónomo, congelar al empezar
 cada nivel y elegir si se anuncian los golpes a enemigos y la posición en los menús.
 
+## Modos en los que el mod no puede ayudar
+
+- El desafío diario: el juego descarga todos los mods para jugarlo, así que ahí no se oye nada.
+- El editor de niveles: se maneja con el ratón. El mod lo avisa al entrar y desactiva sus teclas para que
+  lleguen al editor.
+
 ## Multijugador
 
 - El cooperativo local (dos jugadores en un ordenador) funciona: el mod sigue al jugador 1, muestra al

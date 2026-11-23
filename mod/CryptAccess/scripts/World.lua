@@ -48,9 +48,16 @@ function World.inLevel()
 	return World.player() ~= nil
 end
 
+--- True in the level editor (NecroEdit), which is mouse driven: the mod's gameplay keys stay off
+--- there so Space, letters and arrows reach the editor.
+function World.inEditor()
+	local p = World.player()
+	return p ~= nil and tostring(p.name):find("^NecroEdit") ~= nil
+end
+
 --- True while the player is in a level with no menu in front (gameplay keys are live).
 function World.playing()
-	return World.player() ~= nil and not Menu.isOpen()
+	return World.player() ~= nil and not Menu.isOpen() and not World.inEditor()
 end
 
 --- Splits a type name like "WeaponBroadsword" into words ("Weapon Broadsword").
@@ -61,9 +68,28 @@ local function cleanTypeName(name)
 	return name
 end
 
+--- The text of an entity's world label, with wrapped lines joined.
+local function labelText(entity)
+	local lines = {}
+	for line in tostring(entity.worldLabel.text or ""):gmatch("[^" .. string.char(10) .. "]+") do
+		line = Text.clean(line)
+		if line ~= "" then
+			lines[#lines + 1] = line
+		end
+	end
+	return Text.joinWrapped(lines)
+end
+
 function World.name(entity)
 	if not entity then
 		return ""
+	end
+	-- Extra-mode altars in the lobby: the label names the mode; say whether it is on.
+	if entity.interactableToggleExtraMode and entity.worldLabel then
+		-- The label is one name over two lines ("Modo" / "Historia"): join with a space.
+		local mode = Text.clean(tostring(entity.worldLabel.text):gsub("%s+", " "))
+		local state = Strings.get(entity.interactableToggleExtraMode.active and "text.checked" or "text.notChecked")
+		return mode .. ", " .. state
 	end
 	local name = entity.friendlyName and entity.friendlyName.name
 	if type(name) == "string" and name ~= "" then
@@ -164,6 +190,26 @@ end
 function World.isTileVisible(x, y)
 	local ok, visible = pcall(Vision.isVisible, x, y)
 	return ok and visible or false
+end
+
+--- True when the player carries a key (an item with the itemKey component).
+function World.hasKey()
+	local p = World.player()
+	if not p then
+		return false
+	end
+	local ok, items = pcall(Inventory.getItems, p)
+	if ok and type(items) == "table" then
+		for _, item in ipairs(items) do
+			if type(item) == "number" then
+				item = Entities.getEntityByID(item)
+			end
+			if item and item.itemKey then
+				return true
+			end
+		end
+	end
+	return false
 end
 
 --- The player's dig strength: the best shovel's strength, else the entity's own.

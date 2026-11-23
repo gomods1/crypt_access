@@ -200,4 +200,7 @@ return {
 	["menu.added"] = "已新增：{items}",
 	["summary.partnerDied"] = "你的隊友死了，被{who}殺死",
 	["menu.choiceOf"] = "第{index}項，共{count}項",
+	["detail.toggleMode"] = "走向它即可開啟或關閉此模式",
+	["event.editor"] = "關卡編輯器。它用滑鼠操作，Crypt Access 不支援；這裡模組按鍵已關閉。按 Esc 開啟選單離開。",
+	["detail.needsKey"] = "上鎖的門：需要鑰匙",
 }

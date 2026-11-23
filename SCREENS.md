@@ -40,6 +40,11 @@ MenuReader, not opened in a test yet), gap (known not to read well). Menu names 
 - Run end prompt ("You died! Press Up+Down to continue"): verified.
 - Boss splash: verified ("Jefe: Orquestopo" on 1-4; King Conga fight and kill announced).
 - Flyaways (pickups, Missed!, groove chain, NPC calls, exit unlocked): verified.
-- HUD text overlay (song ended): written, not seen yet.
+- HUD text overlay (song ended): verified.
+- Extra-modes room (lobby): verified; altars read "Modo Sin compás, desactivado" and toggles are announced.
+- Codex lore levels (lobby east): verified (trap corridor read by the scanner).
+- Daily challenge: the game unloads all mods for it (log, 2026-11-23); documented in the README.
+- Level editor (NecroEdit): mouse driven; the mod announces it is not supported there and turns its keys off.
+- Training rooms (lobby west): behind a locked door that needs a key on this save; not entered.
 - Credits roll: verified, each line is spoken as it scrolls in (CreditsRenderer global "credits").
 - Key rebinder overlay: verified (label and current binding; mod hotkeys off while it waits).

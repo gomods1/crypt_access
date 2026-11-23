@@ -200,4 +200,7 @@ return {
 	["menu.added"] = "Added: {items}",
 	["summary.partnerDied"] = "Your partner died, killed by {who}",
 	["menu.choiceOf"] = "option {index} of {count}",
+	["detail.toggleMode"] = "Move into it to turn this mode on or off",
+	["event.editor"] = "Level editor. It works with the mouse and is not made accessible by Crypt Access; the mod keys are off here. Press Escape for the menu to leave.",
+	["detail.needsKey"] = "Locked door: it needs a key",
 }

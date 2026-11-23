@@ -85,7 +85,7 @@ event.tick.add("cryptAccessAutoFreeze", { order = "hud", sequence = 61 }, functi
 end)
 
 Keys.bind({ key = "space", id = "freeze", when = function()
-	return World.inLevel() and (not Menu.isOpen() or Freeze.isFrozen())
+	return World.inLevel() and not World.inEditor() and (not Menu.isOpen() or Freeze.isFrozen())
 end, fn = Freeze.toggle })
 
 return Freeze

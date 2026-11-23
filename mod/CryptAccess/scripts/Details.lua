@@ -108,6 +108,9 @@ function Details.forEntity(entity)
 	if entity.storage and entity.chestLike then
 		add(lines, Strings.get("detail.chest"))
 	end
+	if entity.interactableToggleExtraMode then
+		add(lines, Strings.get("detail.toggleMode"))
+	end
 	if entity.interactableSelectCharacter then
 		add(lines, Strings.get("detail.selectCharacter"))
 	end
@@ -125,6 +128,9 @@ function Details.forTile(x, y)
 		if not (ok and unlocked) then
 			add(lines, Strings.get("detail.exitLocked"))
 		end
+	end
+	if info and info.isLocked then
+		add(lines, Strings.get("detail.needsKey"))
 	end
 	if info and info.idleDamage then
 		add(lines, Strings.get("detail.hotTile"))

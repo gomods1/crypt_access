@@ -19,12 +19,24 @@ local MAX_NODES = 6000
 local trapTiles = {}
 
 --- Visible traps: routes avoid them (a trap tile costs 10 steps).
+local blockedTiles = {}
+
+--- Visible traps: routes avoid them (a trap tile costs 10 steps). Things that act when bumped
+--- (altars, characters, chests, shrines, items for sale) block the route unless they are its end.
 local function collectTraps()
 	trapTiles = {}
+	blockedTiles = {}
 	local Entities = require("system.game.Entities")
-	for e in Entities.entitiesWithComponents({ "trap", "position" }) do
-		if World.category(e) == "trap" and World.isVisible(e) then
-			trapTiles[e.position.x .. "," .. e.position.y] = true
+	for e in Entities.entitiesWithComponents({ "position" }) do
+		local category = World.category(e)
+		if category and World.isVisible(e) then
+			local key = e.position.x .. "," .. e.position.y
+			if category == "trap" then
+				trapTiles[key] = true
+			elseif category == "npc" or category == "shrine" or category == "container"
+				or (category == "item" and e.sale) then
+				blockedTiles[key] = true
+			end
 		end
 	end
 end
@@ -44,15 +56,27 @@ local function cost(x, y, digStrength, tx, ty)
 	if info.isDoor then
 		return 1
 	end
-	if info.isWall or info.isLocked then
+	if info.isLocked then
+		-- Locked doors open only with a key ("Needs a key!"), never by digging.
+		return World.hasKey() and 1 or nil
+	end
+	if info.isWall then
 		local r = info.digResistance
 		if info.isWall and r and r ~= false and r <= digStrength and bit.band(info.collision or 0, Collision.Type.BORDER) == 0 then
 			return 3
 		end
 		return nil
 	end
+	-- Stepping on stairs uses them (lobby stairs start runs, dungeon stairs descend): never route
+	-- across stairs that are not the destination.
+	if info.descent or tostring(info.name):find("Stairs") then
+		return nil
+	end
 	if info.stepDamage then
 		return 8 -- lava: only if there is no other way
+	end
+	if blockedTiles[x .. "," .. y] then
+		return nil
 	end
 	if trapTiles[x .. "," .. y] then
 		return 10

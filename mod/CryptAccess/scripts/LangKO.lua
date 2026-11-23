@@ -200,4 +200,7 @@ return {
 	["menu.added"] = "추가됨: {items}",
 	["summary.partnerDied"] = "동료가 쓰러졌습니다. {who}에게 당했습니다",
 	["menu.choiceOf"] = "{count}개 중 {index}번째 선택지",
+	["detail.toggleMode"] = "부딪히면 이 모드를 켜거나 끕니다",
+	["event.editor"] = "레벨 편집기. 마우스로 조작하며 Crypt Access는 이를 접근 가능하게 만들지 않습니다. 여기서는 모드 키가 꺼집니다. Esc를 눌러 메뉴를 열고 나가세요.",
+	["detail.needsKey"] = "잠긴 문: 열쇠가 필요합니다",
 }

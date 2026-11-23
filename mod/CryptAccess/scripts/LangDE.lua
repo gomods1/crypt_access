@@ -200,4 +200,7 @@ return {
 	["menu.added"] = "Hinzugefügt: {items}",
 	["summary.partnerDied"] = "Dein Mitspieler ist gestorben, getötet von {who}",
 	["menu.choiceOf"] = "Option {index} von {count}",
+	["detail.toggleMode"] = "Laufe dagegen, um diesen Modus ein- oder auszuschalten",
+	["event.editor"] = "Level-Editor. Er wird mit der Maus bedient und von Crypt Access nicht zugänglich gemacht; die Mod-Tasten sind hier aus. Drücke Escape für das Menü, um ihn zu verlassen.",
+	["detail.needsKey"] = "Verschlossene Tür: Sie braucht einen Schlüssel",
 }
