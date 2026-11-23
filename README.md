@@ -6,6 +6,10 @@ positional sounds for enemies, items, walls and exits.
 
 ## Install
 
+The easiest way: download `CryptOfTheNecroDancerAccessibilityInstaller.exe` from the latest release at
+https://github.com/gomods1/crypt_access/releases and run it. It finds the game, downloads the mod, and can
+update or uninstall it later. Or install from the zip:
+
 1. Close the game.
 2. Extract the whole zip to any folder.
 3. Run `install.bat`. It finds the game through Steam, copies the mod to

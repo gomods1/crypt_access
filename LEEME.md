@@ -6,6 +6,10 @@ sonidos posicionales para enemigos, objetos, paredes y salidas.
 
 ## Instalación
 
+Lo más fácil: descarga `CryptOfTheNecroDancerAccessibilityInstaller.exe` de la última versión en
+https://github.com/gomods1/crypt_access/releases y ejecútalo. Encuentra el juego, descarga el mod y luego
+puede actualizarlo o desinstalarlo. O instala desde el zip:
+
 1. Cierra el juego.
 2. Extrae el zip completo en cualquier carpeta.
 3. Ejecuta `install.bat`. Encuentra el juego a través de Steam, copia el mod en
