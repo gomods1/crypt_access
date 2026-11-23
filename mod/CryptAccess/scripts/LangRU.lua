@@ -199,4 +199,5 @@ return {
 	["tile.floor"] = "Пол",
 	["menu.added"] = "Добавлено: {items}",
 	["summary.partnerDied"] = "Ваш напарник погиб. Убийца: {who}",
+	["menu.choiceOf"] = "вариант {index} из {count}",
 }

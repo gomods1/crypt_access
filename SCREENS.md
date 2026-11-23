@@ -23,14 +23,14 @@ MenuReader, not opened in a test yet), gap (known not to read well). Menu names 
 - runSummary: verified (killer, score, duration, options).
 - lobbyModeSelector: verified.
 - seedEntry and other text fields: verified (typed characters, deletions, final text).
-- messageBox (character unlock notices): verified. textEntry, dropdown, colorPicker, characterLock: generic.
-- main, credits, changeLog, changeLanguage, changeResolution, changeSoundtrack, audioChannels, audioChannelCustom: generic.
+- messageBox (character unlock notices), textEntry, characterLock: verified by the menu crawl (tools/menu_crawl.py). dropdown and colorPicker only open from a parent setting (opening them alone has no entries or errors in the game).
+- main, credits, changeLog, changeLanguage, changeResolution, changeSoundtrack, audioChannels (values read with each slider), audioChannelCustom, settingsOverview, settingsPresets, powerSettings, customize, touchOptions, optionsGame: verified by the menu crawl.
 - bestiary (the image-framed confirm and message boxes: Bard confirmation, character unlock notices): verified.
-- runSummary after a win ("¡Has ganado!"): verified. replaySelector, weeklyChallenge, retry: generic.
-- networkMultiplayer, networkHost (host settings, visibility descriptions, unavailable state) and localCoop (adding and removing a player, announced): verified. A local co-op run with two players: verified (mod follows player 1, partner death announced as such). Hosting an online (IP) session: verified that the game unmounts unpacked Crypt Access. networkHost, networkJoin, networkGameBrowser, networkLobbySettings, networkPlayerList, inviteFriend, blockList: generic (no online session tested).
-- modList, modGrid, modConfig and the other mod tools, modIO menus: generic.
-- feedback, feedbackConfirm, gameError, audioError, onlineFeatureCheck, accountNotification, globalNotification: generic.
-- autoSaveLoad, autoSaveConfirmLoad: generic.
+- runSummary after a win ("¡Has ganado!"): verified. replaySelector (replays listed with date, mode, character, score), weeklyChallenge, retry, win: verified by the menu crawl.
+- networkMultiplayer, networkHost (host settings, visibility descriptions, unavailable state) and localCoop (adding and removing a player, announced): verified. A local co-op run with two players: verified (mod follows player 1, partner death announced as such). Hosting an online (IP) session: verified that the game unmounts unpacked Crypt Access. networkJoin, networkJoinUDP, networkLobbySettings, networkPlayerList, inviteFriend, blockList: verified by the menu crawl. networkGameBrowser: not opened (it queries online lobbies).
+- modList, modConfig: verified by the menu crawl. modGrid (the Mods screen from Customize): verified; tool buttons speak their toolLabel and mod tiles their name from the tile id. Mod creation tools and mod.io sign-in menus: generic (not opened: they start uploads or account flows).
+- feedback (segmented choices read as "Error, option 1 of 3"), gameError, audioError, accountNotification: verified by the menu crawl. onlineFeatureCheck and globalNotification open empty without a server message; feedbackConfirm follows sending (not sent).
+- autoSaveLoad ("Loading saved run") and autoSaveConfirmLoad ("restore last session?"): verified.
 
 ## Not menus
 

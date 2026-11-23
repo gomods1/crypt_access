@@ -199,4 +199,5 @@ return {
 	["tile.floor"] = "Suelo",
 	["menu.added"] = "Añadido: {items}",
 	["summary.partnerDied"] = "Tu compañero ha muerto, lo mató {who}",
+	["menu.choiceOf"] = "opción {index} de {count}",
 }

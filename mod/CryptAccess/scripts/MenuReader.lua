@@ -49,6 +49,9 @@ local function isSelectable(entry)
 end
 
 local function isEnabled(entry)
+	if entry.toolEnabled == false then
+		return false
+	end
 	if not (entry.action or entry.textEntry) then
 		return true -- slider-like entries with only left/right actions
 	end
@@ -59,7 +62,18 @@ local function labelOf(entry, selected)
 	if not entry then
 		return ""
 	end
-	return Text.clean(Text.eval(entry.label, selected or false))
+	-- Icon buttons (the mod browser) name themselves through toolLabel, and mod tiles only show a
+	-- two-letter badge, so their id ("tile_CryptAccess") gives the name.
+	local id = type(entry.id) == "string" and entry.id or ""
+	if id:find("^tile_") then
+		local name = id:sub(6):gsub("_", " "):gsub("(%l)(%u)", "%1 %2")
+		return Text.clean(name)
+	end
+	local text = Text.clean(Text.eval(entry.label, selected or false))
+	if text == "" and entry.toolLabel then
+		text = Text.clean(Text.eval(entry.toolLabel))
+	end
+	return text
 end
 
 --- Selectable entries that have something to say.
@@ -124,10 +138,13 @@ local function rowContext(currentMenu, entry)
 	local cells = {}
 	for _, other in ipairs(currentMenu.entries or {}) do
 		if other ~= entry and type(other.y) == "number" and math.abs(other.y - entry.y) <= 3
-			and type(other.x) == "number" and other.x ~= entry.x and not eval(other.hidden, false) then
+			and type(other.x) == "number" and not eval(other.hidden, false)
+			-- Only texts that cannot be selected belong to the entry (table cells, slider values);
+			-- selectable neighbours (grid tiles, toolbar buttons) are choices of their own.
+			and not isSelectable(other) then
 			local text = labelOf(other)
 			if text ~= "" then
-				cells[#cells + 1] = { x = other.x, text = text }
+				cells[#cells + 1] = { x = other.x, text = text, order = #cells }
 			end
 		end
 	end
@@ -135,14 +152,20 @@ local function rowContext(currentMenu, entry)
 		return nil
 	end
 	table.sort(cells, function(a, b)
-		return a.x < b.x
+		if a.x ~= b.x then
+			return a.x < b.x
+		end
+		return a.order < b.order
 	end)
 	-- The selected cell first, then the rest of its row in reading order.
 	local parts = {}
 	for _, c in ipairs(cells) do
 		parts[#parts + 1] = c.text
 	end
-	return labelOf(entry, true) .. ". " .. table.concat(parts, ", ")
+	local own = labelOf(entry, true)
+	-- "Music volume:" followed by its value reads as one phrase.
+	local joiner = own:find(":%s*$") and " " or ". "
+	return own .. joiner .. table.concat(parts, ", ")
 end
 
 --- The selectable-looking entries whose label is a message (selectable but with no label of their own

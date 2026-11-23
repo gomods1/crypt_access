@@ -199,4 +199,5 @@ return {
 	["tile.floor"] = "ゆか",
 	["menu.added"] = "追加：{items}",
 	["summary.partnerDied"] = "相棒がやられた。{who}にやられた",
+	["menu.choiceOf"] = "{count}個中{index}番目の選択肢",
 }

@@ -199,4 +199,5 @@ return {
 	["tile.floor"] = "地板",
 	["menu.added"] = "已添加：{items}",
 	["summary.partnerDied"] = "你的队友死了，被{who}杀死",
+	["menu.choiceOf"] = "第{index}项，共{count}项",
 }

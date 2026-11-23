@@ -199,4 +199,5 @@ return {
 	["tile.floor"] = "바닥",
 	["menu.added"] = "추가됨: {items}",
 	["summary.partnerDied"] = "동료가 쓰러졌습니다. {who}에게 당했습니다",
+	["menu.choiceOf"] = "{count}개 중 {index}번째 선택지",
 }

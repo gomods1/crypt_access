@@ -40,11 +40,42 @@ local function getSymbolWords()
 end
 
 --- Strips formatting codes. Icons become nothing unless they are known symbols.
+--- Segmented choices ("Category: Bug_Idea_Feedback") show every option, the chosen one in its own
+--- colour and the others grey, separated by black underscores. Returns "Category: Bug, 1 of 3".
+local SEPARATOR = "\3#000000_\3r"
+
+local function segmentedChoice(text)
+	local first = text:find(SEPARATOR, 1, true)
+	if not first then
+		return nil
+	end
+	local startOptions = text:find("\3#%x%x%x%x%x%x") or 1
+	local prefix = text:sub(1, startOptions - 1)
+	local segments, colours = {}, {}
+	local rest = text:sub(startOptions)
+	for part in (rest .. SEPARATOR):gmatch("(.-)" .. SEPARATOR:gsub("%p", "%%%0")) do
+		local colour = part:match("\3#(%x%x%x%x%x%x)") or ""
+		segments[#segments + 1] = { colour = colour, text = part }
+		colours[colour] = (colours[colour] or 0) + 1
+	end
+	if #segments < 2 then
+		return nil
+	end
+	for index, segment in ipairs(segments) do
+		if colours[segment.colour] == 1 then
+			local Strings = require("CryptAccess.Strings")
+			return prefix .. segment.text .. ", " .. Strings.get("menu.choiceOf", { index = index, count = #segments })
+		end
+	end
+	return nil
+end
+
 function Text.clean(value)
 	if value == nil then
 		return ""
 	end
 	local text = tostring(value)
+	text = segmentedChoice(text) or text
 	if text:find(ESC, 1, true) then
 		for _, pair in ipairs(getSymbolWords()) do
 			text = plainFind(text, pair[1], pair[2])

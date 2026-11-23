@@ -199,4 +199,5 @@ return {
 	["tile.floor"] = "Floor",
 	["menu.added"] = "Added: {items}",
 	["summary.partnerDied"] = "Your partner died, killed by {who}",
+	["menu.choiceOf"] = "option {index} of {count}",
 }
