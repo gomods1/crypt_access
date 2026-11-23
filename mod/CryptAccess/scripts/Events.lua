@@ -89,6 +89,10 @@ event.objectCurrency.add("cryptAccessCurrency", { order = "statistics", sequence
 	local key = tostring(ev.currency) == "diamond" and "event.diamonds" or "event.gold"
 	if ev.difference > 0 then
 		say(Strings.get(key, { n = ev.difference, total = total }))
+	else
+		-- Spending (a purchase, a shrine): say what was paid and what is left.
+		local spentKey = tostring(ev.currency) == "diamond" and "event.diamondsSpent" or "event.goldSpent"
+		say(Strings.get(spentKey, { n = -ev.difference, total = total }))
 	end
 end)
 

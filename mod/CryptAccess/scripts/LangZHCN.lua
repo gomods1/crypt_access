@@ -216,4 +216,6 @@ return {
 	["event.bomb"] = "点燃的炸弹，{where}，{n} 拍后爆炸",
 	["event.weaponLanded"] = "{name}已投出，位于{where}",
 	["event.used"] = "使用了{name}，{health}",
+	["event.goldSpent"] = "支付了 {n} 金币，剩余 {total}",
+	["event.diamondsSpent"] = "支付了 {n} 钻石，剩余 {total}",
 }

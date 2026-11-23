@@ -216,4 +216,6 @@ return {
 	["event.bomb"] = "Горящая бомба, {where}, взрыв через тактов: {n}",
 	["event.weaponLanded"] = "{name}: брошено, лежит {where}",
 	["event.used"] = "Использовано: {name}, {health}",
+	["event.goldSpent"] = "Заплачено золота: {n}, осталось: {total}",
+	["event.diamondsSpent"] = "Заплачено бриллиантов: {n}, осталось: {total}",
 }

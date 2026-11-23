@@ -338,7 +338,7 @@ function MenuReader.update()
 		Speech.debug(string.format("menu %s, entry %s", tostring(currentMenu.name), entryKey))
 		last.heading = headingFor(currentMenu, currentMenu.selection)
 		last.messages = snapshotMessages(currentMenu)
-		last.choices = choiceLabels(currentMenu)
+		last.choices, last.choiceCount = choiceLabels(currentMenu)
 		local details = detailsFor(currentMenu, entry, label ~= "" and label or Text.sentences(lines))
 		-- Long menus: the lines not spoken on open (tables, notes) are one Ctrl+Up away.
 		if #choices(currentMenu) > 3 then
@@ -404,7 +404,8 @@ function MenuReader.update()
 		last.messages = messages
 		-- Entries that appeared while the menu is open (a co-op player added): say them, if only a few.
 		local labels, count = choiceLabels(currentMenu)
-		if last.choices then
+		-- Only when the menu grew: a toggle changing its own label is not a new entry.
+		if last.choices and count > (last.choiceCount or count) then
 			local added = {}
 			for text in pairs(labels) do
 				if not last.choices[text] then
@@ -416,6 +417,7 @@ function MenuReader.update()
 			end
 		end
 		last.choices = labels
+		last.choiceCount = count
 	end
 
 	last.menuKey, last.entryKey, last.label = menuKey, entryKey, label

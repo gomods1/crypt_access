@@ -216,4 +216,6 @@ return {
 	["event.bomb"] = "点火したボム、{where}、{n}ビート後に爆発",
 	["event.weaponLanded"] = "{name}を投げた。{where}にある",
 	["event.used"] = "{name}を使った、{health}",
+	["event.goldSpent"] = "{n}ゴールド支払った、残り{total}",
+	["event.diamondsSpent"] = "{n}ダイヤ支払った、残り{total}",
 }

@@ -216,4 +216,6 @@ return {
 	["event.bomb"] = "불붙은 폭탄, {where}, {n}박자 후 폭발",
 	["event.weaponLanded"] = "{name}을(를) 던졌습니다. {where}에 있습니다",
 	["event.used"] = "{name} 사용, {health}",
+	["event.goldSpent"] = "골드 {n} 지불, 남은 골드 {total}",
+	["event.diamondsSpent"] = "다이아 {n} 지불, 남은 다이아 {total}",
 }

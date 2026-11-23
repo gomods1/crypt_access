@@ -216,4 +216,6 @@ return {
 	["event.bomb"] = "Bomba acesa, {where}, explode em {n} batidas",
 	["event.weaponLanded"] = "{name} arremessada, está {where}",
 	["event.used"] = "{name} usado, {health}",
+	["event.goldSpent"] = "Pagou {n} de ouro, restam {total}",
+	["event.diamondsSpent"] = "Pagou {n} diamantes, restam {total}",
 }
