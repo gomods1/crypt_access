@@ -82,11 +82,30 @@ While playing:
   closer.
 - A sharp rising sound means an enemy next to you acts on the next beat.
 
+## Descriptions of what is on screen
+
+- Cutscenes: the story and intro videos are described scene by scene between the spoken lines, for
+  example "Her shovel breaks into the ground and purple smoke bursts out around her". The title screens
+  are described too, and during the credits each monster that dances by is named.
+- Characters, enemies, bosses and shopkeepers: select one with Page Down, then Control plus Up reads its
+  health and next move, what it looks like and how it behaves ("It bounces up and down between two
+  tiles"), how much damage it does and how often it acts. The character grid and the portrait dialogs
+  (character unlocks, the Bard confirmation) describe the portrait.
+- The first time you see a new kind of enemy, it is described once ("New: Blue Slime. A tall blue
+  slime..."). The mod remembers which kinds you have already met.
+- Places: each zone's look is described when you first enter it in a run, and boss floors and bosses
+  when their splash screen shows.
+- Fights: the mod says when an enemy grabs you or lets go, when you are frozen or confused and when that
+  ends, when an enemy charges, a mimic or sleeping enemy wakes up, a blademaster parries, an enemy casts a
+  spell (fire or ice breath, lightning, wind, confusion, summoning), an explosion goes off, or an enemy
+  appears out of nowhere.
+
 ## Settings
 
 In the game: Options, Mod settings, Crypt Access. There you can turn the enemy, item and wall sounds on or
 off, set their range and volume, add a metronome tick, freeze automatically at the start of each floor,
-and choose whether hits on enemies and menu positions are spoken.
+and choose whether hits on enemies and menu positions are spoken. Four switches turn the descriptions on
+or off: cutscenes and title screens, new kinds of enemies, fights, and zones, boss arenas and bosses.
 
 ## Modes where the mod cannot help
 

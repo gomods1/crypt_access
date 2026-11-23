@@ -446,6 +446,39 @@ event.tick.add("cryptAccessMenuReader", { order = "menu", sequence = 10 }, funct
 	MenuReader.update()
 end)
 
+-- Dialogs framed with a portrait (necro.menu.generic.BestiaryMenu: character unlocks, the Bard and
+-- mode confirmations): the portrait is described after the message and the selected choice, and it is
+-- the last line of the details buffer.
+local function portraitOf(currentMenu)
+	local arg = type(currentMenu) == "table" and currentMenu.arg
+	if type(arg) ~= "table" then
+		return nil
+	end
+	local Describe = require("CryptAccess.Describe")
+	return Describe.forType(arg.entityName) or Describe.forImage(arg.image)
+end
+
+MenuReader.special.bestiary = {
+	details = function(currentMenu)
+		local picture = portraitOf(currentMenu)
+		return picture and { picture } or {}
+	end,
+}
+
+MenuReader.listeners[#MenuReader.listeners + 1] = function(currentMenu)
+	if tostring(currentMenu.name) ~= "bestiary" then
+		return
+	end
+	local Config = require("CryptAccess.Config")
+	if Config.get("describeScenes") == false then
+		return
+	end
+	local picture = portraitOf(currentMenu)
+	if picture then
+		Speech.say(picture, false)
+	end
+end
+
 Help.register({
 	id = "menu",
 	priority = 50,

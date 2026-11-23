@@ -1,0 +1,172 @@
+# key|English text. Entity descriptions: look first, then behaviour that the art and data show.
+# Characters
+desc.Cadence|A young woman with blond hair, a blue bandana and a red tunic, holding a torch high, a dagger at her belt.
+desc.Melody|Cadence's mother: red hair under a red bandana, a green dress and apron, a torch in her hand and the golden lute on her back.
+desc.Aria|Melody's mother: an older woman with grey hair, a long brown dress and leather armour, holding a shovel.
+desc.Dorian|Cadence's father: a pale man with long red hair, a green scarf and cloak, and golden armour.
+desc.Eli|Cadence's uncle: a burly man with a bushy red beard, a black hat and a heavy apron.
+desc.Monk|A bald monk in blue robes with a yellow sash, bowing with his hands pressed together.
+desc.Dove|A gentle young woman with blond hair and a teal dress, a white dove perched on her head and a flower in her hand.
+desc.Coda|A purple, demon-like double of Cadence with white horns, a long tail and a dagger.
+desc.Bolt|A woman with dark skin and purple hair tied in a bun, in a yellow tunic, wielding a spear.
+desc.Bard|A bald, bearded bard in a blue shirt and yellow trousers, singing as he plays his lute.
+desc.Nocturna|A vampire with pale blue skin, pointed ears, red hair and bat wings, in a white shirt and a dark vest, holding a curved sword.
+desc.Diamond|A dancer with dark skin and short black hair, in orange trousers, leaping into a flying kick.
+desc.Mary|A young shepherdess with brown hair in two tails and an apron, holding a long shepherd's crook, a fluffy lamb at her side.
+desc.Tempo|A purple-skinned figure in a metal mask and baggy trousers, a golden pendulum on the belt and sparks crackling from both hands.
+desc.Reaper|A hooded figure in a purple robe with a white skull face and red eyes, surrounded by floating pink souls.
+desc.Coldsteel_Coldsteel|A girl with very long turquoise twin tails, a grey sleeveless top with a turquoise tie and a black skirt, holding a leek.
+desc.Goldman_Goldman|A knight in blue armour with golden horns on his helmet, holding a shovel blade, gems floating around him.
+desc.Sync_Chaunter|A pale, patched, sack-like ghost with nails stuck in its head, carrying a green lantern.
+desc.Sync_Klarinetta|A blonde knight in silver armour with a red and gold cloak, wielding a long sword.
+desc.Sync_Suzu|A grey-skinned warrior with a red mask over her mouth, in white and teal robes, holding a long-bladed polearm.
+# Zone 1
+desc.Slime|A bright green blob of slime with hollow eyes. It hops in place and never leaves its tile; it only blocks your way.
+desc.Slime2|A tall blue slime with hollow eyes and a gaping mouth. It bounces up and down between two tiles.
+desc.Slime3|An orange slime with hollow eyes. It goes round a small square: right, down, left, up, over and over.
+desc.Slime4|A pale blue slime made of ice. It goes round a small square moving diagonally, and leaves a patch of ice when it dies.
+desc.Slime5|A red and orange slime made of fire. It goes round a small square moving diagonally, and leaves hot coals when it dies.
+desc.Slime6|A glowing purple slime. It zigzags: right, down left, right, up left, over and over.
+desc.Slime7|A black slime. It loops: right, down left, left, up right, over and over.
+desc.Slime8|A white slime. It goes round a big square: two steps right, two down, two left, two up.
+desc.Motherslime|A big green mother slime. It goes round a big square, and splits into tiny slimes when it dies.
+desc.Tinyslime|A tiny green slime. It hops about at random.
+desc.Skeleton|A skeleton with its arms raised. It walks toward you, and raises its arms just before it moves.
+desc.Skeleton2|A skeleton with its arms raised, tougher than the white one. It walks toward you; when nearly dead it loses its head and runs blindly in a straight line.
+desc.Skeleton4|A skeleton of glittering crystal. It walks toward you and shatters into crystal shards when destroyed.
+desc.Bat|A small bat with leathery wings, fangs and its tongue hanging out. It flutters about at random and bites whoever it bumps into.
+desc.Bat3|A green bat with fangs. It flutters at random in eight directions, diagonals included.
+desc.Bat4|A dark grey bat with yellow eyes. It flutters at random, but always bites when you are next to it.
+desc.BatMiniboss|A huge bat with clawed wings and a mouth full of fangs. It flutters about at random.
+desc.Monkey|A purple monkey with long arms. It jumps on you and clings: you cannot move until you knock it off, and it costs you your coin multiplier. It is tougher while it holds on.
+desc.Monkey3|A green monkey with a headband. It jumps on you and clings, and while it holds on your directions are reversed.
+desc.Monkey4|A pink magic monkey with its arms raised. It jumps on you and clings, and its grab teleports you elsewhere on the floor.
+desc.Ghost|A pale blue ghost with an arrow through its head and a screaming face. While you move toward it, it fades and cannot be hurt; it turns solid again when you step away.
+desc.Wraith|A red spirit of smoke with long trailing tendrils. It appears out of thin air near you and chases you.
+desc.Zombie|A shambling zombie with blue hair, purple skin and torn clothes. It walks in a straight line and turns around when something blocks it.
+desc.ZombieElectric|A zombie woman with a purple afro and yellow skin crackling with electricity. It walks in a straight line and turns around when something blocks it.
+# Zone 2
+desc.Armadillo|An armadillo with a heavy shell. When it sees you it curls up and rolls at you in a straight line, then lies stunned for a moment where it stops.
+desc.Armoredskeleton|A skeleton crouched behind a big wooden shield painted with a skull. The shield blocks hits from the front and only pushes it back; strike it from the side or from behind.
+desc.Armoredskeleton2|A skeleton crouched behind a big painted shield. The shield blocks hits from the front; when nearly dead it loses its head and runs blindly in a straight line.
+desc.Armoredskeleton4|A crystal skeleton crouched behind a big shield that blocks hits from the front. It shatters into crystal shards when destroyed.
+desc.Banshee|A tall ghostly woman in a flowing gown, with long white hair, a beaked skull for a face and long claws. When hit she wails, muffling the music around you.
+desc.Clone|A copy of you with glowing red eyes. Whenever you move, it moves the opposite way, mirroring you.
+desc.Golem|A hulking golem of rock overgrown with moss and little flowers. Very slow and very tough, it digs through walls to reach you.
+desc.Golem3|A hulking golem of purple ooze, dripping green slime. Very slow and very tough, it digs through walls to reach you.
+desc.Mole|A blue mole wearing sunglasses. It burrows underground as it moves and surfaces to attack.
+desc.Mushroom|A mushroom with a spotted cap and a little face. It never moves, but every few beats it puffs out spores that hurt everything around it.
+desc.MushroomExploding|A swollen mushroom that sleeps until hit. Once woken, it explodes.
+desc.MushroomLight|A glowing mushroom that lights up the area around it. It never moves.
+desc.Nightmare|A horse-like demon made of dark smoke, with glowing eyes and fangs. It digs through walls to reach you.
+desc.Tarmonster|A dark red blob of tar with one eye and a toothy grin. It hides in a puddle of tar until you come close, then grabs you and drags you along. It leaves tar when it dies.
+desc.Wight|A green spirit of smoke with long trailing tendrils. It appears out of thin air near you and chases you.
+desc.Skeletonmage|A skeleton wizard with long white hair, a dark robe and a staff crackling with pink magic. From two tiles away its wind pulls you right next to it.
+# Zone 3
+desc.Beetle|A beetle with a shell like stone bricks and fiery orange legs. When it notices you it leaves hot coals around it; hitting its shell knocks it back and spreads coals in a cross.
+desc.Beetle2|A beetle with a shell of blue ice. When it notices you it leaves ice around it; hitting its shell knocks it back and spreads ice in a cross.
+desc.Cauldron|An iron cauldron full of glowing coals. It just sits there; breaking it spills hot coals.
+desc.Cauldron2|An iron cauldron full of ice. It just sits there; breaking it spills ice.
+desc.Trapcauldron|An iron cauldron of glowing coals with a mouth full of teeth. It looks like an ordinary cauldron until you come close, then it wakes and bites. It spills hot coals when it dies.
+desc.Trapcauldron2|An iron cauldron of ice with a mouth full of teeth. It looks like an ordinary cauldron until you come close, then it wakes and bites. It spills ice when it dies.
+desc.Fireelemental|A living flame with eyes. It leaves a trail of hot coals and digs through walls.
+desc.Iceelemental|A creature of jagged ice. It leaves a trail of ice and digs through walls.
+desc.Ghast|A magenta spirit with long tentacle-like arms. It appears out of thin air near you and dodges your first hit.
+desc.Goblin|A goblin with long ears and a curved knife. While you move toward it, it ducks away and cannot be hurt; it turns solid again when you step away.
+desc.Hellhound|A lean horned hound with yellow scales and a fiery red chest. It leaves hot coals when it dies.
+desc.Shovemonster|A ghostly brute with a skull face, hiding behind a great stone slab. It does not hurt you; it shoves you away.
+desc.Skeletonknight|A skeleton riding a pale skeletal horse, holding a red shield. Its shield blocks hits from the front; a hit knocks it off its horse, and it fights on foot.
+desc.Skeletonknight2|A skeleton riding a pale skeletal horse, holding a shield that blocks hits from the front. A hit knocks it off its horse; when nearly dead it loses its head and runs blindly.
+desc.Skeletonknight4|A crystal skeleton riding a pale horse, with a shield that blocks hits from the front. A hit knocks it off its horse; it shatters into crystal shards when destroyed.
+desc.Yeti|A huge yeti with shaggy blue and white fur and snowballs in its fists. Each step it claps, hurting everything around it; it digs through walls and leaves ice when it dies.
+# Zone 4
+desc.Blademaster|A knight in plate armour with a long sword and a cape. It parries your first blow and strikes back.
+desc.Gargoyle|A stone gargoyle crouching on a pedestal. It stays still like a statue.
+desc.Ghoul|A teal ghostly creature with flowing tendrils and a wide mouth. It appears out of thin air near you and dodges your first hit.
+desc.GoblinBomber|A small red goblin riding a giant skull-shaped bomb, a torch in its hand. Its attack is an explosion, and it drops a lit bomb when it dies.
+desc.SleepingGoblin|A sleepy goblin with a pillow and a shovel. It dozes until you come close, then wakes and digs away from you.
+desc.Harpy|A harpy: a woman with teal hair, green feathered wings and the legs of a bird. She flies toward you.
+desc.Lich|A skeletal sorcerer in long robes and a turban, holding a staff. From two tiles away it casts confusion on you, reversing your directions.
+desc.Mommy|A tall mummy wrapped in bandages, cradling smaller mummies in her many arms. She is slow, and calls out mummies to fight for her.
+desc.Mummy|A shuffling mummy wrapped in bandages.
+desc.Ogre|A huge green ogre with one eye, purple hair and a mouth full of fangs, swinging a club. Slow, but its club smashes the tiles in front of it.
+desc.Pixie|A tiny sparkle of glowing blue, yellow and pink wings. If it reaches you it vanishes and heals; if you hit it, it explodes.
+desc.Sarcophagus|A stone coffin marked with a cross, bony arms reaching out of it. It never moves, but keeps letting skeletons out until you break it.
+desc.Spider|A big hairy orange spider with green eyes. It lurks inside walls and leaps out at you.
+desc.Warlock|A hooded warlock with a dark void for a face and a staff of sparks. When it dies, it swaps places with you.
+# Zone 5
+desc.Wraith2|A glowing yellow wraith, like a flame with a gaping mouth. It appears near you, grabs you and curses your health.
+desc.Devil|A small devil with a ram's skull for a head, hatching from a cracked white egg. Its shell protects it; once the shell breaks, it moves on every beat.
+desc.ElectricMage|A wizard in a long robe and a pointed hat, holding a staff topped with a glowing light bulb. It shoots balls of lightning that fly in a straight line.
+desc.ElectricOrb|A crackling ball of lightning flying in a straight line.
+desc.Evileye|A tentacled blob with one huge eye, more eyes on stalks and a toothy grin. It waits, then lunges at you from several tiles away.
+desc.Gorgon|A gorgon with snakes for hair and a serpent's tail. When she reaches you she freezes you in stone, and crumbles.
+desc.Metrognome|A gnome in goggles riding a golden metronome on mechanical spider legs. Its attack hits all the tiles around it, and it teleports away when hit.
+desc.Orc|A muscular orc with a club and a shield marked with a treble clef. The shield blocks hits from the front, and it loses a beat whenever it turns.
+desc.Skull|A giant floating skull with one glowing eye. Hitting it releases a skeleton.
+desc.WaterBall|A floating bubble of water with a skull face. It latches on to you and bursts, soaking the floor.
+desc.WaterBall2|A floating bubble of tar with a skull face. It latches on to you and bursts, leaving tar on the floor.
+# Other enemies
+desc.Dragon|A great dragon with a horned head, long fangs and scales. It digs through walls to reach you.
+desc.Dragon2|A great red dragon with wings and long fangs. When you are in line with it, it breathes fire.
+desc.Dragon3|A great blue dragon with long fangs and horns. When you are in front of it, it breathes freezing ice.
+desc.Minotaur|A minotaur with golden horns curved like a lyre and a ring in its nose. When it sees you it charges in a straight line, smashing through walls, and is stunned when it stops.
+desc.Leprechaun|A leprechaun with a green clover hat and a red beard, carrying a sack of gold. It runs from you, steals your gold if it hits you, and vanishes after a while.
+desc.Fakewall|A stretch of wall covered in moss that opens into a huge mouth full of fangs. It looks like a wall until you come close.
+desc.Fakewall2|A wall of yellow shop bricks that opens into a mouth full of teeth. It looks like a wall until you come close.
+desc.Trapchest|A treasure chest with a mouth full of teeth and a tongue. It looks like a chest until you come close, then it wakes and bites.
+desc.Trapchest4|A wooden crate with a mouth full of teeth. It looks like a crate until you come close.
+desc.Trapchest5|A wooden barrel with a mouth full of teeth. It looks like a barrel until you come close.
+desc.Trapchest6|A stone shrine with flames on top and a mouth full of teeth. It looks like a shrine until you come close.
+desc.Skeletonspearman|A skeleton armed with a long spear.
+desc.Skeletontank|A skeleton hidden under a big rocky shell. It charges in a straight line.
+desc.Troll|A hulking green troll. When hit, it charges at you.
+desc.Toad|A small green toad. It hops toward you.
+# Bosses
+desc.KingConga|King Conga: a huge green ape-like zombie in a red and gold mask, drumming congas on his throne while a conga line of zombies dances around him. Missing a beat angers him, and he leaves his throne.
+desc.ZombieSnake|A zombie dancing in King Conga's conga line, following the one in front.
+desc.Deathmetal|Death Metal: a hooded skeleton in black with a scythe, behind a huge skull shield, blue bats swirling around it. Its shield blocks hits from the front, and it changes tactics as it gets hurt.
+desc.King|Deep Blues: a blue-skinned king with a red beard and a crown, playing a double bass, at the head of a chess army of skull pieces. Defeat the king to win.
+desc.Pawn|A chess pawn with a skull face. It marches toward your side of the board and becomes a queen if it reaches the far end.
+desc.Knight|A chess knight shaped like a skull horse. It jumps in an L shape.
+desc.Bishop|A chess bishop with a skull face and a mitre. It moves diagonally.
+desc.Rook|A chess rook, a tower with a skull face. It moves in straight lines.
+desc.Queen|The chess queen. She moves in any direction.
+desc.Coralriff|Coral Riff: a giant dark red octopus playing instruments with its tentacles: a bass guitar, a trumpet and more. Its tentacles rise out of the water around you.
+desc.Tentacle|A tentacle of Coral Riff rising out of the water, gripping an instrument.
+desc.DeadRinger|Dead Ringer: a hulking figure in golden armour with a bell-shaped helmet, swinging a hammer, with a gong at its side. It charges across the room and rings the bells.
+desc.Necrodancer|The NecroDancer: a blue-skinned undead sorcerer with a long white beard, glowing red eyes and a red cloak, holding a golden lute. He raises the dead to fight for him.
+desc.Necrodancer2|The NecroDancer, blue-skinned and white-bearded, his red cloak spread wide, his fist raised and a grin full of fangs.
+desc.LuteDragon|The Golden Lute come to life: a long golden dragon with pink spines. Its head is the body of the lute, with a mouth full of teeth.
+desc.LuteHead|The head of the Golden Lute: the body of the lute with a mouth full of teeth. It spits fireballs.
+desc.Fortissimole|Fortissimole: a giant mole in golden armour with a castle-shaped helmet, singing into a microphone while skeleton dancers cheer. It burrows and leaps out of the ground.
+desc.Frankensteinway|Frankensteinway: a huge purple machine whose body is a piano, with enormous fists. It electrifies the floor as it moves.
+desc.Conductor|The Conductor: a scientist with wild blond hair, brass goggles and a purple coat, wired into her machines with cables and brass arms.
+# Shopkeepers and lobby people
+desc.Shopkeeper|A stout, bearded shopkeeper in a turban and robe, with a pole and a lantern over his shoulder. He sings along with the music, louder as you get closer. Do not attack him.
+desc.ShopkeeperGhost|The pale, glowing ghost of a shopkeeper. It chases you.
+desc.Merlin|A small wizard with white hair, a big blue pointed hat, a starry blue robe and a wooden staff.
+desc.Hephaestus|A muscular blacksmith in a leather apron, his hammer raised over an anvil.
+desc.Medic|A big purple-skinned figure with horns and a crown of spikes, holding a trident and a scroll.
+desc.Weaponmaster|A masked fighter dressed in purple, whirling a blade.
+desc.Beastmaster|A burly man with a moustache, holding a coiled whip.
+desc.Bossmaster|A strong woman with long orange hair and a teal top, leaning on a hammer.
+desc.Janitor|An old man with a white beard and a green coat, holding a lantern and a mop beside a bucket.
+desc.Diamonddealer|A fox in a purple coat, holding up a sparkling diamond.
+desc.Trainer|An open book on a stone pedestal: the Codex.
+desc.Transmogrifier|A scientist with dark hair and goggles, holding glowing potions.
+desc.Pawnbroker|A green goblin perched on a towering heap of weapons, shields and treasure.
+desc.Conjurer|A blue, ghostly spirit floating above a treasure chest.
+# Title screens and places
+scene.title.necrodancer|Title art: Cadence, torch raised and dagger drawn, faces a pale blue ghost with an arrow through its head in a dark graveyard. Above them, the game's logo between two skulls.
+scene.title.amplified|Title art for Amplified: Nocturna, sword in hand, battles a skeleton wizard in a purple hat whose staff crackles with lightning.
+scene.title.synchrony|Title art for Synchrony: Klarinetta with her long sword, Chaunter the patched ghost with its green lantern, and Suzu with her polearm, under the Synchrony logo.
+scene.title.halloween|Halloween title art, Trick or Treating: Chaunter the patched ghost with its green lantern, and Cadence with a jack-o'-lantern on her head, among glowing pumpkins.
+scene.title.christmas|Christmas title art, Merry Cryptmas: Cadence in a red Santa coat with her shovel; behind her a huge white-bearded undead in a Santa hat, ghosts and a hooded reaper fill the snowy sky.
+scene.zone1|The crypt: floors of dark packed earth, and walls of dirt full of roots, bones and skulls, some of stone blocks. While your coin multiplier is up, the floor flashes in a checkerboard on the beat.
+scene.zone2|Floors of mossy green and teal stone, walls of earth overgrown with leaves and little orange mushrooms, and walls of pale cobblestone.
+scene.zone3|This depth is split in two: a hot side of reddish rock with glowing orange floors, and a cold side of blue-grey rock with icy blue floors.
+scene.zone4|The catacombs: dark blue floors and walls of purple brick lined with skeletons, skulls and banners.
+scene.zone5|A laboratory: dark purple floors with gold and cyan tiles, and walls of magenta brick covered in pipes, wires and machinery.
+scene.boss|A boss arena: a dark stone floor, and walls of pale stone set with skulls and bones.
+scene.boss.NECRODANCER|The NecroDancer's stage: a green dance floor flanked by giant purple speakers.

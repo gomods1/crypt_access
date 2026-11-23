@@ -21,6 +21,32 @@ local tables = {
 }
 Strings.tables = tables
 
+-- Picture descriptions (characters, enemies, cutscenes, places) live in their own tables, one per
+-- language, looked up after the language table. Other scripts' tables are read-only lazy proxies
+-- (no pairs, no writes), so they are kept side by side instead of merged.
+local descriptions = {
+	en = "CryptAccess.DescEN",
+	es = "CryptAccess.DescES",
+	de = "CryptAccess.DescDE",
+	fr = "CryptAccess.DescFR",
+	it = "CryptAccess.DescIT",
+	pt_BR = "CryptAccess.DescPTBR",
+	ru = "CryptAccess.DescRU",
+	ja = "CryptAccess.DescJA",
+	ko = "CryptAccess.DescKO",
+	zh_CN = "CryptAccess.DescZHCN",
+	zh_TW = "CryptAccess.DescZHTW",
+}
+local descTables = {}
+for lang, moduleName in pairs(descriptions) do
+	local ok, entries = pcall(require, moduleName)
+	if ok and type(entries) == "table" then
+		descTables[lang] = entries
+	else
+		log.warn("Strings: no descriptions for %s (%s)", lang, tostring(entries))
+	end
+end
+
 local warned = {}
 
 --- Registers (or extends) a language table. Language codes follow the game: "en", "es", "de", "fr",
@@ -65,16 +91,24 @@ local function get(t, key)
 	return ok and value or nil
 end
 
+local function find(lang, key)
+	local value = get(tables[lang], key)
+	if value == nil then
+		value = get(descTables[lang], key)
+	end
+	return value
+end
+
 local function lookup(key)
 	local lang = Strings.language()
-	local t = tables[lang]
-	local value = get(t, key)
+	local value = find(lang, key)
 	if value == nil then
-		if lang ~= "en" and not warned[lang .. key] then
+		local fallback = find("en", key)
+		if fallback ~= nil and lang ~= "en" and not warned[lang .. key] then
 			warned[lang .. key] = true
 			log.warn("Strings: missing %s in %s", key, lang)
 		end
-		value = get(tables.en, key)
+		value = fallback
 	end
 	return value
 end

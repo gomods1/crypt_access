@@ -81,15 +81,23 @@ local lastBossSplash = false
 --- Names of the bosses on the level (entities with the boss component), for the boss splash.
 local function bossNames()
 	local Entities = require("system.game.Entities")
-	local names, seenNames = {}, {}
+	local Describe = require("CryptAccess.Describe")
+	local names, seenNames, pictures = {}, {}, {}
 	for e in Entities.entitiesWithComponents({ "boss" }) do
 		local name = World.name(e)
 		if name ~= "" and not seenNames[name] then
 			seenNames[name] = true
 			names[#names + 1] = name
+			-- The splash shows the boss's portrait: describe it (once per boss kind on screen).
+			local picture = Describe.forType(e.name)
+			if picture and not seenNames[picture] then
+				seenNames[picture] = true
+				pictures[#pictures + 1] = picture
+			end
+			Describe.markSeen(e.name)
 		end
 	end
-	return names
+	return names, pictures
 end
 
 --- The run-end prompt (necro.render.hud.RunSummaryHUD): outcome, killer, score, how to continue.
@@ -140,10 +148,15 @@ event.tick.add("cryptAccessScreenText", { order = "flyaway", sequence = 10 }, fu
 	end)
 	splash = okSplash and splash or false
 	if splash and not lastBossSplash then
-		local names = bossNames()
+		local names, pictures = bossNames()
 		if #names > 0 then
 			local Strings = require("CryptAccess.Strings")
 			announce(Strings.get("event.boss", { name = Strings.join(names) }))
+			if require("CryptAccess.Config").get("describeScenes") then
+				for _, picture in ipairs(pictures) do
+					announce(picture)
+				end
+			end
 		end
 	end
 	lastBossSplash = splash

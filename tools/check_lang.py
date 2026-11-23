@@ -1,4 +1,5 @@
-"""Release check: every Lang*.lua has exactly LangEN's keys and the same {placeholders}.
+"""Release check: every Lang*.lua has exactly LangEN's keys and the same {placeholders}, and every
+Desc*.lua (picture descriptions) has exactly DescEN's keys and placeholders. All 11 languages must exist.
 python tools/check_lang.py   (exit code 1 on any problem)"""
 import glob
 import os
@@ -7,6 +8,7 @@ import sys
 
 root = os.path.join(os.path.dirname(__file__), "..", "mod", "CryptAccess", "scripts")
 pat = re.compile(r'^\t\["([^"]+)"\] = "((?:[^"\\]|\\.)*)",\s*$')
+LANGS = ["EN", "ES", "DE", "FR", "IT", "PTBR", "RU", "JA", "KO", "ZHCN", "ZHTW"]
 
 
 def load(path):
@@ -20,14 +22,22 @@ def load(path):
     return entries
 
 
-en = load(os.path.join(root, "LangEN.lua"))
 bad = 0
-for path in sorted(glob.glob(os.path.join(root, "Lang*.lua"))):
-    d = load(path)
-    missing = [k for k in en if k not in d]
-    extra = [k for k in d if k not in en]
-    ph = [k for k in en if k in d and sorted(re.findall(r"\{\w+\}", en[k])) != sorted(re.findall(r"\{\w+\}", d[k]))]
-    if missing or extra or ph:
-        bad += 1
-    print(f"{os.path.basename(path)}: {len(d)} keys; missing {missing[:6]}; extra {extra[:3]}; placeholder mismatch {ph[:6]}")
+for prefix in ("Lang", "Desc"):
+    en = load(os.path.join(root, prefix + "EN.lua"))
+    for lang in LANGS:
+        path = os.path.join(root, f"{prefix}{lang}.lua")
+        if not os.path.exists(path):
+            print(f"{prefix}{lang}.lua: MISSING")
+            bad += 1
+            continue
+        d = load(path)
+        missing = [k for k in en if k not in d]
+        extra = [k for k in d if k not in en]
+        ph = [k for k in en if k in d and sorted(re.findall(r"\{\w+\}", en[k])) != sorted(re.findall(r"\{\w+\}", d[k]))]
+        same = [k for k in en if lang != "EN" and k in d and d[k] == en[k] and len(en[k]) > 12]
+        if missing or extra or ph:
+            bad += 1
+        print(f"{prefix}{lang}.lua: {len(d)} keys; missing {missing[:6]}; extra {extra[:3]}; "
+              f"placeholder mismatch {ph[:6]}; left in English {len(same)}")
 sys.exit(1 if bad else 0)

@@ -120,6 +120,11 @@ event.tick.add("cryptAccessEventsPoll", { order = "hud", sequence = 50 }, functi
 	elseif not levelAnnounced and World.playing() then
 		levelAnnounced = true
 		say(HUD.levelText())
+		-- The look of a new zone or a boss arena, once (setting "describe.scenes").
+		local okScene, scene = pcall(require("CryptAccess.Describe").sceneForLevel)
+		if okScene and scene then
+			say(scene)
+		end
 	end
 	-- A thrown (or dropped) weapon: say where it landed, so it can be picked up again.
 	local me = World.player()

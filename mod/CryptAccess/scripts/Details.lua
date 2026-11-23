@@ -7,6 +7,7 @@ local Health = require("necro.game.character.Health")
 local LevelExit = require("necro.game.tile.LevelExit")
 local PriceTag = require("necro.game.item.PriceTag")
 
+local Describe = require("CryptAccess.Describe")
 local Strings = require("CryptAccess.Strings")
 local Text = require("CryptAccess.Text")
 local World = require("CryptAccess.World")
@@ -88,7 +89,9 @@ end
 function Details.forEntity(entity)
 	local lines = {}
 	add(lines, Details.health(entity))
-	if entity.enemy or entity.beatDelay then
+	-- Shopkeepers and caged or lobby people are enemies to the game, but their beat and facing mean nothing.
+	local person = entity.shopkeeper or entity.greetable or entity.interactable or entity.npcUnlockable
+	if (entity.enemy or entity.beatDelay) and not person then
 		add(lines, Details.nextMove(entity))
 		add(lines, Details.facing(entity))
 	end
@@ -116,6 +119,13 @@ function Details.forEntity(entity)
 	end
 	if entity.crateLike then
 		add(lines, Strings.get("detail.crate"))
+	end
+	-- What it looks like and how it behaves (picture description), then damage and pace.
+	local okDescribe, described = pcall(Describe.forEntity, entity)
+	if okDescribe then
+		for _, line in ipairs(described) do
+			add(lines, line)
+		end
 	end
 	return lines
 end

@@ -84,11 +84,31 @@ Durante el juego:
   es más cerca.
 - Un sonido agudo ascendente significa que un enemigo a tu lado actúa en el próximo pulso.
 
+## Descripciones de lo que hay en pantalla
+
+- Cinemáticas: los vídeos de la historia y de introducción se describen escena por escena entre las
+  frases habladas. También se describen las pantallas de título, y en los créditos se nombra a cada
+  monstruo que pasa bailando.
+- Personajes, enemigos, jefes y tenderos: selecciona uno con Avance de página y Control más Arriba lee su
+  vida y su próximo movimiento, cómo es y cómo se comporta, cuánto daño hace y cada cuántos pulsos actúa.
+  La cuadrícula de personajes y los diálogos con retrato (personajes desbloqueados, la confirmación de
+  Bard) describen el retrato.
+- La primera vez que ves un tipo nuevo de enemigo, se describe una vez. El mod recuerda los que ya
+  conoces.
+- Lugares: el aspecto de cada zona se describe al entrar en ella por primera vez en una partida, y los
+  niveles de jefe y los jefes cuando aparece su presentación.
+- Combates: el mod dice cuándo un enemigo te agarra o te suelta, cuándo te congelan o te confunden y
+  cuándo se te pasa, cuándo un enemigo embiste, un mímico o un enemigo dormido despierta, un espadachín
+  desvía tu golpe, un enemigo lanza un hechizo (aliento de fuego o de hielo, rayos, viento, confusión,
+  invocaciones), explota algo o aparece un enemigo de la nada.
+
 ## Ajustes
 
 En el juego: Opciones, Ajustes de mods, Crypt Access. Ahí puedes activar o desactivar los sonidos de
 enemigos, objetos y paredes, ajustar su alcance y volumen, añadir un tic de metrónomo, congelar al empezar
-cada nivel y elegir si se anuncian los golpes a enemigos y la posición en los menús.
+cada nivel y elegir si se anuncian los golpes a enemigos y la posición en los menús. Cuatro interruptores
+activan o desactivan las descripciones: cinemáticas y pantallas de título, tipos nuevos de enemigos,
+combates, y zonas, niveles de jefe y jefes.
 
 ## Modos en los que el mod no puede ayudar
 

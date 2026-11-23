@@ -8,6 +8,7 @@ local Menu = require("necro.menu.Menu")
 local PlayerList = require("necro.client.PlayerList")
 
 local Buffers = require("CryptAccess.Buffers")
+local Describe = require("CryptAccess.Describe")
 local Help = require("CryptAccess.Help")
 local Speech = require("CryptAccess.Speech")
 local Strings = require("CryptAccess.Strings")
@@ -64,7 +65,7 @@ event.tick.add("cryptAccessCharSelect", { order = "menu", sequence = 13 }, funct
 		state.character, state.ready = character, ready
 		local line = Strings.get("charSelect.open", { name = character and describe(character) or "" })
 		Speech.say(line, true)
-		Buffers.focus({ line })
+		Buffers.focus({ line, character and Describe.forType(character) or nil })
 		return
 	end
 	if character ~= state.character then
@@ -72,7 +73,8 @@ event.tick.add("cryptAccessCharSelect", { order = "menu", sequence = 13 }, funct
 		if character then
 			local name = describe(character)
 			Speech.say(name, true)
-			Buffers.focus({ name })
+			-- Ctrl+Up reads the portrait description.
+			Buffers.focus({ name, Describe.forType(character) })
 		end
 	end
 	if ready ~= state.ready then

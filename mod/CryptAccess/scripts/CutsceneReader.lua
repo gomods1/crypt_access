@@ -1,13 +1,19 @@
 -- Speaks cutscenes (necro.client.Cutscene): the title screen, the seizure warning, logos, story videos
 -- and their subtitles. Scenes are images or videos with no text the mod could read, so each kind gets
 -- a line of its own; story subtitles come from the game's subtitle table.
+-- Picture descriptions (setting "describe.cutscenes"): the title art, and for each story and intro
+-- video a timeline of what is on screen (CutsceneTimeline.lua, written from the video frames), spoken
+-- between the subtitles. During the credits, each monster that dances by is named with its joke name.
 
 local Cutscene = require("necro.client.Cutscene")
 
+local Config = require("CryptAccess.Config")
+local Describe = require("CryptAccess.Describe")
 local Help = require("CryptAccess.Help")
 local Speech = require("CryptAccess.Speech")
 local Strings = require("CryptAccess.Strings")
 local Text = require("CryptAccess.Text")
+local Timeline = require("CryptAccess.CutsceneTimeline")
 
 local CutsceneReader = {}
 
@@ -37,12 +43,23 @@ local function describe(scene)
 	return Strings.get("cutscene.video")
 end
 
+local function describing()
+	return Config.get("describeCutscenes") ~= false
+end
+
 event.cutsceneBegin.add("cryptAccessCutscene", { order = "duration", sequence = 10 }, function(ev)
 	lastSubtitle = false
 	local ok, line = pcall(describe, ev.scene)
 	Speech.debug("cutscene " .. tostring(ev.scene and ev.scene.type) .. " " .. tostring(ev.scene and ev.scene.image))
 	if ok and line then
 		Speech.say(line, false)
+	end
+	-- Title screens are pictures: say what they show.
+	if describing() and type(ev.scene) == "table" and ev.scene.type == Cutscene.Type.SPLASH then
+		local okArt, art = pcall(Describe.forSplash, ev.scene.image)
+		if okArt and art then
+			Speech.say(art, false)
+		end
 	end
 end)
 
@@ -73,10 +90,50 @@ event.tick.add("cryptAccessCutsceneSubtitles", { order = "cutscene", sequence = 
 	end
 end)
 
+-- Scene descriptions of the story and intro videos, spoken as the playback time reaches them.
+local sceneName, sceneNext = false, 1
+
+local function timelineFor(name)
+	local ok, list = pcall(function()
+		return Timeline[name]
+	end)
+	return ok and type(list) == "table" and list or nil
+end
+
+event.tick.add("cryptAccessCutsceneScenes", { order = "cutscene", sequence = 12 }, function()
+	if not Cutscene.isActive() then
+		sceneName, sceneNext = false, 1
+		return
+	end
+	local okName, name = pcall(Cutscene.getName)
+	if not okName or type(name) ~= "string" then
+		return
+	end
+	if name ~= sceneName then
+		sceneName, sceneNext = name, 1
+	end
+	local list = timelineFor(name)
+	if not list or not describing() then
+		return
+	end
+	local okTime, time = pcall(Cutscene.getPlaybackTime)
+	if not okTime or type(time) ~= "number" then
+		return
+	end
+	while list[sceneNext] and time >= list[sceneNext][1] do
+		local key = list[sceneNext][2]
+		sceneNext = sceneNext + 1
+		Speech.say(Strings.get(key), false)
+	end
+end)
+
 -- Credits: necro.render.ui.CreditsRenderer keeps its parsed lines in the script global "credits"
 -- (lines with baseY and speed in view units; a line is on screen once baseY - time * speed is below the
--- view height). Each line is spoken once, in order, as it scrolls in.
+-- view height). Each line is spoken once, in order, as it scrolls in. The same table lists the
+-- monsters ("actors") that dance across the left half, each from its start beat; the game shows each
+-- one's joke name, or "???" for monsters not unlocked yet.
 local creditsNext = 1
+local actorsNext = 1
 local creditsTable = false
 
 local function creditsLines()
@@ -89,9 +146,41 @@ local function creditsLines()
 	return ok and type(credits) == "table" and credits or nil
 end
 
+local function actorLine(actor)
+	local Entities = require("system.game.Entities")
+	local proto = Entities.getEntityPrototype(actor.name)
+	if not proto then
+		return nil
+	end
+	local okUnlocked, unlocked = pcall(function()
+		if not proto.enemyUnlockOnSpawn then
+			return true
+		end
+		local Progression = require("necro.game.system.Progression")
+		return Progression.isLocallyUnlocked(Progression.UnlockType.ENEMY_TRAINING, proto.name)
+	end)
+	if okUnlocked and not unlocked then
+		return Strings.get("credits.locked")
+	end
+	local okName, name = pcall(function()
+		return proto.friendlyName.name
+	end)
+	local okPun, pun = pcall(function()
+		return proto.creditsAppearance.punnyName
+	end)
+	name = okName and type(name) == "string" and Text.clean(name) or tostring(actor.name)
+	if okPun and type(pun) == "string" and pun ~= "" then
+		pun = Text.clean(pun:gsub("\n", " "))
+		if pun ~= name then
+			return Strings.get("credits.actor", { name = name, pun = pun })
+		end
+	end
+	return name
+end
+
 event.tick.add("cryptAccessCredits", { order = "cutscene", sequence = 11 }, function()
 	if not Cutscene.isActive() then
-		creditsTable, creditsNext = false, 1
+		creditsTable, creditsNext, actorsNext = false, 1, 1
 		return
 	end
 	local credits = creditsLines()
@@ -99,7 +188,7 @@ event.tick.add("cryptAccessCredits", { order = "cutscene", sequence = 11 }, func
 		return
 	end
 	if credits ~= creditsTable then
-		creditsTable, creditsNext = credits, 1
+		creditsTable, creditsNext, actorsNext = credits, 1, 1
 	end
 	local time = Cutscene.getPlaybackTime() or 0
 	local okSize, _, viewHeight = pcall(function()
@@ -117,6 +206,17 @@ event.tick.add("cryptAccessCredits", { order = "cutscene", sequence = 11 }, func
 			Speech.say(text, false)
 		end
 	end
+	if describing() and type(credits.actors) == "table" then
+		local beat = time * (credits.beatsPerSecond or 2.33) - 1
+		while credits.actors[actorsNext] and beat >= (credits.actors[actorsNext].startBeat or 0) do
+			local actor = credits.actors[actorsNext]
+			actorsNext = actorsNext + 1
+			local ok, line = pcall(actorLine, actor)
+			if ok and line then
+				Speech.say(line, false)
+			end
+		end
+	end
 end)
 
 function CutsceneReader.isActive()
@@ -128,7 +228,7 @@ Help.register({
 	priority = 60,
 	active = Cutscene.isActive,
 	lines = function()
-		return { Strings.get("help.cutscene") }
+		return { Strings.get("help.cutscene"), Strings.get("help.cutscene.2") }
 	end,
 })
 

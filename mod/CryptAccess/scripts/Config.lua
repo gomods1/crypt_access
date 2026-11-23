@@ -65,6 +65,50 @@ tutorialHints = Settings.user.bool({
 	default = true,
 })
 
+describeCutscenes = Settings.user.bool({
+	id = "describe.cutscenes",
+	name = name("describeCutscenes"),
+	default = true,
+})
+
+describeNew = Settings.user.bool({
+	id = "describe.newEnemies",
+	name = name("describeNew"),
+	default = true,
+})
+
+describeCombat = Settings.user.bool({
+	id = "describe.combat",
+	name = name("describeCombat"),
+	default = true,
+})
+
+describeScenes = Settings.user.bool({
+	id = "describe.scenes",
+	name = name("describeScenes"),
+	default = true,
+})
+
+-- Kinds of enemies already described when first seen (space separated type families), kept across
+-- launches so each kind is described once. Hidden: it is not a choice for the player.
+describeSeen = Settings.user.string({
+	id = "describe.seen",
+	default = "",
+	visibility = Settings.Visibility.HIDDEN,
+})
+
+--- Remembers that a family of enemies was described (assigning the setting global saves it).
+function Config.markSeen(family)
+	local seen = describeSeen or ""
+	if not (" " .. seen .. " "):find(" " .. family .. " ", 1, true) then
+		describeSeen = seen == "" and family or (seen .. " " .. family)
+	end
+end
+
+function Config.wasSeen(family)
+	return (" " .. (describeSeen or "") .. " "):find(" " .. family .. " ", 1, true) ~= nil
+end
+
 --- Current values (read live each time; the game updates the globals when a setting changes).
 function Config.get(key)
 	if key == "cueEnemies" then
@@ -87,6 +131,14 @@ function Config.get(key)
 		return autoFreeze
 	elseif key == "tutorialHints" then
 		return tutorialHints
+	elseif key == "describeCutscenes" then
+		return describeCutscenes
+	elseif key == "describeNew" then
+		return describeNew
+	elseif key == "describeCombat" then
+		return describeCombat
+	elseif key == "describeScenes" then
+		return describeScenes
 	end
 end
 
