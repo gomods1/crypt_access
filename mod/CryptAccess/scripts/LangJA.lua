@@ -197,4 +197,6 @@ return {
 	["help.charSelect"] = "キャラクター一覧：矢印キーでキャラクターを移動、Enterキーでじゅんび完了、Escキーで戻る。",
 	["charSelect.locked"] = "ロックされています",
 	["tile.floor"] = "ゆか",
+	["menu.added"] = "追加：{items}",
+	["summary.partnerDied"] = "相棒がやられた。{who}にやられた",
 }

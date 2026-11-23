@@ -197,4 +197,6 @@ return {
 	["help.charSelect"] = "Grille des personnages : les flèches passent d'un personnage à l'autre, Entrée vous indique comme prêt, Échap revient en arrière.",
 	["charSelect.locked"] = "verrouillé",
 	["tile.floor"] = "Sol",
+	["menu.added"] = "Ajouté : {items}",
+	["summary.partnerDied"] = "Votre partenaire est mort, tué par {who}",
 }

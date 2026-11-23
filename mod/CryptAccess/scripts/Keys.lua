@@ -5,6 +5,7 @@
 -- Punctuation names depend on the keyboard layout, so the mod never binds punctuation.
 
 local Input = require("system.game.Input")
+local Native = require("CryptAccess.Native")
 
 local Keys = {}
 
@@ -126,7 +127,9 @@ function Keys.setEnabled(on)
 end
 
 event.tick.add("cryptAccessKeys", { order = "inputContext", sequence = -10 }, function()
-	if not enabled then
+	-- Without the config.json whitelist there is no speech (a friend who received the mod in a
+	-- multiplayer session): leave every key to the game.
+	if not enabled or not Native.available then
 		return
 	end
 	local pressed = Input.getPressedKeys()

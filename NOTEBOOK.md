@@ -101,7 +101,7 @@
 
 ## Open questions
 
-- Online multiplayer sessions were not tested (only the menus; it needs a second player).
+- Online multiplayer: hosting an IP session unmounts Crypt Access, because `networkMods` drops unpackaged mods online unless the advanced setting `mod.system.allowUnpackagedNetworkMods` ("Modo de desarrollo de mods de red", visible since config.multiplayer and config.modPermissive are true) is on (base/necro/mod/NetworkMods.lua 36-40, 82-125; proven by log 2026-11-23). Turning that setting on from the dev console was refused by the permission classifier. The lasting route is a packaged mod (the game sends packaged mods to every player); with that in mind the mod now stays silent and passes every key through when Native.available is false. Decision pending with the user.
 - The user's ear test of the cue design is still to come.
 
 - Does `SynchronyOptions.lua` keep CryptAccess in `modLoader.list` after a clean quit? (Not verified: the game was force-killed.)
@@ -120,6 +120,7 @@
 - 2026-11-23: first load. The mod mounted, then was unmounted by the game's mod list; ffi was missing.
 - 2026-11-23: ModList self-registration keeps the mod loaded; ffi still missing.
 - 2026-11-23: ffi opened via luaopen_ffi; "Crypt Access loaded" spoken through NVDA.
+- 2026-11-23 (Claude): multiplayer: host menu read (visibility set to Privado, then IP address), hosting unmounted the mod (unpackaged); local co-op player added and removed (announced), two-player co-op run (mod follows player 1, partner death fixed to "Tu compañero ha muerto"); logo splash read; escape on the crash-restore dialog quits the game (game behaviour).
 - 2026-11-23 (Claude): with the user's approval, unlocked Melody, Aria, Dorian, Coda, Bolt and Diamond and ran each, so all 20 playable characters are verified in real runs (Melody and Aria story intros read). After the file restore: clean load, 0 errors, crash-restore dialog read, regression of F1, scanner, Ctrl+Up, H, I, C, U, Space.
 - 2026-11-23 (Claude): boss floor 1-4 (splash "Jefe: Orquestopo", King Conga killed), a won Zone 1 run ("¡Has ganado!"), zones 2 to 5 tile and entity names, hot coals and ice details, story cutscene subtitles, credits lines, key rebinding prompt, multiplayer and local co-op menus, unspent-diamonds dialog, diamond shop purchase, song-end overlay, saved-run restore, shrine details, live language switch through all 11 languages (HUD keys answered in each), real runs started with Nocturna, Tempo, Mary, Klarinetta, La Muerte, Chaunter, Suzu, Hatsune Miku, Goldman, Eli, Monk, Dove (plus Cadence and Bard): health, inventory, scanner and events read for each.
 - 2026-11-23 (Claude): Cadence rhythm run: metronome cues fire per beat, freeze and resume with count-in work; character grid reader; extra modes page (Rhythm option); key rebinding table rows; installer sandbox install and uninstall (config identical apart from our entries), Steam detection finds S:; readers exercised with Nocturna, Tempo, Mary, Hatsune Miku, Cadence and Bard kits; all 11 language tables load in the game.

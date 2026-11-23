@@ -197,4 +197,6 @@ return {
 	["help.charSelect"] = "Сетка персонажей: стрелки переключают персонажей, Enter отмечает готовность, Escape возвращает назад.",
 	["charSelect.locked"] = "заблокирован",
 	["tile.floor"] = "Пол",
+	["menu.added"] = "Добавлено: {items}",
+	["summary.partnerDied"] = "Ваш напарник погиб. Убийца: {who}",
 }

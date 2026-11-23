@@ -123,7 +123,16 @@ event.tick.add("cryptAccessScreenText", { order = "flyaway", sequence = 10 }, fu
 	if summary ~= lastSummary then
 		lastSummary = summary
 		if summary then
-			announce(summaryText(summary))
+			-- In co-op the pending summary can be another player's: say whose it is.
+			local me = World.player()
+			local myID = me and me.controllable and me.controllable.playerID
+			if summary.playerID and myID and summary.playerID ~= myID and not summary.victory then
+				local Strings = require("CryptAccess.Strings")
+				local who = summary.killerName and Text.clean(summary.killerName) or ""
+				announce(Strings.get("summary.partnerDied", { who = who }))
+			else
+				announce(summaryText(summary))
+			end
 		end
 	end
 	local okSplash, splash = pcall(function()

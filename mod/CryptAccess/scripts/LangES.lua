@@ -197,4 +197,6 @@ return {
 	["help.charSelect"] = "Cuadrícula de personajes: las flechas cambian de personaje, Intro te marca como listo, Escape vuelve.",
 	["charSelect.locked"] = "bloqueado",
 	["tile.floor"] = "Suelo",
+	["menu.added"] = "Añadido: {items}",
+	["summary.partnerDied"] = "Tu compañero ha muerto, lo mató {who}",
 }

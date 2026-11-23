@@ -59,6 +59,8 @@ function Text.clean(value)
 		text = text:gsub("\3.", "")
 	end
 	text = text:gsub("[\16\17\18]", " ")
+	-- A line break before an upper-case letter ends a sentence; before lower case it is word wrap.
+	text = text:gsub("([^%.!%?:;,%s])[ \t]*\n%s*(%u)", "%1. %2")
 	text = text:gsub("[%c]", " ")
 	text = text:gsub("%s+", " ")
 	text = text:gsub("^ ", ""):gsub(" $", "")

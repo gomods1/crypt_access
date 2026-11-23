@@ -12,6 +12,7 @@ local Entities = require("system.game.Entities")
 local GameState = require("necro.client.GameState")
 
 local Config = require("CryptAccess.Config")
+local Native = require("CryptAccess.Native")
 local Keys = require("CryptAccess.Keys")
 local Speech = require("CryptAccess.Speech")
 local Strings = require("CryptAccess.Strings")
@@ -32,6 +33,9 @@ local MAX_ITEM_CUES = 2
 
 --- Plays a cue file for a thing at offset (dx, dy) from the player.
 function Cues.play(name, dx, dy, volume)
+	if not Native.available then
+		return -- no speech setup on this machine: stay silent (see Keys.lua)
+	end
 	dx, dy = dx or 0, dy or 0
 	local ok, id = pcall(Audio.createStaticSource, SOUND_DIR .. name .. ".ogg", false, 0)
 	if not ok or not id then

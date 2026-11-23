@@ -197,4 +197,6 @@ return {
 	["help.charSelect"] = "캐릭터 목록: 화살표로 캐릭터 이동, Enter로 준비 완료, Esc로 뒤로.",
 	["charSelect.locked"] = "잠김",
 	["tile.floor"] = "바닥",
+	["menu.added"] = "추가됨: {items}",
+	["summary.partnerDied"] = "동료가 쓰러졌습니다. {who}에게 당했습니다",
 }

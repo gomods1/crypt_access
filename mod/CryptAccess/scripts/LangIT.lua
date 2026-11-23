@@ -197,4 +197,6 @@ return {
 	["help.charSelect"] = "Griglia dei personaggi: le frecce passano da un personaggio all'altro, Invio ti segna come pronto, Esc torna indietro.",
 	["charSelect.locked"] = "bloccato",
 	["tile.floor"] = "Pavimento",
+	["menu.added"] = "Aggiunto: {items}",
+	["summary.partnerDied"] = "Il tuo compagno è morto, ucciso da {who}",
 }

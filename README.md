@@ -84,6 +84,17 @@ In the game: Options, Mod settings, Crypt Access. There you can turn the enemy, 
 off, set their range and volume, add a metronome tick, freeze automatically at the start of each floor,
 and choose whether hits on enemies and menu positions are spoken.
 
+## Multiplayer
+
+- Local co-op (two players on one computer) works: the mod follows player 1, lists the other player in
+  the scanner, and says "Your partner died" when they fall.
+- Online sessions: the game loads only packaged mods online, and Crypt Access is installed unpacked, so
+  the game turns it off while you host or join an online game. The game's advanced setting "Network mod
+  dev mode" (Options, Mod settings, Mod system settings, with advanced settings shown) lets unpacked mods
+  load online, for development and testing; every player then needs the mod.
+- On a computer without the installer's config.json change (a sighted friend), the mod stays silent and
+  leaves every key to the game.
+
 ## Credits and licences
 
 - Speech through Prism; its licences are in `CryptAccess\licenses`.

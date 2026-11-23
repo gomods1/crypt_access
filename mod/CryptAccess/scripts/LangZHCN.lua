@@ -197,4 +197,6 @@ return {
 	["help.charSelect"] = "角色列表：方向键切换角色，回车标记为就绪，Esc 返回。",
 	["charSelect.locked"] = "未解锁",
 	["tile.floor"] = "地板",
+	["menu.added"] = "已添加：{items}",
+	["summary.partnerDied"] = "你的队友死了，被{who}杀死",
 }

@@ -197,4 +197,6 @@ return {
 	["help.charSelect"] = "Character grid: arrows move between characters, Enter marks you ready, Escape goes back.",
 	["charSelect.locked"] = "locked",
 	["tile.floor"] = "Floor",
+	["menu.added"] = "Added: {items}",
+	["summary.partnerDied"] = "Your partner died, killed by {who}",
 }

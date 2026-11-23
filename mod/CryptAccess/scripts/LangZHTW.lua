@@ -197,4 +197,6 @@ return {
 	["help.charSelect"] = "角色列表：方向鍵切換角色，Enter 標記為準備，Esc 返回。",
 	["charSelect.locked"] = "已鎖定",
 	["tile.floor"] = "地板",
+	["menu.added"] = "已新增：{items}",
+	["summary.partnerDied"] = "你的隊友死了，被{who}殺死",
 }

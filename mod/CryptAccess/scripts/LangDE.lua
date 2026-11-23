@@ -197,4 +197,6 @@ return {
 	["help.charSelect"] = "Charakterraster: Pfeiltasten wechseln zwischen den Charakteren, Eingabe meldet dich bereit, Escape geht zurück.",
 	["charSelect.locked"] = "gesperrt",
 	["tile.floor"] = "Boden",
+	["menu.added"] = "Hinzugefügt: {items}",
+	["summary.partnerDied"] = "Dein Mitspieler ist gestorben, getötet von {who}",
 }

@@ -257,6 +257,19 @@ local function snapshotMessages(currentMenu)
 	return messages
 end
 
+--- Labels of the menu's choices, as a set (to notice entries added while the menu is open).
+local function choiceLabels(currentMenu)
+	local set, count = {}, 0
+	for _, i in ipairs(choices(currentMenu)) do
+		local text = labelOf(currentMenu.entries[i])
+		if text ~= "" then
+			set[text] = true
+			count = count + 1
+		end
+	end
+	return set, count
+end
+
 local function detailsFor(currentMenu, entry, spoken)
 	local lines = { spoken }
 	local tooltip = entry and (entry.tooltip or entry.description)
@@ -302,6 +315,7 @@ function MenuReader.update()
 		Speech.debug(string.format("menu %s, entry %s", tostring(currentMenu.name), entryKey))
 		last.heading = headingFor(currentMenu, currentMenu.selection)
 		last.messages = snapshotMessages(currentMenu)
+		last.choices = choiceLabels(currentMenu)
 		local details = detailsFor(currentMenu, entry, label ~= "" and label or Text.sentences(lines))
 		-- Long menus: the lines not spoken on open (tables, notes) are one Ctrl+Up away.
 		if #choices(currentMenu) > 3 then
@@ -365,6 +379,20 @@ function MenuReader.update()
 		end
 		messages.__bulk = nil
 		last.messages = messages
+		-- Entries that appeared while the menu is open (a co-op player added): say them, if only a few.
+		local labels, count = choiceLabels(currentMenu)
+		if last.choices then
+			local added = {}
+			for text in pairs(labels) do
+				if not last.choices[text] then
+					added[#added + 1] = text
+				end
+			end
+			if #added > 0 and #added <= 2 and count > 1 then
+				Speech.say(Strings.get("menu.added", { items = Strings.join(added) }), false)
+			end
+		end
+		last.choices = labels
 	end
 
 	last.menuKey, last.entryKey, last.label = menuKey, entryKey, label

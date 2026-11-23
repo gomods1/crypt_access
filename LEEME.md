@@ -86,6 +86,18 @@ En el juego: Opciones, Ajustes de mods, Crypt Access. Ahí puedes activar o desa
 enemigos, objetos y paredes, ajustar su alcance y volumen, añadir un tic de metrónomo, congelar al empezar
 cada nivel y elegir si se anuncian los golpes a enemigos y la posición en los menús.
 
+## Multijugador
+
+- El cooperativo local (dos jugadores en un ordenador) funciona: el mod sigue al jugador 1, muestra al
+  otro jugador en el escáner y dice "Tu compañero ha muerto" cuando cae.
+- Partidas en línea: el juego solo carga mods empaquetados en línea, y Crypt Access se instala sin
+  empaquetar, así que el juego lo desactiva al crear o unirse a una partida en línea. El ajuste avanzado
+  del juego "Modo de desarrollo de mods de red" (Opciones, Ajustes de mods, Ajustes del sistema de mods,
+  con los ajustes avanzados visibles) permite cargar mods sin empaquetar en línea, para desarrollo y
+  pruebas; entonces todos los jugadores necesitan el mod.
+- En un ordenador sin el cambio de config.json del instalador (un amigo que ve), el mod se queda en
+  silencio y deja todas las teclas al juego.
+
 ## Créditos y licencias
 
 - La voz usa Prism; sus licencias están en `CryptAccess\licenses`.

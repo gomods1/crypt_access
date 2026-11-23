@@ -197,4 +197,6 @@ return {
 	["help.charSelect"] = "Grade de personagens: as setas mudam de personagem, Enter marca você como pronto, Esc volta.",
 	["charSelect.locked"] = "bloqueado",
 	["tile.floor"] = "Chão",
+	["menu.added"] = "Adicionado: {items}",
+	["summary.partnerDied"] = "Seu parceiro morreu, morto por {who}",
 }
