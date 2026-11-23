@@ -1,0 +1,11 @@
+{
+  "name": "CryptAccess",
+  "namespace": "CryptAccess",
+  "displayName": "Crypt Access",
+  "description": "Screen reader speech and audio cues that make Crypt of the NecroDancer playable by blind players.",
+  "author": "Crypt Access contributors",
+  "version": "0.1.0",
+  "api": { "scriptPath": "scripts" },
+  "autoBundle": ["SP", "MP"],
+  "tags": []
+}

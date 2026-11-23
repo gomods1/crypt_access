@@ -1,0 +1,11 @@
+# Extracted and decompiled game files: copyrighted, never committed or shipped.
+game/
+# Downloaded tools and their sources.
+vendor/
+# Copied in by tools/dev_install.ps1 from the Prism SDK.
+mod/CryptAccess/lib/prism.dll
+mod/CryptAccess/CryptAccess_speech.log
+__pycache__/
+shots/
+mod/CryptAccess/dev/
+dist/
