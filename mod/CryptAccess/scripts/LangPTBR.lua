@@ -37,9 +37,9 @@ return {
 	["cutscene.season"] = "Evento sazonal. Aperte qualquer tecla para continuar.",
 	["help.cutscene"] = "Uma cena ou a tela de título está sendo exibida. Enter pula a cena; na tela de título, qualquer tecla continua.",
 
-	["calibration.videoHint"] = "Crypt Access: esta primeira etapa é visual. Você pode apertar seta para cima em cada batida da música, ou apertar Esc para pular a calibragem. A latência de vídeo só afeta a imagem.",
+	["calibration.visualSkipped"] = "O Crypt Access pulou a etapa visual; ela só ajusta o atraso da imagem. Esc pula a calibragem.",
 	["calibration.audioHint"] = "Aperte seta para baixo sempre que ouvir o tique.",
-	["help.calibration.1"] = "Calibragem de latência. A primeira etapa é visual: aperte seta para cima quando as barras se encontrarem. Apertar seta para cima no ritmo da música também funciona.",
+	["help.calibration.1"] = "Calibragem de latência. O Crypt Access pula a etapa visual, que só ajusta o atraso da imagem.",
 	["help.calibration.2"] = "Segunda etapa: aperte seta para baixo sempre que ouvir o som de tique.",
 	["help.calibration.3"] = "Esc pula a calibragem; você pode calibrar depois nas opções.",
 	["tile.nothing"] = "nada",
@@ -271,4 +271,7 @@ return {
 	["online.crossPlayWarning"] = "Aviso do Crypt Access: com o jogo multiplataforma ativado, o jogo desativa o Crypt Access nesta sessão. Desative o jogo multiplataforma ou escolha Endereço IP como visibilidade.",
 	["online.hostHelp"] = "Para manter o Crypt Access online: hospede por endereço IP ou desative o jogo multiplataforma. Todos os jogadores precisam do mesmo pacote do Crypt Access; amigos sem o instalador não ouvem nada dele.",
 	["help.online"] = "O: os jogadores da partida, com personagem, vida e posição. No multijogador, as mensagens do chat são lidas em voz alta; T abre o chat.",
+	["hud.lobbyHere"] = "Aqui: {summary}",
+	["scan.count"] = "{count} {category}",
+	["event.lobbyIntro"] = "Este é o saguão, o menu principal do jogo: em vez de uma lista, você o percorre andando. Cada escada inicia um modo de jogo, e as portas levam a lojas e outras salas. Page Down e Page Up percorrem tudo o que há aqui, N guia você até o selecionado e L repete este resumo. Esc abre o menu com opções, placares e sair. F1 lista todas as teclas.",
 }

@@ -103,6 +103,7 @@ local modeStates = {}
 
 local exitWasUnlocked = true
 local levelAnnounced = false
+local lobbyExplained = false
 
 event.gameStateLevel.add("cryptAccessLevelStart", { order = "levelLoadingDone", sequence = 50 }, function()
 	levelAnnounced = false
@@ -120,6 +121,13 @@ event.tick.add("cryptAccessEventsPoll", { order = "hud", sequence = 50 }, functi
 	elseif not levelAnnounced and World.playing() then
 		levelAnnounced = true
 		say(HUD.levelText())
+		-- The lobby is the game's main menu, but a room you walk through: explain it on the first visit
+		-- of each launch.
+		local okLobby, lobby = pcall(CurrentLevel.isLobby)
+		if okLobby and lobby and not lobbyExplained then
+			lobbyExplained = true
+			say(Strings.get("event.lobbyIntro"))
+		end
 		-- The look of a new zone or a boss arena, once (setting "describe.scenes").
 		local okScene, scene = pcall(require("CryptAccess.Describe").sceneForLevel)
 		if okScene and scene then

@@ -37,9 +37,9 @@ return {
 	["cutscene.season"] = "Événement saisonnier. Appuyez sur une touche pour continuer.",
 	["help.cutscene"] = "Une cinématique ou l'écran titre est affiché. Entrée la passe ; sur l'écran titre, n'importe quelle touche continue.",
 
-	["calibration.videoHint"] = "Crypt Access : cette première étape est visuelle. Vous pouvez plutôt appuyer sur flèche haut à chaque pulsation de la musique, ou appuyer sur Échap pour ignorer l'étalonnage. La latence vidéo n'affecte que l'image.",
+	["calibration.visualSkipped"] = "Crypt Access a ignoré l'étape visuelle ; elle ne règle que le décalage de l'image. Échap ignore l'étalonnage.",
 	["calibration.audioHint"] = "Appuyez sur flèche bas chaque fois que vous entendez le tic.",
-	["help.calibration.1"] = "Étalonnage de latence. La première étape est visuelle : appuyez sur flèche haut quand les barres se rejoignent. Appuyer sur flèche haut au rythme de la musique fonctionne aussi.",
+	["help.calibration.1"] = "Étalonnage de latence. Crypt Access ignore l'étape visuelle, qui ne règle que le décalage de l'image.",
 	["help.calibration.2"] = "Deuxième étape : appuyez sur flèche bas chaque fois que vous entendez le tic.",
 	["help.calibration.3"] = "Échap ignore l'étalonnage ; vous pourrez l'effectuer plus tard dans les options.",
 	["tile.nothing"] = "rien",
@@ -271,4 +271,7 @@ return {
 	["online.crossPlayWarning"] = "Avertissement Crypt Access : avec le jeu multiplateforme activé, le jeu désactive Crypt Access dans cette session. Désactivez le jeu multiplateforme ou choisissez Adresse IP comme visibilité.",
 	["online.hostHelp"] = "Pour garder Crypt Access en ligne : hébergez par adresse IP ou désactivez le jeu multiplateforme. Tous les joueurs ont besoin du même paquet Crypt Access ; les amis sans l'installateur n'en entendent rien.",
 	["help.online"] = "O : les joueurs de la partie, avec personnage, santé et position. En multijoueur, les messages du chat sont lus à voix haute ; T ouvre le chat.",
+	["hud.lobbyHere"] = "Ici : {summary}",
+	["scan.count"] = "{count} {category}",
+	["event.lobbyIntro"] = "Voici le hall, le menu principal du jeu : au lieu d'une liste, vous le parcourez à pied. Chaque escalier lance un mode de jeu, et les portes mènent aux boutiques et à d'autres salles. Page suivante et Page précédente parcourent tout ce qui se trouve ici, N vous guide jusqu'à la sélection, et L répète ce résumé. Échap ouvre le menu avec les options, les classements et quitter. F1 donne toutes les touches.",
 }

@@ -37,9 +37,9 @@ return {
 	["cutscene.season"] = "Evento stagionale. Premi un tasto qualsiasi per continuare.",
 	["help.cutscene"] = "È visualizzato un filmato o la schermata del titolo. Invio lo salta; nella schermata del titolo qualsiasi tasto continua.",
 
-	["calibration.videoHint"] = "Crypt Access: questo primo passo è visivo. Puoi invece premere freccia su a ogni battito della musica, oppure premere Esc per saltare la calibrazione. La latenza video riguarda solo l'immagine.",
+	["calibration.visualSkipped"] = "Crypt Access ha saltato il passo visivo; regola solo il ritardo dell'immagine. Esc salta la calibrazione.",
 	["calibration.audioHint"] = "Premi freccia giù ogni volta che senti il tic.",
-	["help.calibration.1"] = "Calibrazione latenza. Il primo passo è visivo: premi freccia su quando le barre si incontrano. Funziona anche premere freccia su a tempo con la musica.",
+	["help.calibration.1"] = "Calibrazione latenza. Crypt Access salta il passo visivo, che regola solo il ritardo dell'immagine.",
 	["help.calibration.2"] = "Secondo passo: premi freccia giù ogni volta che senti il tic.",
 	["help.calibration.3"] = "Esc salta la calibrazione; puoi calibrare più tardi nelle opzioni.",
 	["tile.nothing"] = "niente",
@@ -271,4 +271,7 @@ return {
 	["online.crossPlayWarning"] = "Avviso di Crypt Access: con il gioco multipiattaforma attivo, il gioco disattiva Crypt Access in questa sessione. Disattiva il gioco multipiattaforma o scegli Indirizzo IP come visibilità.",
 	["online.hostHelp"] = "Per tenere Crypt Access online: ospita tramite indirizzo IP o disattiva il gioco multipiattaforma. Tutti i giocatori hanno bisogno dello stesso pacchetto di Crypt Access; gli amici senza l'installer non ne sentono nulla.",
 	["help.online"] = "O: i giocatori della partita, con personaggio, salute e posizione. In multigiocatore i messaggi della chat vengono letti ad alta voce; T apre la chat.",
+	["hud.lobbyHere"] = "Qui: {summary}",
+	["scan.count"] = "{count} {category}",
+	["event.lobbyIntro"] = "Questa è la lobby, il menu principale del gioco: invece di una lista, la percorri a piedi. Ogni scala avvia una modalità di gioco e le porte portano ai negozi e ad altre stanze. Pagina giù e Pagina su scorrono tutto ciò che c'è qui, N ti guida fino alla selezione e L ripete questo riepilogo. Esc apre il menu con opzioni, classifiche ed esci. F1 elenca tutti i tasti.",
 }

@@ -10,6 +10,11 @@ Help.register({
 	active = World.inLevel,
 	lines = function()
 		local lines = {}
+		-- In the lobby, first say what the lobby is and how to get around it.
+		local okLobby, lobby = pcall(require("necro.game.level.CurrentLevel").isLobby)
+		if okLobby and lobby then
+			lines[1] = Strings.get("event.lobbyIntro")
+		end
 		for i = 1, 14 do
 			local line = Strings.maybe("help.game." .. i)
 			if line then

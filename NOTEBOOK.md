@@ -16,10 +16,11 @@
 - Recon (game-recon): done (2026-11-23)
 - Injection (inject): done (2026-11-23). Route: the game's own Lua mod system plus a `config.json` whitelist entry.
 - Speech (speech): done (2026-11-23). "Crypt Access loaded" spoken through NVDA via Prism.
-- Screen text (screen-text): done for menus (title, calibration, confirm, pause, options, mod settings, leaderboard tables, run summary), cutscenes, flyaways, voice subtitles, text fields (2026-11-23, speech log).
+- Screen text (screen-text): done for menus (title, calibration with the visual step skipped, confirm, pause, options, mod settings, leaderboard tables, run summary), cutscenes, flyaways, voice subtitles, text fields (2026-11-23, speech log).
 - Scanner (scanner): done. PageDown/PageUp/Home, Shift+PageDown/Up categories, merged lobby stair labels (2026-11-23, speech log in tutorial, 1-1 and lobby).
 - Autowalk (autowalk): replaced by the route guide (P) and a route-following beacon (B). Proven in 1-1 as Bard (2026-11-23).
 - Online multiplayer (session 4, 2026-11-23): written, offline-tested only (the user will test online). Packaged mod, session mod-list check, chat, spectating, host pauses, network notice, O player list, player names, cross-play warning in the host menu.
+- Lobby orientation (session 5, 2026-11-23, v0.3.1, not yet heard in game): first lobby visit per launch explains the lobby is the main menu you walk through (Events.lua, event.lobbyIntro); L in the lobby adds "Here: 12 exits and doors, ..." counted from the scanner's own list (Scanner.summary), so anything new in a room is announced and reachable with PageDown and N; F1 in the lobby starts with the same explanation. 11 languages.
 - Picture descriptions (session 3, 2026-11-23): done in English and translated to all 11 languages. Cutscenes (25 videos, timed), title art, credits monsters, characters, enemies, bosses, shopkeepers, zones and boss arenas, portrait dialogs, first sight of each enemy kind, fight events. See SCREENS.md, Descriptions.
 
 ## Resources
@@ -74,6 +75,7 @@
 - `Input.appendKeyEvents({id, time, -id, time})` injects key presses the game treats as real (title skip and menu navigation work). Calling `Input.getRawKeyID` with an unknown name creates a bogus id (metatable), so only use real names.
 - Title screen and boot screens are cutscenes (`necro.client.Cutscene`, `event.cutsceneBegin` with `ev.scene.type/image/showVersion`); the title is the SPLASH scene with `showVersion`. Source: `CutsceneDefinitions.lua` 304-315; proven by speech log.
 - A fresh save goes: title, latency calibration (menu `latencyCalibration`), then a short tutorial run ("Starting Tutorial run" in the log). Escape on calibration opens `confirm`; Yes opens `latencyOptions` (audio/video latency sliders, Done).
+- Latency calibration step one (video) is visual only: the menu's audioFilter mutes the music (gain 2^min(audio+min(video,15)-20, -0.5)) until Up presses accumulate, so there is nothing to hear. Calibration.lua adds a second `event.menu` handler (`{key="latencyCalibration", sequence=1}`) that sets `ev.arg.video.done = true`, inputCount 15, beatmap.heldBeatOffset 0, so the menu opens on step two (Down on each "tick" sound); video latency keeps its previous value (0 on a new save). Source: necro/menu/options/LatencyCalibration.lua; proven 2026-11-23 (speech log reads the step-two line on open, state video.done=true, lastBeep advancing; user: "it works").
 - Confirm dialogs split their message into one menu entry per visual line; `Text.sentences` joins lines that continue in lower case with a space.
 - Mod hotkeys run at tick order `inputContext`, sequence -10 (before `multiKeyCombo`/`inputControls`/`menu`), and use `Input.suppressKey`. F1 help proven on the calibration screen.
 
@@ -113,6 +115,9 @@
 
 ## Pitfalls
 
+- A fresh save needs more than deleting saves: tutorial.pending, latency.calibration.pending, intro.seenVersion and seizureWarningDismissed live in SynchronyOptions.lua and the game copies them back into SynchronyUser_*.lua, so the first "clean" launch went straight to the lobby (proven 2026-11-23: removing those keys gave the seizure warning on the next launch). Decision (user, 2026-11-23): `tools/reset_save.ps1` wipes everything instead of single flags: all of %APPDATA%\NecroDancer and all of %LOCALAPPDATA%\NecroDancer except `mods` and `overlays`, backed up to %TEMP%\CryptAccessSaveBackup\<time>\Roaming and \Local. Tested on a fake folder only. HYPOTHESIS: the game's cloud sync (braincloud folder, settings with cloud = INIT) may bring some settings back; check after the first real full reset.
+- The saved mod-list entry can say `package=true` (left over from package tests): the game then swaps the unpacked folder for the .necromod at startup ("Mounting packed mod CryptAccess"), the dev console is gone (dev\ is not packed) and script edits do nothing. A version bump fixes it (ModList rewrites the entry with package=false).
+
 - The permission classifier refused (2026-11-23, session 4) opening the networkHost menu through the menu crawl, and writing the package into %LOCALAPPDATA%\NecroDancer\mods by hand (Package.install from the dev console). The mod makes that copy itself at the next launch.
 
 - Saving a mod script while the game runs reloads the mod and restarts the current level; announcements of the level start come again. Translation agents saving files during a test doubled the boss splash lines (2026-11-23).
@@ -130,7 +135,6 @@
 - The user's ear test of the cue design is still to come.
 - Picture descriptions (session 3): the translations were made by agents from the game's own name lists and have not been read by native speakers. Not yet seen in a test: grab, charge, wake-up, parry, breath spells and explosions narration, and the character grid portrait line. The user's own listening test of the descriptions is still to come.
 
-- Does `SynchronyOptions.lua` keep CryptAccess in `modLoader.list` after a clean quit? (Not verified: the game was force-killed.)
 - Do unpacked mods or ffi use disable leaderboards or achievements?
 - The title screen ("press any key") is not a Menu: what renders it, and how do we read it?
 - How do no-beat mode, rhythm leniency and the Bard character behave, and which is the best default for blind players?
@@ -142,6 +146,8 @@
 - `tools/SendKeys.ps1 -Keys UP,ESC` sends real OS keys (steals focus; prefer `key()`).
 
 ## Test log
+
+- 2026-11-23 (user, session 5): "clean save" launch landed silently in the lobby (only "Vestíbulo"); cause: settings flags above, and the packaged 0.3.0 was loaded. After the reset fix and v0.3.1: seizure warning spoken, unpacked 0.3.1 mounted, dev console back. User now testing seizure warning, intro, title, calibration, tutorial, then the lobby orientation.
 
 - 2026-11-23 (Claude, session 4): release v0.3.0 (user's choice) with the zip, the package CryptAccess-0.3.0.necromod for friends and the online installer; online play still untested.
 - 2026-11-23 (Claude, session 4, offline only): chat lines spoken ("Ana joined the game", "Ana: hola, vamos a la tienda"), own message skipped; O says "No hay más jugadores"; package built and verified (67 files, same hash in dist and in the zip); installer sandbox: install puts the package in mods and removes a stale CryptAccess-0.1.0.necromod, uninstall removes both; ModList corrected the saved entry 0.1.0 -> 0.3.0. Not tested: anything that needs an online session.
@@ -162,3 +168,4 @@
 - 2026-11-23 (Claude): boss floor 1-4 (splash "Jefe: Orquestopo", King Conga killed), a won Zone 1 run ("¡Has ganado!"), zones 2 to 5 tile and entity names, hot coals and ice details, story cutscene subtitles, credits lines, key rebinding prompt, multiplayer and local co-op menus, unspent-diamonds dialog, diamond shop purchase, song-end overlay, saved-run restore, shrine details, live language switch through all 11 languages (HUD keys answered in each), real runs started with Nocturna, Tempo, Mary, Klarinetta, La Muerte, Chaunter, Suzu, Hatsune Miku, Goldman, Eli, Monk, Dove (plus Cadence and Bard): health, inventory, scanner and events read for each.
 - 2026-11-23 (Claude): Cadence rhythm run: metronome cues fire per beat, freeze and resume with count-in work; character grid reader; extra modes page (Rhythm option); key rebinding table rows; installer sandbox install and uninstall (config identical apart from our entries), Steam detection finds S:; readers exercised with Nocturna, Tempo, Mary, Hatsune Miku, Cadence and Bard kits; all 11 language tables load in the game.
 - 2026-11-23 (Claude, by dev console and speech log): title, calibration skip, latency options, tutorial (voice subtitles, key pickup, chest, dagger, slime kill, hits), Backspace to a 1-1 run, pause menu, back to lobby, lobby scanner, character room, Bard selection, 1-1 as Bard (route, kills, damage, freeze, death, run summary), leaderboard rows, options, mod settings toggles, seed text field echo.
+- 2026-11-23 (user and Claude, session 5): user reported the visual calibration step silent while the mod said to press Up on the music. Fix: the mod skips the visual step (Calibration.lua), new hint calibration.visualSkipped and help.calibration.1 in 11 languages. Speech log on a fresh save: "Calibración de latencia. Pulsa Abajo cuando escuches el sonido. Crypt Access ha omitido el paso visual...". User: "it works".

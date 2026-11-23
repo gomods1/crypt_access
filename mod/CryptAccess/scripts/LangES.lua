@@ -37,9 +37,9 @@ return {
 	["cutscene.season"] = "Evento de temporada. Pulsa cualquier tecla para continuar.",
 	["help.cutscene"] = "Se muestra una cinemática o la pantalla de título. Intro la salta; en la pantalla de título cualquier tecla continúa.",
 
-	["calibration.videoHint"] = "Crypt Access: este primer paso es visual. Puedes pulsar Arriba en cada pulso de la música, o pulsar Escape para omitir la calibración. La latencia de vídeo solo afecta a la imagen.",
+	["calibration.visualSkipped"] = "Crypt Access ha omitido el paso visual; solo ajusta el retraso de la imagen. Escape omite la calibración.",
 	["calibration.audioHint"] = "Pulsa Abajo cada vez que oigas el tic.",
-	["help.calibration.1"] = "Calibración de latencia. El primer paso es visual: pulsa Arriba cuando las barras se junten. También sirve pulsar Arriba al ritmo de la música.",
+	["help.calibration.1"] = "Calibración de latencia. Crypt Access omite el paso visual, que solo ajusta el retraso de la imagen.",
 	["help.calibration.2"] = "Segundo paso: pulsa Abajo cada vez que oigas el tic.",
 	["help.calibration.3"] = "Escape omite la calibración; puedes calibrar más tarde en las opciones.",
 	["tile.nothing"] = "nada",
@@ -271,4 +271,7 @@ return {
 	["online.crossPlayWarning"] = "Aviso de Crypt Access: con Habilitar juego cruzado activado, el juego desactiva Crypt Access en esta partida. Desactiva Habilitar juego cruzado o elige Dirección IP como visibilidad.",
 	["online.hostHelp"] = "Para mantener Crypt Access en línea: aloja por dirección IP o desactiva Habilitar juego cruzado. Todos los jugadores necesitan el mismo paquete de Crypt Access; los amigos sin el instalador no oyen nada de él.",
 	["help.online"] = "O: los jugadores de la partida, con su personaje, su vida y dónde están. En multijugador, los mensajes del chat se leen en voz alta; T abre el chat.",
+	["hud.lobbyHere"] = "Aquí: {summary}",
+	["scan.count"] = "{count} {category}",
+	["event.lobbyIntro"] = "Este es el vestíbulo, el menú principal del juego: en lugar de una lista, lo recorres caminando. Cada escalera empieza un modo de juego y las puertas llevan a tiendas y otras salas. Avance y Retroceso de página recorren todo lo que hay aquí, N te guía hasta lo seleccionado y L repite este resumen. Escape abre el menú con opciones, clasificaciones y salir. F1 da todas las teclas.",
 }

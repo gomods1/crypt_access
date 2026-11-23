@@ -37,9 +37,9 @@ return {
 	["cutscene.season"] = "季節活動。按任意鍵繼續。",
 	["help.cutscene"] = "正在顯示過場動畫或標題畫面。按 Enter 跳過；在標題畫面按任意鍵繼續。",
 
-	["calibration.videoHint"] = "Crypt Access：第一步是視覺校正。你也可以跟著音樂的每一拍按上方向鍵，或按 Esc 跳過校正。影像延遲只影響畫面。",
+	["calibration.visualSkipped"] = "Crypt Access 已跳過視覺校正步驟，它只影響畫面延遲。按 Esc 跳過校正。",
 	["calibration.audioHint"] = "每次聽到滴答聲時按下方向鍵。",
-	["help.calibration.1"] = "延遲校正。第一步是視覺校正：在橫條於中間交會時按上方向鍵。跟著音樂的節拍按上方向鍵也可以。",
+	["help.calibration.1"] = "延遲校正。Crypt Access 會跳過視覺校正步驟，它只影響畫面延遲。",
 	["help.calibration.2"] = "第二步：每次聽到滴答聲時按下方向鍵。",
 	["help.calibration.3"] = "按 Esc 跳過校正；之後可以在選項中重新校正。",
 	["tile.nothing"] = "無",
@@ -271,4 +271,7 @@ return {
 	["online.crossPlayWarning"] = "Crypt Access提醒：開啟跨平台遊戲時，遊戲會在本次線上遊戲中關閉Crypt Access。請關閉跨平台遊戲，或將可見度設為IP位址。",
 	["online.hostHelp"] = "要在線上保留Crypt Access：透過IP位址開房，或關閉跨平台遊戲。所有玩家都需要相同的Crypt Access套件；沒有使用安裝程式的好友不會聽到任何聲音。",
 	["help.online"] = "O：遊戲中的玩家及其角色、生命值和位置。多人遊戲中會朗讀聊天訊息；按T開啟聊天。",
+	["hud.lobbyHere"] = "這裡有：{summary}",
+	["scan.count"] = "{category} {count}",
+	["event.lobbyIntro"] = "這裡是大廳，也就是遊戲的主選單：它不是清單，而是要走動的房間。每座樓梯開始一種遊戲模式，門通往商店和其他房間。Page Down 和 Page Up 依序瀏覽這裡的一切，N 引導你走到選取的目標，L 重複這段概要。Escape 開啟選單，有選項、排行榜和離開。F1 列出所有按鍵。",
 }

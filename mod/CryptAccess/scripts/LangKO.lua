@@ -37,9 +37,9 @@ return {
 	["cutscene.season"] = "시즌 이벤트. 아무 키나 눌러 계속하세요.",
 	["help.cutscene"] = "컷신이나 타이틀 화면이 표시 중입니다. Enter로 건너뛰고, 타이틀 화면에서는 아무 키나 누르면 계속됩니다.",
 
-	["calibration.videoHint"] = "Crypt Access: 이 첫 단계는 시각적입니다. 대신 음악의 박자마다 위쪽 화살표를 누르거나, Esc를 눌러 조정을 건너뛸 수 있습니다. 비디오 지연 시간은 화면에만 영향을 줍니다.",
+	["calibration.visualSkipped"] = "Crypt Access가 시각 단계를 건너뛰었습니다. 이 단계는 화면 지연만 조정합니다. Esc를 누르면 조정을 건너뜁니다.",
 	["calibration.audioHint"] = "틱 소리가 들릴 때마다 아래쪽 화살표를 누르세요.",
-	["help.calibration.1"] = "지연 시간 조정. 1단계는 시각적입니다. 막대가 만날 때 위쪽 화살표를 누르세요. 음악의 박자에 맞춰 위쪽 화살표를 눌러도 됩니다.",
+	["help.calibration.1"] = "지연 시간 조정. Crypt Access는 화면 지연만 조정하는 시각 단계를 건너뜁니다.",
 	["help.calibration.2"] = "2단계: 틱 소리가 들릴 때마다 아래쪽 화살표를 누르세요.",
 	["help.calibration.3"] = "Esc로 조정을 건너뜁니다. 나중에 옵션에서 조정할 수 있습니다.",
 	["tile.nothing"] = "없음",
@@ -271,4 +271,7 @@ return {
 	["online.crossPlayWarning"] = "Crypt Access 경고: 크로스플레이가 켜져 있으면 이 세션에서 게임이 Crypt Access를 끕니다. 크로스플레이를 끄거나 공개 범위를 IP 주소로 고르세요.",
 	["online.hostHelp"] = "온라인에서 Crypt Access를 유지하려면 IP 주소로 호스팅하거나 크로스플레이를 끄세요. 모든 플레이어에게 같은 Crypt Access 패키지가 필요하며, 설치 프로그램을 쓰지 않은 친구에게는 아무 소리도 나지 않습니다.",
 	["help.online"] = "O: 게임 속 플레이어와 캐릭터, 체력, 위치. 멀티플레이에서는 채팅 메시지를 읽어 줍니다. T로 채팅을 엽니다.",
+	["hud.lobbyHere"] = "여기 있는 것: {summary}",
+	["scan.count"] = "{category} {count}",
+	["event.lobbyIntro"] = "여기는 로비, 게임의 메인 메뉴입니다. 목록 대신 걸어서 돌아다닙니다. 계단마다 게임 모드가 시작되고, 문은 상점과 다른 방으로 이어집니다. Page Down과 Page Up으로 여기 있는 모든 것을 차례로 듣고, N은 선택한 곳까지 안내하며, L은 이 요약을 다시 읽습니다. Escape는 옵션, 순위표, 종료가 있는 메뉴를 엽니다. F1은 모든 키를 알려 줍니다.",
 }

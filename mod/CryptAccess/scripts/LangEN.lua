@@ -37,9 +37,9 @@ return {
 	["cutscene.season"] = "Seasonal event. Press any key to continue.",
 	["help.cutscene"] = "A cutscene or title screen is showing. Enter skips it; on the title screen any key continues.",
 
-	["calibration.videoHint"] = "Crypt Access: this first step is visual. You can press Up on each beat of the music instead, or press Escape to skip calibration. Video latency only affects the picture.",
+	["calibration.visualSkipped"] = "Crypt Access skipped the visual step; it only sets the picture delay. Escape skips calibration.",
 	["calibration.audioHint"] = "Press Down each time you hear the tick.",
-	["help.calibration.1"] = "Latency calibration. Step one is visual: press Up when the bars meet. Pressing Up on the beat of the music works too.",
+	["help.calibration.1"] = "Latency calibration. Crypt Access skips the visual step, which only sets the picture delay.",
 	["help.calibration.2"] = "Step two: press Down every time you hear the tick sound.",
 	["help.calibration.3"] = "Escape skips calibration; you can calibrate later in the options.",
 	["tile.nothing"] = "nothing",
@@ -271,4 +271,7 @@ return {
 	["online.crossPlayWarning"] = "Crypt Access warning: with Enable cross-play on, the game turns Crypt Access off in this session. Turn off Enable cross-play, or choose IP address as the visibility.",
 	["online.hostHelp"] = "To keep Crypt Access online: host by IP address, or turn off Enable cross-play. Every player needs the same Crypt Access package; friends without the installer hear nothing from it.",
 	["help.online"] = "O: the players in the game, with character, health and where they are. In multiplayer, chat messages are read aloud; T opens the chat.",
+	["hud.lobbyHere"] = "Here: {summary}",
+	["scan.count"] = "{count} {category}",
+	["event.lobbyIntro"] = "This is the lobby, the game's main menu: instead of a list, you walk around it. Each staircase starts a game mode, and doors lead to shops and other rooms. Page Down and Page Up go through everything here, N guides you to the selected one, and L repeats this summary. Escape opens the menu with options, leaderboards and quit. F1 lists every key.",
 }

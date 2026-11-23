@@ -169,6 +169,13 @@ function HUD.levelText()
 	local okName, levelName = pcall(CurrentLevel.getName)
 	if ok and lobby then
 		parts[#parts + 1] = Strings.get("hud.lobby")
+		-- What is here, from the scanner's own list (PageDown browses it, N walks there).
+		local okSum, summary = pcall(function()
+			return require("CryptAccess.Scanner").summary()
+		end)
+		if okSum and summary then
+			parts[#parts + 1] = Strings.get("hud.lobbyHere", { summary = summary })
+		end
 	elseif okName and type(levelName) == "string" and levelName:lower():find("tutorial") then
 		parts[#parts + 1] = Strings.get("hud.tutorial")
 	else

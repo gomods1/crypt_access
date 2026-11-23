@@ -37,9 +37,9 @@ return {
 	["cutscene.season"] = "季节活动。按任意键继续。",
 	["help.cutscene"] = "正在显示过场动画或标题画面。按回车跳过；在标题画面按任意键继续。",
 
-	["calibration.videoHint"] = "Crypt Access：第一步是视觉校准。你也可以跟着音乐的每一拍按上方向键，或按 Esc 跳过校准。视频延迟只影响画面。",
+	["calibration.visualSkipped"] = "Crypt Access 已跳过视觉校准步骤，它只影响画面延迟。按 Esc 跳过校准。",
 	["calibration.audioHint"] = "每次听到嘀嗒声时按下方向键。",
-	["help.calibration.1"] = "延迟校准。第一步是视觉校准：在横条于中间重合时按上方向键。跟着音乐的节拍按上方向键也可以。",
+	["help.calibration.1"] = "延迟校准。Crypt Access 会跳过视觉校准步骤，它只影响画面延迟。",
 	["help.calibration.2"] = "第二步：每次听到嘀嗒声时按下方向键。",
 	["help.calibration.3"] = "按 Esc 跳过校准；之后可以在选项中重新校准。",
 	["tile.nothing"] = "无",
@@ -271,4 +271,7 @@ return {
 	["online.crossPlayWarning"] = "Crypt Access提醒：开启跨平台游戏时，游戏会在本次联机中关闭Crypt Access。请关闭跨平台游戏，或将可见性设为IP地址。",
 	["online.hostHelp"] = "要在联机中保留Crypt Access：通过IP地址开房，或关闭跨平台游戏。所有玩家都需要相同的Crypt Access包；没有使用安装程序的好友不会听到任何声音。",
 	["help.online"] = "O：游戏中的玩家及其角色、生命值和位置。多人游戏中会朗读聊天消息；按T打开聊天。",
+	["hud.lobbyHere"] = "这里有：{summary}",
+	["scan.count"] = "{category} {count}",
+	["event.lobbyIntro"] = "这里是大厅，也就是游戏的主菜单：它不是列表，而是要走动的房间。每个楼梯开始一种游戏模式，门通往商店和其他房间。Page Down 和 Page Up 依次浏览这里的一切，N 引导你走到选中的目标，L 重复这段概要。Escape 打开菜单，有选项、排行榜和退出。F1 列出所有按键。",
 }

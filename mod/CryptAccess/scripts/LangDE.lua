@@ -37,9 +37,9 @@ return {
 	["cutscene.season"] = "Saison-Event. Drücke eine beliebige Taste, um fortzufahren.",
 	["help.cutscene"] = "Eine Zwischensequenz oder der Titelbildschirm wird angezeigt. Eingabe überspringt sie; auf dem Titelbildschirm geht es mit einer beliebigen Taste weiter.",
 
-	["calibration.videoHint"] = "Crypt Access: Dieser erste Schritt ist visuell. Du kannst stattdessen auf jeden Beat der Musik Pfeil hoch drücken, oder mit Escape die Kalibrierung überspringen. Die Videolatenz betrifft nur das Bild.",
+	["calibration.visualSkipped"] = "Crypt Access hat den visuellen Schritt übersprungen; er stellt nur die Bildverzögerung ein. Escape überspringt die Kalibrierung.",
 	["calibration.audioHint"] = "Drücke Pfeil runter, jedes Mal wenn du das Ticken hörst.",
-	["help.calibration.1"] = "Latenzkalibrierung. Schritt eins ist visuell: Drücke Pfeil hoch, wenn sich die Balken treffen. Pfeil hoch im Beat der Musik zu drücken funktioniert auch.",
+	["help.calibration.1"] = "Latenzkalibrierung. Crypt Access überspringt den visuellen Schritt, der nur die Bildverzögerung einstellt.",
 	["help.calibration.2"] = "Schritt zwei: Drücke Pfeil runter, jedes Mal wenn du das Ticken hörst.",
 	["help.calibration.3"] = "Escape überspringt die Kalibrierung; du kannst später in den Optionen kalibrieren.",
 	["tile.nothing"] = "nichts",
@@ -271,4 +271,7 @@ return {
 	["online.crossPlayWarning"] = "Crypt-Access-Warnung: Mit eingeschaltetem Crossplay schaltet das Spiel Crypt Access in dieser Sitzung ab. Schalte Crossplay ab oder wähle IP-Adresse als Sichtbarkeit.",
 	["online.hostHelp"] = "Damit Crypt Access online bleibt: per IP-Adresse hosten oder Crossplay abschalten. Alle Spieler brauchen dasselbe Crypt-Access-Paket; Freunde ohne den Installer hören davon nichts.",
 	["help.online"] = "O: die Spieler im Spiel, mit Figur, Gesundheit und Position. Im Mehrspielermodus werden Chatnachrichten vorgelesen; T öffnet den Chat.",
+	["hud.lobbyHere"] = "Hier: {summary}",
+	["scan.count"] = "{count} {category}",
+	["event.lobbyIntro"] = "Das ist die Lobby, das Hauptmenü des Spiels: Statt einer Liste gehst du durch sie hindurch. Jede Treppe startet einen Spielmodus, Türen führen zu Läden und anderen Räumen. Bild ab und Bild auf gehen alles hier durch, N führt dich zum Ausgewählten, L wiederholt diese Übersicht. Escape öffnet das Menü mit Optionen, Bestenlisten und Beenden. F1 nennt alle Tasten.",
 }

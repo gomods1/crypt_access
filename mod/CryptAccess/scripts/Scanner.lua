@@ -69,13 +69,13 @@ local function exitTiles(list)
 	end
 end
 
---- Builds the list for the current category, nearest first.
-function Scanner.build()
+--- Builds the list for the current category (or the one given), nearest first.
+function Scanner.build(categoryOverride)
 	local px, py = World.playerPosition()
 	if not px then
 		return {}
 	end
-	local category = Scanner.categories[categoryIndex]
+	local category = categoryOverride or Scanner.categories[categoryIndex]
 	local list = {}
 	for e in Entities.entitiesWithComponents({ "position" }) do
 		local entryCategory = World.category(e)
@@ -119,6 +119,29 @@ function Scanner.build()
 		return a.key < b.key
 	end)
 	return list
+end
+
+--- What the scanner can list right now, counted per category: "12 exits and doors, 3 characters and
+--- shrines". Built from the same list as PageDown, so anything new in a room is counted too. Nil when empty.
+function Scanner.summary()
+	local counts = {}
+	for _, entry in ipairs(Scanner.build("all")) do
+		for i = 2, #Scanner.categories do
+			local category = Scanner.categories[i]
+			if categoryMatches(category, entry.category) then
+				counts[category] = (counts[category] or 0) + 1
+				break
+			end
+		end
+	end
+	local parts = {}
+	for i = 2, #Scanner.categories do
+		local category = Scanner.categories[i]
+		if counts[category] then
+			parts[#parts + 1] = Strings.get("scan.count", { count = counts[category], category = Strings.get("scan.cat." .. category) })
+		end
+	end
+	return parts[1] and table.concat(parts, ", ") or nil
 end
 
 --- Re-reads a live entry: entities may have moved or died.
