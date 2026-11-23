@@ -161,6 +161,14 @@ function Cues.onBeat()
 	if Config.get("cueEnemies") then
 		enemyCues(px, py)
 	end
+	-- Lit bombs sound the urgent cue from where they are until they explode.
+	local radius = Config.get("cueRadius") or 4
+	for e in Entities.entitiesWithComponents({ "explosive", "position" }) do
+		local dx, dy = e.position.x - px, e.position.y - py
+		if math.abs(dx) + math.abs(dy) <= radius and World.isVisible(e) then
+			Cues.play("danger", dx, dy, 1)
+		end
+	end
 	if Config.get("cueItems") then
 		itemCues(px, py)
 	end

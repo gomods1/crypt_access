@@ -34,8 +34,8 @@ for i, s in ipairs(steps) do
 	if i > (MAXSTEPS or 6) then break end
 	local dx, dy = s.x - px, s.y - py
 	local k = dx > 0 and "right" or dx < 0 and "left" or dy > 0 and "down" or "up"
-	keys[#keys + 1] = k keys[#keys + 1] = "wait" keys[#keys + 1] = "wait"
-	if s.dig then for _ = 1, 3 do keys[#keys + 1] = k keys[#keys + 1] = "wait" keys[#keys + 1] = "wait" end end
+	keys[#keys + 1] = (BEAT and "beat:" or "") .. k keys[#keys + 1] = "wait"
+	if s.dig then for _ = 1, 3 do keys[#keys + 1] = (BEAT and "beat:" or "") .. k keys[#keys + 1] = "wait" keys[#keys + 1] = "wait" end end
 	px, py = s.x, s.y
 end
 key(unpack(keys))

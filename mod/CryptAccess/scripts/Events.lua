@@ -32,6 +32,10 @@ end
 
 local function attackerName(ev)
 	local attacker = ev.attacker
+	-- Self-inflicted damage (Nocturna changing form, Tempo's curse on herself) has no "who".
+	if type(attacker) == "table" and ev.entity and attacker.id == ev.entity.id then
+		return nil
+	end
 	if type(attacker) == "table" and attacker.name then
 		return World.name(attacker)
 	end
@@ -71,6 +75,12 @@ end)
 
 -- The player's death is spoken with the run summary prompt (ScreenText), which names the killer.
 
+event.itemConsume.add("cryptAccessItemUse", { order = "sound", sequence = 50 }, function(ev)
+	if ev.holder and isLocalPlayer(ev.holder) and ev.item then
+		say(Strings.get("event.used", { name = World.name(ev.item), health = HUD.healthText(ev.holder) }))
+	end
+end)
+
 event.objectCurrency.add("cryptAccessCurrency", { order = "statistics", sequence = 50 }, function(ev)
 	if not isLocalPlayer(ev.entity) or type(ev.difference) ~= "number" or ev.difference == 0 then
 		return
@@ -83,6 +93,8 @@ event.objectCurrency.add("cryptAccessCurrency", { order = "statistics", sequence
 end)
 
 local lastCharacter = false
+local seenExplosives = {}
+local lastWeaponID = false
 local modeStates = {}
 
 local exitWasUnlocked = true
@@ -105,6 +117,41 @@ event.tick.add("cryptAccessEventsPoll", { order = "hud", sequence = 50 }, functi
 		levelAnnounced = true
 		say(HUD.levelText())
 	end
+	-- A thrown (or dropped) weapon: say where it landed, so it can be picked up again.
+	local me = World.player()
+	if me and me.inventory then
+		local okW, weapons = pcall(function()
+			return require("necro.game.item.Inventory").getItemsInSlot(me, "weapon")
+		end)
+		local current = okW and type(weapons) == "table" and weapons[1] or false
+		if type(current) == "table" then
+			current = current.id
+		end
+		if lastWeaponID and not current then
+			local okE2, Ents2 = pcall(require, "system.game.Entities")
+			local item = okE2 and Ents2.getEntityByID(lastWeaponID)
+			local px, py = World.playerPosition()
+			if item and item.position and px and not (item.item and item.item.holder and item.item.holder ~= 0) then
+				say(Strings.get("event.weaponLanded", {
+					name = World.name(item),
+					where = World.direction(item.position.x - px, item.position.y - py),
+				}))
+			end
+		end
+		lastWeaponID = current or false
+	end
+	-- Lit bombs: say where they are and in how many beats they explode, once each.
+	local okEnt, Ents = pcall(require, "system.game.Entities")
+	if okEnt then
+		local px, py = World.playerPosition()
+		for e in Ents.entitiesWithComponents({ "explosive", "position" }) do
+			if not seenExplosives[e.id] and px and World.isVisible(e) then
+				seenExplosives[e.id] = true
+				local beats = (e.beatDelay and e.beatDelay.counter or 2) + 1
+				say(Strings.get("event.bomb", { where = World.direction(e.position.x - px, e.position.y - py), n = beats }), true)
+			end
+		end
+	end
 	-- Extra-mode altars in the lobby: say the mode and its new state when it is toggled.
 	local okModes, Entities = pcall(require, "system.game.Entities")
 	if okModes then
@@ -118,11 +165,13 @@ event.tick.add("cryptAccessEventsPoll", { order = "hud", sequence = 50 }, functi
 		end
 	end
 	local player = World.player()
-	if player and player.name ~= lastCharacter then
+	-- Compare display names: Nocturna turning into a bat changes the entity type, not the character.
+	local characterName = player and World.name(player)
+	if characterName and characterName ~= lastCharacter then
 		if lastCharacter and not World.inEditor() then
-			say(Strings.get("event.character", { name = World.name(player) }))
+			say(Strings.get("event.character", { name = characterName }))
 		end
-		lastCharacter = player.name
+		lastCharacter = characterName
 	end
 	local ok, unlocked = pcall(LevelExit.isUnlocked)
 	-- The game announces the unlock with its own flyaway ("Exit stairs unlocked!"), spoken by ScreenText.

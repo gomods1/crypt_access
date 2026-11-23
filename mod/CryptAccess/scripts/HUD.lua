@@ -166,8 +166,11 @@ end
 function HUD.levelText()
 	local parts = {}
 	local ok, lobby = pcall(CurrentLevel.isLobby)
+	local okName, levelName = pcall(CurrentLevel.getName)
 	if ok and lobby then
 		parts[#parts + 1] = Strings.get("hud.lobby")
+	elseif okName and type(levelName) == "string" and levelName:lower():find("tutorial") then
+		parts[#parts + 1] = Strings.get("hud.tutorial")
 	else
 		local okD, depth = pcall(CurrentLevel.getDepth)
 		local okF, floor = pcall(CurrentLevel.getFloor)

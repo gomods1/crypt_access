@@ -123,6 +123,10 @@ function World.category(entity)
 		end
 		return "player"
 	end
+	-- Lit bombs (and other explosives) are dangers, listed with the traps.
+	if entity.explosive then
+		return "trap"
+	end
 	if entity.shopkeeper then
 		return "npc"
 	end
@@ -277,6 +281,19 @@ function World.describeTile(x, y)
 		end
 	end
 	return kind, table.concat(parts, ", "), info
+end
+
+--- True when the tile is a wall the player's shovel can break.
+function World.isDiggable(x, y)
+	local ok, info = pcall(Tile.getInfo, x, y)
+	if not ok or type(info) ~= "table" or not info.isWall or info.isLocked then
+		return false
+	end
+	local r = info.digResistance
+	if r == nil or r == false or hasBit(info.collision, Collision.Type.BORDER) then
+		return false
+	end
+	return r <= World.digStrength()
 end
 
 --- True when the tile blocks walking (walls, level border, closed locked doors).

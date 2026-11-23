@@ -160,6 +160,28 @@ end
 
 local held = {}
 
+-- Input.getRawKeyID invents an id for a name the engine has not seen yet (its lookup is filled lazily
+-- from native key events), and the game ignores invented ids. Find the real id by asking the engine to
+-- name each native key code instead.
+local keyIDs = {}
+
+local function resolveKey(input, name)
+	if keyIDs[name] then
+		return keyIDs[name]
+	end
+	local ranges = { { 1, 300 }, { 1073741881, 1073742110 } }
+	for _, range in ipairs(ranges) do
+		for id = range[1], range[2] do
+			local ok, keyName = pcall(input.lookUpRawKey, id)
+			if ok and keyName == name then
+				keyIDs[name] = id
+				return id
+			end
+		end
+	end
+	return input.getRawKeyID(name)
+end
+
 local function pumpKeys(input)
 	-- Release keys pressed a few frames ago.
 	for i = #held, 1, -1 do
@@ -169,7 +191,7 @@ local function pumpKeys(input)
 			if h.forced then
 				rawRequire("CryptAccess.Keys").setForcedModifiers(false)
 			end
-			local id = h.name ~= "wait" and input.getRawKeyID(h.name)
+			local id = h.name ~= "wait" and resolveKey(input, h.name)
 			if id then
 				input.appendKeyEvents({ -id, Timer.getGlobalTime() })
 			end
@@ -213,12 +235,12 @@ local function pumpKeys(input)
 		-- Simultaneous presses (the game's two-key combinations), e.g. "up&down".
 		local now = Timer.getGlobalTime()
 		for part in name:gmatch("[^&]+") do
-			local id = input.getRawKeyID(part)
+			local id = resolveKey(input, part)
 			input.appendKeyEvents({ id, now })
 			held[#held + 1] = { name = part, frames = 3 }
 		end
 	elseif name ~= "wait" then
-		local id = input.getRawKeyID(name)
+		local id = resolveKey(input, name)
 		if id then
 			input.appendKeyEvents({ id, Timer.getGlobalTime() })
 			held[#held + 1] = { name = name, frames = 3, forced = modsPart ~= nil }

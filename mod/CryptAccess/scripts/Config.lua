@@ -59,6 +59,12 @@ autoFreeze = Settings.user.bool({
 	default = false,
 })
 
+tutorialHints = Settings.user.bool({
+	id = "tutorial.hints",
+	name = name("tutorialHints"),
+	default = true,
+})
+
 --- Current values (read live each time; the game updates the globals when a setting changes).
 function Config.get(key)
 	if key == "cueEnemies" then
@@ -79,6 +85,8 @@ function Config.get(key)
 		return speakPositions
 	elseif key == "autoFreeze" then
 		return autoFreeze
+	elseif key == "tutorialHints" then
+		return tutorialHints
 	end
 end
 

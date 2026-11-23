@@ -34,7 +34,7 @@ local function collectTraps()
 			if category == "trap" then
 				trapTiles[key] = true
 			elseif category == "npc" or category == "shrine" or category == "container"
-				or (category == "item" and e.sale) then
+				or (category == "item" and e.sale and e.sale.priceTag and e.sale.priceTag ~= 0) then
 				blockedTiles[key] = true
 			end
 		end
@@ -202,7 +202,8 @@ end
 
 --- A known, walkable tile next to an unknown one: the edge of the explored map.
 local function isFrontier(x, y)
-	if World.isBlocking(x, y) then
+	-- A wall the player can dig through also leads somewhere new (the tutorial's dirt wall).
+	if World.isBlocking(x, y) and not World.isDiggable(x, y) then
 		return false
 	end
 	for _, dir in ipairs(DIRS) do
