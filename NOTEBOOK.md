@@ -57,6 +57,8 @@
 
 ## Proven facts
 
+- Saved runs keep the mod list they were played with (session resource Netplay.Resource.MOD_LIST, per room). Restoring a run saved with an older Crypt Access made the game unload every mod and open "Faltan mods: CryptAccess v0.4.0 -> v0.3.3" in silence (2026-11-24, shots/release_hang_s.png). Fix (v0.4.1): ModList.lua adds `event.serverSessionLoad` at order "versionMigration", sequence 10 (after the game's own ServerVersionMigration.lua) and rewrites our entry to the installed version (Package.modVersion, package=false) with ServerResources.load(..., "migrated", list). Proven 2026-11-24: run saved on 0.4.0, mod bumped to 0.4.1, relaunch: log "saved run asks for CryptAccess 0.4.0, migrating to 0.4.1", run restored to the pause menu with speech, continued in 1-1, no unmount.
+
 - Rooms on generated floors (2026-11-24, dev console dumps of 1-1 and 1-2): `PlacementUtils.getRoomAt(x, y)` returns the room record {x, y, width, height, type, shape} from the level's `rooms` (ProceduralLevel.lua convertRoom, RoomType STANDARD SHOP SECRET_SHOP SPAWN SECRET BOSS VAULT EXIT; EXIT = the room with the stairs). The rectangle is the room's inner floor. The starting room is NOT in the list; Rooms.lua treats the 5x5 square around (0, 0) as the starting room (HYPOTHESIS, fits both dumps). Each door sat in exactly one room's wall with a corridor outside; 1-1's shop had a gap instead of a door, 1-2's shop had a door. Non-procedural floors (lobby, bosses, tutorial) have no room data: no names.
 - Wooden doors become floor when opened (Dig.lua getTargetTileType: no digType gives the tile's floor); metal doors become MetalDoorOpen.
 - Walking into a solid tile drops the coin multiplier (GrooveChain.lua updateGrooveChain: Result.FAIL into a SOLID collision fires Type.FAIL).
@@ -157,7 +159,6 @@
 
 ## Open questions
 
-- Saved run from an older mod version (seen 2026-11-24, screenshot shots/release_hang_s.png): after bumping to 0.4.0, the game restored a run saved with 0.3.3 ("Restoring session from file 'autoSave.necrosave'"), unmounted every mod including Crypt Access, and showed "Faltan mods: CryptAccess v0.4.0 -> v0.3.3" with no speech. The window was also minimized, so it looked hung. Escape left it for the lobby with the mod still unloaded; a restart loaded the mod and the save was gone. Players who update with a saved run will hit this silently. Not fixed yet.
 
 - Unspoken on-screen text, still untested (code written 2026-11-24, needs an online session or a mode): session lobby status and other players' mod state (CharSelectReader.lua), missing-mods list rows and mod download overlay (Overlays.lua, MenuReader watchChoices), win streak and Deathless win count on L, Tempo's "curse reset" after a kill, the run seed on the summary in a seeded mode.
 - Online multiplayer: hosting an IP session unmounts Crypt Access, because `networkMods` drops unpackaged mods online unless the advanced setting `mod.system.allowUnpackagedNetworkMods` ("Modo de desarrollo de mods de red", visible since config.multiplayer and config.modPermissive are true) is on (base/necro/mod/NetworkMods.lua 36-40, 82-125; proven by log 2026-11-23). Turning that setting on from the dev console was refused by the permission classifier. The lasting route is a packaged mod (the game sends packaged mods to every player); with that in mind the mod now stays silent and passes every key through when Native.available is false. Decision (user, 2026-11-23): document only; online play is explained in the README, no packaged release for now. Packaged route tested locally: `Mods.compile("CryptAccess")` (engineModule necro.mod.Mods) writes %LOCALAPPDATA%\NecroDancer\mods\CryptAccess-0.1.0.necromod (it packs everything in the folder, including the speech log and dev\, so exclude those before any real package); after a restart, `Mods.unload` + `Mods.load("CryptAccess", true)` + `Mods.applyChanges()` mounts it ("Mounting packed mod") and it works. Hosting a session to test it online was refused by the permission classifier; the package was deleted and the unpacked copy restored. The user then declined an online test session (2026-11-23): online multiplayer stays untested by decision.
@@ -175,6 +176,8 @@
 - `tools/SendKeys.ps1 -Keys UP,ESC` sends real OS keys (steals focus; prefer `key()`).
 
 ## Test log
+
+- 2026-11-24 (Claude): saved-run migration: 1-1 run saved on 0.4.0, version bumped to 0.4.1, relaunch restored it with the mod loaded and speaking ("Juego en pausa. Continuar partida"), run continued.
 
 - 2026-11-24 (Claude): release v0.4.0 published with tools/release.ps1: package 71 files, zip 92 entries, installer sandbox install/uninstall ok from the local zip and from GitHub (86 files, version 0.4.0). https://github.com/gomods1/crypt_access/releases/tag/v0.4.0. The first attempt stopped: a saved run recorded with 0.3.3 opened the "Faltan mods" screen (see Open questions).
 

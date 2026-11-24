@@ -72,6 +72,45 @@ function ModList.ensureRegistered()
 	return true
 end
 
+-- A saved run keeps the mod list it was played with. Restoring a run saved with an older Crypt Access asks
+-- for that old version, so the game unloads every mod and opens "Missing mods" (NetworkModList), where the
+-- mod can no longer speak (seen 2026-11-24 after 0.3.3 -> 0.4.0). The game migrates its own bundled mods
+-- the same way (necro/server/ServerVersionMigration.lua, order "versionMigration"); this does it for us,
+-- right after, while the mod is still loaded: the restore runs at startup, after the preload.
+local function migrateSavedRuns()
+	local installed = require("CryptAccess.Package").modVersion()
+	if not installed then
+		return
+	end
+	local Netplay = require("necro.network.Netplay")
+	local ServerResources = require("necro.server.ServerResources")
+	local ServerRooms = require("necro.server.ServerRooms")
+	for _, roomID in ipairs(ServerRooms.listRooms()) do
+		local modList = ServerResources.getResourceData(roomID, Netplay.Resource.MOD_LIST)
+		if type(modList) == "table" then
+			local copy, changed = {}, false
+			for i, entry in ipairs(modList) do
+				if type(entry) == "table" and entry.name == MOD_NAME and entry.version ~= installed then
+					log.info("ModList: saved run asks for %s %s, migrating to %s", MOD_NAME, tostring(entry.version), installed)
+					entry = { name = entry.name, version = installed, package = false }
+					changed = true
+				end
+				copy[i] = entry
+			end
+			if changed then
+				ServerResources.load(roomID, Netplay.Resource.MOD_LIST, "migrated", copy)
+			end
+		end
+	end
+end
+
+event.serverSessionLoad.add("cryptAccessMigrateModList", { order = "versionMigration", sequence = 10 }, function()
+	local ok, err = pcall(migrateSavedRuns)
+	if not ok then
+		log.warn("ModList: saved run migration failed: %s", tostring(err))
+	end
+end)
+
 -- At preload necro.mod.Mods is not loaded yet ("unloaded script"), so the load-time call fails and only a
 -- saved entry kept the mod loaded. event.startup is protected (necro/event/Event.lua), but the first tick
 -- runs in the same frame right after startup, and the frame runs "tick" before "modLoader", whose
