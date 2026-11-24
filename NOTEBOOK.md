@@ -177,6 +177,8 @@
 
 ## Test log
 
+- 2026-11-24 (user ran tools/release.ps1): release v0.4.1 published (saved-run migration fix): package 71 files, zip 92 entries, installer sandbox install/uninstall ok from the local zip and from GitHub (86 files, version 0.4.1). https://github.com/gomods1/crypt_access/releases/tag/v0.4.1. Running release.ps1 from Claude was refused by the auto-mode permission classifier; the user ran it with `! pwsh -NoProfile -File tools/release.ps1 -NotesFile ...` (the `!` prefix runs bash: use forward slashes and a short notes path such as dist/notes-<version>.md, which git ignores).
+
 - 2026-11-24 (Claude): saved-run migration: 1-1 run saved on 0.4.0, version bumped to 0.4.1, relaunch restored it with the mod loaded and speaking ("Juego en pausa. Continuar partida"), run continued.
 
 - 2026-11-24 (Claude): release v0.4.0 published with tools/release.ps1: package 71 files, zip 92 entries, installer sandbox install/uninstall ok from the local zip and from GitHub (86 files, version 0.4.0). https://github.com/gomods1/crypt_access/releases/tag/v0.4.0. The first attempt stopped: a saved run recorded with 0.3.3 opened the "Faltan mods" screen (see Open questions).
