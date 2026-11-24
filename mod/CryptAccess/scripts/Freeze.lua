@@ -17,7 +17,13 @@ local Freeze = {}
 
 local frozenByMod = false
 local frozenAt = 0
+local toggledAt = -10
 local Timer = require("system.utils.Timer")
+
+--- True for a moment after Space froze or unfroze the game (Status skips the game's own countdown text then).
+function Freeze.recentlyToggled()
+	return Timer.getGlobalTime() - toggledAt < 1.5
+end
 
 local function isPaused()
 	local ok, paused = pcall(GameState.isPaused)
@@ -34,6 +40,7 @@ function Freeze.toggle()
 		local ok, sent = pcall(StateControl.unpauseBeats)
 		if ok and sent ~= false then
 			frozenByMod = false
+			toggledAt = Timer.getGlobalTime()
 			Cues.playCentered("unfreeze", 0.8)
 			Speech.say(Strings.get("freeze.off"), true)
 		else

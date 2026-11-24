@@ -55,6 +55,17 @@
 
 ## Proven facts
 
+- On-screen text coverage (2026-11-24, all proven in game by speech log unless listed as untested in Open questions):
+  - Item slot labels: Status.lua hooks `event.inventoryHUDRenderSlot` at `{order="labels", sequence=-1}` (InventoryHUD.lua order list) and keeps every label except the key binding (wordWrap + relativeMaxWidth), the stack count and the slot's default name. One item can fill two slots (rifle: weapon slot with ammo, throw slot "Reload!", Weapon.lua holderGetActionItem), so captures are keyed by item and slot. Spoken: a label appearing ("Hechizo de bola de fuego: 3 muertes o 1/2 corazón"), ammo changes ("Fusil: 1"), and "X listo" when it clears; the I key adds the labels ("Fusil (1, Reload!)").
+  - Tempo's countdown numbers (10, then 5 to 0) were already spoken: Tempo has damageCountdownFlyaways and ScreenText reads flyaways. H adds "Maldición: N pulsos para matar algo".
+  - Heart transplant: `rhythmIgnoredTemporarily` (active, endTime vs Music.getRawTime) gives "Ritmo ignorado durante N segundos" and "Vuelve el ritmo"; also on H.
+  - Secret shopkeepers: `secretShopLabel.text` formatted with PriceTag.getEffectiveCost, in the scanner line and details ("¿Quieres vender uno de tus objetos?", Pawnbroker spawned for the test).
+  - Countdown reason: `event.gameStateBeginCountdown` (order "overlay") with ev.text or Countdown.Type.data[ev.type].text and ev.beats: "Reanudando en 4 pulsos" after the pause menu; skipped right after our own Space unfreeze.
+  - MenuReader: a line changed within 0.5 s is retried instead of lost (settings description after 5 quick Down presses); 2 to 6 lines changing at once are spoken as one block (Weekly Challenge mode change), more stay buffer-only; `special.allInfo` reads every info line on open (weeklyChallenge, networkModList); `special.ownMessages` stops the block (latencyCalibration speaks its own result); `special.watchChoices` speaks unselected rows that change (networkModList).
+  - Replay: "Modo repetición" with the replay keys, speed changes ("Velocidad de la repetición 113 por ciento"), loading percent in 25% steps.
+  - 1-1 intro text: captured from `event.getIntroText` (order "modsEnabled", sequence 50) and spoken when play starts (only in modes with introText; quick restart from the tutorial has none).
+  - L adds the speedrun timer ("Tiempo: 0:00.01", when mode.timerHUD and TimerHUD's timerVisible), win streak or Deathless win count. Lobby pause menu: mod updates on open, game version in details (system.game.Session is outside the whitelist: Native.engineModule).
+  - Floor stacks: World.name adds the count for floor items with itemStackQuantityLabelWorld.
 - The mod sandbox can only `require` names matching `wos.game.mods.scriptWhitelist` (blacklist `necro.mod.*`), read from `Necrodancer64\config.json`. Source: `game/src/base/system/mod/ModScriptProvider.lua`.
 - `core.StandardLibrary` returns `package`, `io`, `os`, `debug`, `jit`, raw `require`, `loadstring` and similar, but no `ffi`. The engine never registers ffi (`package.preload.ffi` is nil). Proven by the log, 2026-11-23.
 - `package.loadlib("lua51.dll", "luaopen_ffi")` opens ffi. The mod caches it in `package.loaded.ffi` (it must be opened only once per Lua state). Proven: log line "ffi opened from lua51.dll", 2026-11-23.
@@ -122,6 +133,8 @@
 
 ## Pitfalls
 
+- Editing Lua through a bash heredoc + Python turns a written backslash-n escape into a real line break, which breaks the Lua string (twice on 2026-11-24). Use the Edit tool for lines with escapes.
+- Locals of a mod script must be declared above the handlers that use them; a later `local` is a global lookup inside the handler and errors every frame.
 - A fresh save needs more than deleting saves: tutorial.pending, latency.calibration.pending, intro.seenVersion and seizureWarningDismissed live in SynchronyOptions.lua and the game copies them back into SynchronyUser_*.lua, so the first "clean" launch went straight to the lobby (proven 2026-11-23: removing those keys gave the seizure warning on the next launch). Decision (user, 2026-11-23): `tools/reset_save.ps1` wipes everything instead of single flags: all of %APPDATA%\NecroDancer and all of %LOCALAPPDATA%\NecroDancer except `mods` and `overlays`, backed up to %TEMP%\CryptAccessSaveBackup\<time>\Roaming and \Local. Tested on a fake folder only. HYPOTHESIS: the game's cloud sync (braincloud folder, settings with cloud = INIT) may bring some settings back; check after the first real full reset.
 - The saved mod-list entry can say `package=true` (left over from package tests): the game then swaps the unpacked folder for the .necromod at startup ("Mounting packed mod CryptAccess"), the dev console is gone (dev\ is not packed) and script edits do nothing. A version bump fixes it (ModList rewrites the entry with package=false).
 
@@ -138,6 +151,7 @@
 
 ## Open questions
 
+- Unspoken on-screen text, still untested (code written 2026-11-24, needs an online session or a mode): session lobby status and other players' mod state (CharSelectReader.lua), missing-mods list rows and mod download overlay (Overlays.lua, MenuReader watchChoices), win streak and Deathless win count on L, Tempo's "curse reset" after a kill, the run seed on the summary in a seeded mode.
 - Online multiplayer: hosting an IP session unmounts Crypt Access, because `networkMods` drops unpackaged mods online unless the advanced setting `mod.system.allowUnpackagedNetworkMods` ("Modo de desarrollo de mods de red", visible since config.multiplayer and config.modPermissive are true) is on (base/necro/mod/NetworkMods.lua 36-40, 82-125; proven by log 2026-11-23). Turning that setting on from the dev console was refused by the permission classifier. The lasting route is a packaged mod (the game sends packaged mods to every player); with that in mind the mod now stays silent and passes every key through when Native.available is false. Decision (user, 2026-11-23): document only; online play is explained in the README, no packaged release for now. Packaged route tested locally: `Mods.compile("CryptAccess")` (engineModule necro.mod.Mods) writes %LOCALAPPDATA%\NecroDancer\mods\CryptAccess-0.1.0.necromod (it packs everything in the folder, including the speech log and dev\, so exclude those before any real package); after a restart, `Mods.unload` + `Mods.load("CryptAccess", true)` + `Mods.applyChanges()` mounts it ("Mounting packed mod") and it works. Hosting a session to test it online was refused by the permission classifier; the package was deleted and the unpacked copy restored. The user then declined an online test session (2026-11-23): online multiplayer stays untested by decision.
 - The user's ear test of the cue design is still to come.
 - Picture descriptions (session 3): the translations were made by agents from the game's own name lists and have not been read by native speakers. Not yet seen in a test: grab, charge, wake-up, parry, breath spells and explosions narration, and the character grid portrait line. The user's own listening test of the descriptions is still to come.
@@ -154,6 +168,7 @@
 
 ## Test log
 
+- 2026-11-24 (Claude): on-screen text fixes tested by dev console and speech log: spell cooldown and ready, rifle ammo and Reload!, heart transplant, Pawnbroker offer, pause-menu countdown reason, settings description throttle, Weekly Challenge open and mode change, lobby pause version, replay mode and speed, 1-1 intro text, Tempo (curse on H; found the countdown was already spoken, removed the duplicate), timer on L. Not heard by the user yet.
 - 2026-11-24 (Claude): release v0.3.2 published with tools/release.ps1 (first full run of the script): package CryptAccess-0.3.2.necromod 67 files, zip 88 entries, installer sandbox install/uninstall ok from the local zip and from GitHub (82 files, version 0.3.2, config patched and restored). https://github.com/gomods1/crypt_access/releases/tag/v0.3.2
 - 2026-11-24 (Claude): calibration end announces the audio latency (both paths, simulated finish); latency.audio reset to 0.
 - 2026-11-24 (Claude): mod-list fix proven with all saved entries removed (see Proven facts); user confirmed hearing the mod. Unfreeze: no cues on the rewind or the count-in, cues back on the target beat (trace and speech log). Not yet heard by the user.

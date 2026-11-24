@@ -22,6 +22,7 @@ local ReviewCursor = require("CryptAccess.ReviewCursor")
 local Speech = require("CryptAccess.Speech")
 local Strings = require("CryptAccess.Strings")
 local World = require("CryptAccess.World")
+local Status = require("CryptAccess.Status")
 
 local HUD = {}
 
@@ -58,7 +59,11 @@ function HUD.healthText(entity)
 end
 
 function HUD.health()
-	Speech.say(HUD.healthText(), true)
+	local lines = { HUD.healthText() }
+	for _, line in ipairs(Status.healthExtras()) do
+		lines[#lines + 1] = line
+	end
+	Speech.say(table.concat(lines, ". "), true)
 end
 
 function HUD.currencyText()
@@ -89,6 +94,11 @@ local function itemName(item)
 	if item.itemStack and (item.itemStack.quantity or 1) > 1 and (item.itemStack.quantity or 1) < 100000 then
 		name = Strings.get("hud.stack", { name = name, count = item.itemStack.quantity })
 	end
+	-- What the game shows on the slot: spell cooldown, ammo, kill counter, combo (Status.lua).
+	local label = Status.slotLabel(item.id)
+	if label then
+		name = name .. " (" .. label .. ")"
+	end
 	return name
 end
 
@@ -99,11 +109,13 @@ function HUD.inventoryLines()
 	if not p then
 		return lines
 	end
+	local known = {}
 	for _, slot in ipairs(SLOTS) do
 		local ok, items = pcall(Inventory.getItemsInSlot, p, slot)
 		if ok and type(items) == "table" and #items > 0 then
 			local names = {}
 			for _, item in ipairs(items) do
+				known[type(item) == "number" and item or (type(item) == "table" and item.id) or 0] = true
 				local name = itemName(item)
 				if name then
 					names[#names + 1] = name
@@ -113,6 +125,9 @@ function HUD.inventoryLines()
 				lines[#lines + 1] = Strings.get("slot." .. slot) .. ": " .. Strings.join(names)
 			end
 		end
+	end
+	for _, line in ipairs(Status.otherSlotLines(known)) do
+		lines[#lines + 1] = line
 	end
 	return lines
 end
@@ -202,6 +217,15 @@ function HUD.levelText()
 		local okU, unlocked = pcall(LevelExit.isUnlocked)
 		if okU and not unlocked then
 			parts[#parts + 1] = Strings.get("hud.exitLocked")
+		end
+	end
+	-- Win streak, Deathless win count, speedrun timer (Overlays.lua).
+	local okExtra, extras = pcall(function()
+		return require("CryptAccess.Overlays").levelExtras()
+	end)
+	if okExtra and type(extras) == "table" then
+		for _, line in ipairs(extras) do
+			parts[#parts + 1] = line
 		end
 	end
 	return table.concat(parts, ". ")

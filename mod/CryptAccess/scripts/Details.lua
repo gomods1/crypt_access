@@ -86,8 +86,24 @@ function Details.facing(entity)
 	end
 end
 
+--- A secret shopkeeper's offer, as drawn over its head: "Transmogrify one of your items? Cost: 30 coins".
+-- TextLabelRenderer.lua renderSecretShopLabel: string.format(secretShopLabel.text, effective cost).
+function Details.secretShop(entity)
+	local label = entity.secretShopLabel
+	if not (label and label.visible and label.text) or (entity.provokable and entity.provokable.active) then
+		return nil
+	end
+	local okCost, cost = pcall(PriceTag.getEffectiveCost, World.player(), entity)
+	local okText, text = pcall(string.format, label.text, okCost and cost or 0)
+	if not okText then
+		text = label.text
+	end
+	return Text.clean((tostring(text):gsub("%s*\n%s*", " ")))
+end
+
 function Details.forEntity(entity)
 	local lines = {}
+	add(lines, Details.secretShop(entity))
 	add(lines, Details.health(entity))
 	-- Shopkeepers and caged or lobby people are enemies to the game, but their beat and facing mean nothing.
 	local person = entity.shopkeeper or entity.greetable or entity.interactable or entity.npcUnlockable

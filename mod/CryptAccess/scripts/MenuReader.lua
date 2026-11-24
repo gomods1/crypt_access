@@ -27,6 +27,9 @@ local last = {
 -- Per-menu extras: name -> { onOpen = function(menu) -> lines, hint = string key }.
 MenuReader.special = {}
 
+-- More info lines than this changing in one tick is a table being filled, not a message.
+local BULK_LINES = 6
+
 --- Hooks other scripts can set: called with the menu when it opens.
 MenuReader.listeners = {}
 
@@ -254,13 +257,14 @@ local function openingLines(currentMenu)
 	end
 	local first = firstChoiceIndex(currentMenu)
 	local selectableCount = #choices(currentMenu)
+	local special = MenuReader.special[tostring(currentMenu.name)]
 	for _, info in ipairs(infoLines(currentMenu)) do
-		-- Short menus (dialogs, calibration) are all message; long ones only their top area.
-		if info.index < first or selectableCount <= 3 then
+		-- Short menus (dialogs, calibration) are all message; long ones only their top area, unless a
+		-- special reader marks the menu's info as all worth hearing (allInfo).
+		if info.index < first or selectableCount <= 3 or (special and special.allInfo) then
 			lines[#lines + 1] = info.text
 		end
 	end
-	local special = MenuReader.special[tostring(currentMenu.name)]
 	if special and special.onOpen then
 		local ok, extra = pcall(special.onOpen, currentMenu)
 		if ok and type(extra) == "table" then
@@ -339,6 +343,10 @@ function MenuReader.update()
 		last.heading = headingFor(currentMenu, currentMenu.selection)
 		last.messages = snapshotMessages(currentMenu)
 		last.choices, last.choiceCount = choiceLabels(currentMenu)
+		last.watch, last.watchTimes = {}, {}
+		for _, i in ipairs(choices(currentMenu)) do
+			last.watch[i] = labelOf(currentMenu.entries[i])
+		end
 		local details = detailsFor(currentMenu, entry, label ~= "" and label or Text.sentences(lines))
 		-- Long menus: the lines not spoken on open (tables, notes) are one Ctrl+Up away.
 		if #choices(currentMenu) > 3 then
@@ -380,16 +388,40 @@ function MenuReader.update()
 			end
 		end
 		-- Many lines changing at once is content loading (a table), not a message: leave it to the buffer.
-		if changed > 2 then
+		-- A few lines changing together (a status block: calibration result, a rebuilt description) is
+		-- spoken as one message, unless a special reader says it speaks that menu's changes itself.
+		local special = MenuReader.special[tostring(currentMenu.name)]
+		if changed > BULK_LINES then
 			messages.__bulk = true
-		end
-		for index, text in pairs(messages) do
-			if not messages.__bulk and index ~= "__bulk" and last.messages[index] ~= text then
-				local lastTime = last.messageTimes[index] or -10
-				-- Ignore lines that change every frame (timers); speak at most twice a second per line.
-				if now - lastTime > 0.5 then
-					last.messageTimes[index] = now
-					Speech.say(text, false)
+		elseif changed > 1 and not (special and special.ownMessages) then
+			if now - (last.blockTime or -10) > 0.5 then
+				last.blockTime = now
+				local block = {}
+				for _, info in ipairs(infoLines(currentMenu)) do
+					if last.messages[info.index] ~= info.text then
+						block[#block + 1] = info.text
+						last.messageTimes[info.index] = now
+					end
+				end
+				Speech.say(Text.sentences(block), false)
+			else
+				-- Too soon after the last block (lines ticking every frame): retry when they settle.
+				for index in pairs(messages) do
+					messages[index] = last.messages[index]
+				end
+			end
+		elseif changed == 1 then
+			for index, text in pairs(messages) do
+				if last.messages[index] ~= text then
+					local lastTime = last.messageTimes[index] or -10
+					-- Lines that change every frame (timers): at most twice a second per line. A skipped
+					-- change keeps the old text as "last", so the line's final value is spoken once it settles.
+					if now - lastTime > 0.5 then
+						last.messageTimes[index] = now
+						Speech.say(text, false)
+					else
+						messages[index] = last.messages[index]
+					end
 				end
 			end
 		end
@@ -418,6 +450,27 @@ function MenuReader.update()
 		end
 		last.choices = labels
 		last.choiceCount = count
+		-- Menus whose unselected rows change by themselves (download percentages): say a row's new text,
+		-- at most every 2 seconds per row; a skipped change is retried, so the final value is heard.
+		local watchSpecial = MenuReader.special[tostring(currentMenu.name)]
+		if watchSpecial and watchSpecial.watchChoices then
+			last.watch = last.watch or {}
+			last.watchTimes = last.watchTimes or {}
+			for _, i in ipairs(choices(currentMenu)) do
+				if i ~= currentMenu.selection then
+					local text = labelOf(currentMenu.entries[i])
+					if last.watch[i] ~= nil and last.watch[i] ~= text and text ~= "" then
+						if now - (last.watchTimes[i] or -10) > 2 then
+							last.watchTimes[i] = now
+							last.watch[i] = text
+							Speech.say(text, false)
+						end
+					else
+						last.watch[i] = text
+					end
+				end
+			end
+		end
 	end
 
 	last.menuKey, last.entryKey, last.label = menuKey, entryKey, label
@@ -457,6 +510,10 @@ local function portraitOf(currentMenu)
 	local Describe = require("CryptAccess.Describe")
 	return Describe.forType(arg.entityName) or Describe.forImage(arg.image)
 end
+
+-- Weekly Challenge (necro/menu/game/WeeklyChallengeMenu.lua): the mode's author, description and required
+-- character sit between the mode dropdown and Start.
+MenuReader.special.weeklyChallenge = { allInfo = true }
 
 MenuReader.special.bestiary = {
 	details = function(currentMenu)

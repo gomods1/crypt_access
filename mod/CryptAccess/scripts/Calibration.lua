@@ -61,6 +61,8 @@ event.tick.add("cryptAccessCalibrationDone", { order = "menu", sequence = 20 }, 
 end)
 
 MenuReader.special.latencyCalibration = {
+	-- The result block is said by the tick handler above, in the player's language.
+	ownMessages = true,
 	onOpen = function()
 		return { Strings.get("calibration.visualSkipped") }
 	end,

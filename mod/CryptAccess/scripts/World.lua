@@ -85,6 +85,14 @@ local baseName
 --- Display name of an entity. Other players are "player name, character" (online and local co-op).
 function World.name(entity)
 	local name = baseName(entity)
+	-- Stacks lying on the floor show their count (TextLabelRenderer.lua renderItemStackSizes).
+	local stack = entity and entity.itemStack
+	local label = entity and entity.itemStackQuantityLabelWorld
+	if stack and label and name ~= "" and entity.item and (entity.item.holder or 0) == 0
+		and (stack.quantity or 0) >= (label.minimumQuantity or 0) and (stack.quantity or 0) > 1
+		and (stack.quantity or 0) < 100000 then
+		name = Strings.get("hud.stack", { name = name, count = stack.quantity })
+	end
 	if entity and entity.controllable and entity.controllable.playerID ~= 0 and name ~= "" and not World.isPlayer(entity) then
 		local ok, playerName = pcall(function()
 			return require("necro.client.PlayerList").getName(entity.controllable.playerID)

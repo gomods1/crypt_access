@@ -91,6 +91,13 @@ function Scanner.build(categoryOverride)
 					suffix = ", " .. price
 				end
 			end
+			-- Secret shopkeepers: their offer and cost is the only explanation of what they do.
+			if e.secretShopLabel then
+				local okShop, offer = pcall(Details.secretShop, e)
+				if okShop and offer and offer ~= "" then
+					suffix = (suffix or "") .. ", " .. offer
+				end
+			end
 			if name ~= "" then
 				name = name .. (suffix or "")
 				list[#list + 1] = {
