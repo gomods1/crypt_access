@@ -39,6 +39,8 @@ return {
 
 	["calibration.visualSkipped"] = "Crypt Access ha saltato il passo visivo; regola solo il ritardo dell'immagine. Esc salta la calibrazione.",
 	["calibration.audioHint"] = "Premi freccia giù ogni volta che senti il tic.",
+	["calibration.doneFirst"] = "Calibrazione completata. Latenza audio: {ms} millisecondi. Premi Giù per continuare ({count}), o Esc per cambiarla nelle impostazioni di latenza.",
+	["calibration.done"] = "Calibrazione completata. Latenza audio: {ms} millisecondi. Premi Invio per continuare.",
 	["help.calibration.1"] = "Calibrazione latenza. Crypt Access salta il passo visivo, che regola solo il ritardo dell'immagine.",
 	["help.calibration.2"] = "Secondo passo: premi freccia giù ogni volta che senti il tic.",
 	["help.calibration.3"] = "Esc salta la calibrazione; puoi calibrare più tardi nelle opzioni.",

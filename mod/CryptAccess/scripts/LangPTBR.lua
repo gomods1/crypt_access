@@ -39,6 +39,8 @@ return {
 
 	["calibration.visualSkipped"] = "O Crypt Access pulou a etapa visual; ela só ajusta o atraso da imagem. Esc pula a calibragem.",
 	["calibration.audioHint"] = "Aperte seta para baixo sempre que ouvir o tique.",
+	["calibration.doneFirst"] = "Calibração concluída. Latência de áudio: {ms} milissegundos. Pressione Baixo para continuar ({count}), ou Esc para alterá-la nas configurações de latência.",
+	["calibration.done"] = "Calibração concluída. Latência de áudio: {ms} milissegundos. Pressione Enter para continuar.",
 	["help.calibration.1"] = "Calibragem de latência. O Crypt Access pula a etapa visual, que só ajusta o atraso da imagem.",
 	["help.calibration.2"] = "Segunda etapa: aperte seta para baixo sempre que ouvir o som de tique.",
 	["help.calibration.3"] = "Esc pula a calibragem; você pode calibrar depois nas opções.",

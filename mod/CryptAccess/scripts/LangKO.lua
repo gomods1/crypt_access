@@ -39,6 +39,8 @@ return {
 
 	["calibration.visualSkipped"] = "Crypt Access가 시각 단계를 건너뛰었습니다. 이 단계는 화면 지연만 조정합니다. Esc를 누르면 조정을 건너뜁니다.",
 	["calibration.audioHint"] = "틱 소리가 들릴 때마다 아래쪽 화살표를 누르세요.",
+	["calibration.doneFirst"] = "보정 완료. 오디오 지연: {ms}밀리초. 아래 키로 계속 ({count}), Escape로 지연 설정에서 바꿀 수 있습니다.",
+	["calibration.done"] = "보정 완료. 오디오 지연: {ms}밀리초. Enter로 계속합니다.",
 	["help.calibration.1"] = "지연 시간 조정. Crypt Access는 화면 지연만 조정하는 시각 단계를 건너뜁니다.",
 	["help.calibration.2"] = "2단계: 틱 소리가 들릴 때마다 아래쪽 화살표를 누르세요.",
 	["help.calibration.3"] = "Esc로 조정을 건너뜁니다. 나중에 옵션에서 조정할 수 있습니다.",

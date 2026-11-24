@@ -39,6 +39,8 @@ return {
 
 	["calibration.visualSkipped"] = "Crypt Access：画面を見るステップは省略しました。これは映像の遅延だけを調整します。Escキーで調整をスキップします。",
 	["calibration.audioHint"] = "チックという音が聞こえるたびに下キーを押してください。",
+	["calibration.doneFirst"] = "キャリブレーション完了。オーディオ遅延: {ms} ミリ秒。下キーで続行 ({count})、Escape で遅延設定から変更できます。",
+	["calibration.done"] = "キャリブレーション完了。オーディオ遅延: {ms} ミリ秒。Enter で続行します。",
 	["help.calibration.1"] = "レイテンシー調整。Crypt Access は画面を見るステップを省略します。これは映像の遅延だけを調整します。",
 	["help.calibration.2"] = "ステップ2：チックという音が聞こえるたびに下キーを押します。",
 	["help.calibration.3"] = "Escキーで調整をスキップします。あとでオプションから調整できます。",

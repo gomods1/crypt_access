@@ -39,6 +39,8 @@ return {
 
 	["calibration.visualSkipped"] = "Crypt Access a ignoré l'étape visuelle ; elle ne règle que le décalage de l'image. Échap ignore l'étalonnage.",
 	["calibration.audioHint"] = "Appuyez sur flèche bas chaque fois que vous entendez le tic.",
+	["calibration.doneFirst"] = "Calibrage terminé. Latence audio : {ms} millisecondes. Appuie sur Bas pour continuer ({count}), ou sur Échap pour la modifier dans les réglages de latence.",
+	["calibration.done"] = "Calibrage terminé. Latence audio : {ms} millisecondes. Appuie sur Entrée pour continuer.",
 	["help.calibration.1"] = "Étalonnage de latence. Crypt Access ignore l'étape visuelle, qui ne règle que le décalage de l'image.",
 	["help.calibration.2"] = "Deuxième étape : appuyez sur flèche bas chaque fois que vous entendez le tic.",
 	["help.calibration.3"] = "Échap ignore l'étalonnage ; vous pourrez l'effectuer plus tard dans les options.",

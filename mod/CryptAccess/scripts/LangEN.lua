@@ -39,6 +39,8 @@ return {
 
 	["calibration.visualSkipped"] = "Crypt Access skipped the visual step; it only sets the picture delay. Escape skips calibration.",
 	["calibration.audioHint"] = "Press Down each time you hear the tick.",
+	["calibration.doneFirst"] = "Calibration complete. Audio latency: {ms} milliseconds. Press Down to continue ({count}), or Escape to change it in the latency settings.",
+	["calibration.done"] = "Calibration complete. Audio latency: {ms} milliseconds. Press Enter to continue.",
 	["help.calibration.1"] = "Latency calibration. Crypt Access skips the visual step, which only sets the picture delay.",
 	["help.calibration.2"] = "Step two: press Down every time you hear the tick sound.",
 	["help.calibration.3"] = "Escape skips calibration; you can calibrate later in the options.",

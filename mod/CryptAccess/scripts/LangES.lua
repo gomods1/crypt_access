@@ -39,6 +39,8 @@ return {
 
 	["calibration.visualSkipped"] = "Crypt Access ha omitido el paso visual; solo ajusta el retraso de la imagen. Escape omite la calibración.",
 	["calibration.audioHint"] = "Pulsa Abajo cada vez que oigas el tic.",
+	["calibration.doneFirst"] = "Calibración completada. Latencia de audio: {ms} milisegundos. Pulsa Abajo para continuar ({count}), o Escape para cambiarla en los ajustes de latencia.",
+	["calibration.done"] = "Calibración completada. Latencia de audio: {ms} milisegundos. Pulsa Intro para continuar.",
 	["help.calibration.1"] = "Calibración de latencia. Crypt Access omite el paso visual, que solo ajusta el retraso de la imagen.",
 	["help.calibration.2"] = "Segundo paso: pulsa Abajo cada vez que oigas el tic.",
 	["help.calibration.3"] = "Escape omite la calibración; puedes calibrar más tarde en las opciones.",

@@ -8,6 +8,7 @@
 
 local Audio = require("system.game.Audio")
 local Beatmap = require("necro.audio.Beatmap")
+local Countdown = require("necro.client.Countdown")
 local Entities = require("system.game.Entities")
 local GameState = require("necro.client.GameState")
 
@@ -230,8 +231,20 @@ event.tick.add("cryptAccessCues", { order = "sound", sequence = 50 }, function()
 	if okB and type(beat) == "number" then
 		beat = math.floor(beat)
 		if beat ~= lastBeat then
+			-- A beat number that goes back or skips is a jump in the song, not a beat: unfreezing rewinds the
+			-- song by the count-in (StateControl.unpauseBeats), landing mid-beat. Re-sync silently and play on
+			-- the next real beat. Measured: without this a full round of cues played ~140 ms early.
+			local jumped = lastBeat and (beat < lastBeat or beat > lastBeat + 1)
 			lastBeat = beat
-			Cues.onBeat()
+			-- The count-in beats ("ready, set, go": the game's UIUnpauseCount sounds, necro/client/Countdown.lua)
+			-- stay free of cues; they start again on the countdown's target beat, when play resumes.
+			local okC, target = pcall(function()
+				return Countdown.isBeatCountdownActive() and Countdown.getTargetBeat()
+			end)
+			local countingIn = okC and type(target) == "number" and beat < target
+			if not jumped and not countingIn then
+				Cues.onBeat()
+			end
 		end
 	end
 end)

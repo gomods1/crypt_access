@@ -72,7 +72,22 @@ function ModList.ensureRegistered()
 	return true
 end
 
--- Run at load time: the game's second loadMods happens in a later cycle and reads this list.
-ModList.ensureRegistered()
+-- At preload necro.mod.Mods is not loaded yet ("unloaded script"), so the load-time call fails and only a
+-- saved entry kept the mod loaded. event.startup is protected (necro/event/Event.lua), but the first tick
+-- runs in the same frame right after startup, and the frame runs "tick" before "modLoader", whose
+-- loadLocalMods applies the list (system/game/Cycle.lua, necro/cycles/Tick.lua, necro/mod/Mods.lua).
+local registered = ModList.ensureRegistered()
+local attempts = 0
+
+event.tick.add("cryptAccessModList", { order = "config", sequence = -10 }, function()
+	if registered or attempts >= 10 then
+		return
+	end
+	attempts = attempts + 1
+	registered = ModList.ensureRegistered()
+	if registered then
+		log.info("ModList: registered on the first tick")
+	end
+end)
 
 return ModList

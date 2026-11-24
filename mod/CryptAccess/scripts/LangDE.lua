@@ -39,6 +39,8 @@ return {
 
 	["calibration.visualSkipped"] = "Crypt Access hat den visuellen Schritt übersprungen; er stellt nur die Bildverzögerung ein. Escape überspringt die Kalibrierung.",
 	["calibration.audioHint"] = "Drücke Pfeil runter, jedes Mal wenn du das Ticken hörst.",
+	["calibration.doneFirst"] = "Kalibrierung abgeschlossen. Audio-Latenz: {ms} Millisekunden. Drücke Runter zum Fortfahren ({count}) oder Escape, um sie in den Latenz-Einstellungen zu ändern.",
+	["calibration.done"] = "Kalibrierung abgeschlossen. Audio-Latenz: {ms} Millisekunden. Drücke Enter zum Fortfahren.",
 	["help.calibration.1"] = "Latenzkalibrierung. Crypt Access überspringt den visuellen Schritt, der nur die Bildverzögerung einstellt.",
 	["help.calibration.2"] = "Schritt zwei: Drücke Pfeil runter, jedes Mal wenn du das Ticken hörst.",
 	["help.calibration.3"] = "Escape überspringt die Kalibrierung; du kannst später in den Optionen kalibrieren.",

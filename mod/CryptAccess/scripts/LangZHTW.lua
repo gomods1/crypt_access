@@ -39,6 +39,8 @@ return {
 
 	["calibration.visualSkipped"] = "Crypt Access 已跳過視覺校正步驟，它只影響畫面延遲。按 Esc 跳過校正。",
 	["calibration.audioHint"] = "每次聽到滴答聲時按下方向鍵。",
+	["calibration.doneFirst"] = "校準完成。音訊延遲：{ms} 毫秒。按下鍵繼續（{count}），或按 Escape 在延遲設定中修改。",
+	["calibration.done"] = "校準完成。音訊延遲：{ms} 毫秒。按 Enter 繼續。",
 	["help.calibration.1"] = "延遲校正。Crypt Access 會跳過視覺校正步驟，它只影響畫面延遲。",
 	["help.calibration.2"] = "第二步：每次聽到滴答聲時按下方向鍵。",
 	["help.calibration.3"] = "按 Esc 跳過校正；之後可以在選項中重新校正。",
