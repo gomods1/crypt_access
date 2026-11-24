@@ -21,6 +21,11 @@ cueItems = Settings.user.bool({
 	name = name("cueItems"),
 	default = true,
 })
+cueTraps = Settings.user.bool({
+	id = "cues.traps",
+	name = name("cueTraps"),
+	default = true,
+})
 cueWalls = Settings.user.bool({
 	id = "cues.walls",
 	name = name("cueWalls"),
@@ -121,6 +126,8 @@ function Config.get(key)
 		return cueEnemies
 	elseif key == "cueItems" then
 		return cueItems
+	elseif key == "cueTraps" then
+		return cueTraps
 	elseif key == "cueWalls" then
 		return cueWalls
 	elseif key == "cueRadius" then

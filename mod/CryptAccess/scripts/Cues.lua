@@ -3,7 +3,9 @@
 --   lower = below you).  Distance: volume.
 -- On every beat (or after every turn in no-beat mode): the nearest visible enemies in range, each with
 -- the "enemy" sound, or "danger" when it is next to you and acts on the next beat; items in range
--- with the "item" sound. After each of the player's moves: walls on the four sides ("wall").
+-- with the "item" sound; traps within 2 tiles ("trap"). After each of the player's moves, and when a
+-- neighbouring wall changes: walls on the four sides, "wall" when your digging breaks it, "wallsolid" when
+-- it does not (walking into a solid tile drops the coin multiplier: GrooveChain.lua updateGrooveChain).
 -- B toggles a beacon on the scanner's selected target (or the nearest exit) that sounds every beat.
 
 local Audio = require("system.game.Audio")
@@ -31,9 +33,11 @@ end
 local SOUND_DIR = "mods/CryptAccess/sounds/"
 local MAX_ENEMY_CUES = 3
 local MAX_ITEM_CUES = 2
+local MAX_TRAP_CUES = 2
+local TRAP_RADIUS = 2
 
---- Plays a cue file for a thing at offset (dx, dy) from the player.
-function Cues.play(name, dx, dy, volume)
+--- Plays a cue file for a thing at offset (dx, dy) from the player. flat: no distance falloff.
+function Cues.play(name, dx, dy, volume, flat)
 	if not Native.available then
 		return -- no speech setup on this machine: stay silent (see Keys.lua)
 	end
@@ -50,7 +54,7 @@ function Cues.play(name, dx, dy, volume)
 	local radius = Config.get("cueRadius") or 4
 	-- Distance lowers the volume to at most half, so far cues still stand out from the music
 	-- (measured with the per-application audio meter, tools/cue_meter.py).
-	local falloff = 1 - math.min(0.5, math.max(0, distance - 1) / (radius + 1))
+	local falloff = flat and 1 or 1 - math.min(0.5, math.max(0, distance - 1) / (radius + 1))
 	pcall(Audio.setVolume, id, (volume or 1) * falloff * (Config.get("cueVolume") or 0.9))
 	pcall(Audio.setPitch, id, pitch)
 	pcall(Audio.setPosition, id, h, 0, z)
@@ -117,6 +121,25 @@ local function itemCues(px, py)
 	end
 end
 
+local function trapCues(px, py)
+	local found = {}
+	for e in Entities.entitiesWithComponents({ "position", "trap" }) do
+		if not e.explosive and World.category(e) == "trap" and World.isVisible(e) then
+			local dx, dy = e.position.x - px, e.position.y - py
+			local d = math.abs(dx) + math.abs(dy)
+			if d <= TRAP_RADIUS then
+				found[#found + 1] = { dx = dx, dy = dy, d = d }
+			end
+		end
+	end
+	table.sort(found, function(a, b)
+		return a.d < b.d
+	end)
+	for i = 1, math.min(#found, MAX_TRAP_CUES) do
+		Cues.play("trap", found[i].dx, found[i].dy, 0.8)
+	end
+end
+
 local function beaconCue(px, py)
 	if not beacon.active then
 		return
@@ -173,26 +196,40 @@ function Cues.onBeat()
 	if Config.get("cueItems") then
 		itemCues(px, py)
 	end
+	if Config.get("cueTraps") then
+		trapCues(px, py)
+	end
 	beaconCue(px, py)
 end
 
-local function wallCues()
+local SIDES = { { 0, -1 }, { 1, 0 }, { 0, 1 }, { -1, 0 } }
+
+--- The four sides as a string: "-" open, "d" diggable wall, "s" solid (walking into it fails).
+local function wallSignature(px, py)
+	local parts = {}
+	for i, d in ipairs(SIDES) do
+		local x, y = px + d[1], py + d[2]
+		parts[i] = not World.isBlocking(x, y) and "-" or World.isDiggable(x, y) and "d" or "s"
+	end
+	return table.concat(parts)
+end
+
+--- Walls on the four sides: fully left or right for the sides, higher pitch above, lower below.
+local function wallCues(signature)
 	if not Config.get("cueWalls") then
 		return
 	end
-	local px, py = World.playerPosition()
-	if not px then
-		return
-	end
-	for _, d in ipairs({ { 0, -1 }, { 1, 0 }, { 0, 1 }, { -1, 0 } }) do
-		if World.isBlocking(px + d[1], py + d[2]) then
-			Cues.play("wall", d[1] * 3, d[2], 0.35)
+	for i, d in ipairs(SIDES) do
+		local c = signature:sub(i, i)
+		if c ~= "-" then
+			Cues.play(c == "d" and "wall" or "wallsolid", d[1] * 3, d[2] * 2, 0.8, true)
 		end
 	end
 end
 
 local lastBeat = false
 local lastPos = false
+local lastWalls = false
 
 local function rhythmIgnored()
 	local ok, map = pcall(Beatmap.getPrimary)
@@ -205,21 +242,25 @@ end
 
 event.tick.add("cryptAccessCues", { order = "sound", sequence = 50 }, function()
 	if not World.inLevel() then
-		lastBeat, lastPos = false, false
+		lastBeat, lastPos, lastWalls = false, false, false
 		return
 	end
-	-- Walls: after the player's position changes.
+	-- Walls: after the player's position changes, or when a neighbouring wall changes (dug, door opened).
 	local px, py = World.playerPosition()
 	local pos = px and (px .. "," .. py) or false
+	local walls = px and wallSignature(px, py) or false
 	if pos ~= lastPos then
 		if lastPos and not isPaused() then
-			wallCues()
+			wallCues(walls)
 			if rhythmIgnored() then
 				Cues.onBeat()
 			end
 		end
 		lastPos = pos
+	elseif walls ~= lastWalls and lastWalls and walls and not isPaused() then
+		wallCues(walls)
 	end
+	lastWalls = walls
 	if rhythmIgnored() then
 		return
 	end

@@ -1,0 +1,380 @@
+{
+ "out_dir": ".",
+ "sounds": [
+  {
+   "out": "enemy.wav",
+   "duration": 0.18,
+   "normalize": -2,
+   "layers": [
+    {
+     "type": "sfx",
+     "kind": "growl",
+     "params": {
+      "dur": 0.2,
+      "size": 0.85,
+      "seed": 3
+     }
+    }
+   ],
+   "fx": [
+    {
+     "type": "highpass",
+     "cutoff": 120
+    },
+    {
+     "type": "gain",
+     "db": 15
+    },
+    {
+     "type": "limiter",
+     "ceiling": -2
+    },
+    {
+     "type": "fade",
+     "out": 0.04
+    },
+    {
+     "type": "mono"
+    }
+   ]
+  },
+  {
+   "out": "danger.wav",
+   "duration": 0.17,
+   "normalize": -2,
+   "layers": [
+    {
+     "type": "seq",
+     "inst": "square_lead",
+     "steps": "E5:0.05 -:0.03 E5:0.08",
+     "vel": 0.8
+    }
+   ],
+   "fx": [
+    {
+     "type": "lowpass",
+     "cutoff": 4500
+    },
+    {
+     "type": "mono"
+    }
+   ]
+  },
+  {
+   "out": "trap.wav",
+   "duration": 0.18,
+   "normalize": -2,
+   "layers": [
+    {
+     "type": "sfx",
+     "kind": "solenoid",
+     "params": {
+      "size": 0.15,
+      "metal": 1.0,
+      "thump": 0.1,
+      "bounce": 0.9
+     }
+    },
+    {
+     "type": "drum",
+     "kind": "anvil",
+     "gain": 0.35
+    }
+   ],
+   "fx": [
+    {
+     "type": "highpass",
+     "cutoff": 400
+    },
+    {
+     "type": "compressor",
+     "threshold": -26,
+     "ratio": 4
+    },
+    {
+     "type": "fade",
+     "out": 0.04
+    },
+    {
+     "type": "gain",
+     "db": 6
+    },
+    {
+     "type": "limiter",
+     "ceiling": -2
+    },
+    {
+     "type": "mono"
+    }
+   ]
+  },
+  {
+   "out": "item.wav",
+   "duration": 0.3,
+   "normalize": -3,
+   "layers": [
+    {
+     "type": "synth",
+     "inst": "glockenspiel",
+     "notes": "E6 B6",
+     "strum": 0.035,
+     "dur": 0.25,
+     "vel": 0.5
+    }
+   ],
+   "fx": [
+    {
+     "type": "reverb",
+     "mix": 0.12
+    },
+    {
+     "type": "fade",
+     "out": 0.08
+    },
+    {
+     "type": "mono"
+    }
+   ]
+  },
+  {
+   "out": "exit.wav",
+   "duration": 0.35,
+   "normalize": -2,
+   "layers": [
+    {
+     "type": "sfx",
+     "kind": "wind_howl",
+     "params": {
+      "dur": 0.4,
+      "gust": 0.6,
+      "seed": 2
+     }
+    },
+    {
+     "type": "sfx",
+     "kind": "whoosh",
+     "params": {
+      "dur": 0.3,
+      "low": 400,
+      "high": 1800,
+      "direction": "up"
+     },
+     "gain": 0.4
+    }
+   ],
+   "fx": [
+    {
+     "type": "lowpass",
+     "cutoff": 4000
+    },
+    {
+     "type": "gain",
+     "db": 9
+    },
+    {
+     "type": "limiter",
+     "ceiling": -2
+    },
+    {
+     "type": "fade",
+     "in": 0.08,
+     "out": 0.12
+    },
+    {
+     "type": "mono"
+    }
+   ]
+  },
+  {
+   "out": "beacon.wav",
+   "duration": 0.25,
+   "normalize": -3,
+   "layers": [
+    {
+     "type": "sfx",
+     "kind": "sonar",
+     "params": {
+      "freq": 1100,
+      "echo": 0.0
+     }
+    }
+   ],
+   "fx": [
+    {
+     "type": "fade",
+     "out": 0.1
+    },
+    {
+     "type": "mono"
+    }
+   ]
+  },
+  {
+   "out": "tick.wav",
+   "duration": 0.06,
+   "normalize": -3,
+   "layers": [
+    {
+     "type": "drum",
+     "kind": "woodblock",
+     "params": {
+      "tune": 1400
+     }
+    }
+   ],
+   "fx": [
+    {
+     "type": "mono"
+    }
+   ]
+  },
+  {
+   "out": "wall.wav",
+   "duration": 0.14,
+   "normalize": -2,
+   "layers": [
+    {
+     "type": "sfx",
+     "kind": "footfall",
+     "params": {
+      "surface": "gravel",
+      "weight": 0.8,
+      "steps": 1
+     }
+    }
+   ],
+   "fx": [
+    {
+     "type": "compressor",
+     "threshold": -26,
+     "ratio": 4
+    },
+    {
+     "type": "fade",
+     "out": 0.04
+    },
+    {
+     "type": "gain",
+     "db": 1
+    },
+    {
+     "type": "limiter",
+     "ceiling": -2
+    },
+    {
+     "type": "mono"
+    }
+   ]
+  },
+  {
+   "out": "wallsolid.wav",
+   "duration": 0.14,
+   "normalize": -2,
+   "layers": [
+    {
+     "type": "sfx",
+     "kind": "knock",
+     "params": {
+      "count": 1,
+      "surface": "wood",
+      "force": 1.0
+     }
+    },
+    {
+     "type": "drum",
+     "kind": "woodblock",
+     "params": {
+      "tune": 600
+     },
+     "gain": 0.6
+    }
+   ],
+   "fx": [
+    {
+     "type": "highpass",
+     "cutoff": 150
+    },
+    {
+     "type": "compressor",
+     "threshold": -26,
+     "ratio": 4
+    },
+    {
+     "type": "fade",
+     "out": 0.03
+    },
+    {
+     "type": "gain",
+     "db": 9
+    },
+    {
+     "type": "limiter",
+     "ceiling": -2
+    },
+    {
+     "type": "mono"
+    }
+   ]
+  },
+  {
+   "out": "freeze.wav",
+   "duration": 0.2,
+   "normalize": -3,
+   "layers": [
+    {
+     "type": "sfx",
+     "kind": "sweep_down",
+     "params": {
+      "start": 1400,
+      "end": 350,
+      "dur": 0.18,
+      "wave": "sine"
+     }
+    },
+    {
+     "type": "synth",
+     "inst": "glass",
+     "notes": "E6",
+     "dur": 0.15,
+     "vel": 0.3,
+     "gain": 0.5
+    }
+   ],
+   "fx": [
+    {
+     "type": "fade",
+     "out": 0.04
+    },
+    {
+     "type": "mono"
+    }
+   ]
+  },
+  {
+   "out": "unfreeze.wav",
+   "duration": 0.2,
+   "normalize": -3,
+   "layers": [
+    {
+     "type": "sfx",
+     "kind": "sweep_up",
+     "params": {
+      "start": 350,
+      "end": 1400,
+      "dur": 0.18,
+      "wave": "sine"
+     }
+    }
+   ],
+   "fx": [
+    {
+     "type": "fade",
+     "out": 0.04
+    },
+    {
+     "type": "mono"
+    }
+   ]
+  }
+ ]
+}

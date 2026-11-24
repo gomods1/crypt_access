@@ -282,6 +282,17 @@ function World.describeTile(x, y)
 	local parts = { name }
 	local kind = "floor"
 	local collisionType = Collision.Type
+	-- Doors to explored rooms are named after them; opened doors stay known as doorways (Rooms.lua).
+	local okRooms, Rooms = pcall(require, "CryptAccess.Rooms")
+	okRooms = okRooms and type(Rooms) == "table"
+	if info.isDoor or info.isLocked then
+		local doorName = okRooms and Rooms.doorName(x, y, false)
+		if doorName then
+			parts[1] = doorName
+		end
+	elseif okRooms and info.isFloor and Rooms.isOpenedDoor(x, y) then
+		parts[1] = Rooms.doorName(x, y, true) or parts[1]
+	end
 	if info.isDoor then
 		kind = "door"
 	elseif info.isLocked then

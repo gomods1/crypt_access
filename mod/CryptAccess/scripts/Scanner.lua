@@ -114,6 +114,7 @@ function Scanner.build(categoryOverride)
 	end
 	if category == "all" or category == "exit" then
 		exitTiles(list)
+		pcall(require("CryptAccess.Rooms").scanEntries, list)
 	end
 	for _, entry in ipairs(list) do
 		local dx, dy = entry.x - px, entry.y - py

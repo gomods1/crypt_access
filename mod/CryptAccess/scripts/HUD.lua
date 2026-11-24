@@ -203,6 +203,12 @@ function HUD.levelText()
 		if okB and isBoss then
 			parts[#parts + 1] = Strings.get("hud.bossFloor")
 		end
+		local okRoom, room = pcall(function()
+			return require("CryptAccess.Rooms").current()
+		end)
+		if okRoom and room then
+			parts[#parts + 1] = Strings.get("hud.inRoom", { room = room })
+		end
 		local okT, timeLeft = pcall(function()
 			if Music.isMusicLooping() then
 				return nil
