@@ -168,6 +168,7 @@
 
 ## Test log
 
+- 2026-11-24 (Claude): release v0.3.3 published with tools/release.ps1: package 69 files, zip 90 entries, installer sandbox install/uninstall ok from the local zip and from GitHub (84 files, version 0.3.3). https://github.com/gomods1/crypt_access/releases/tag/v0.3.3
 - 2026-11-24 (Claude): on-screen text fixes tested by dev console and speech log: spell cooldown and ready, rifle ammo and Reload!, heart transplant, Pawnbroker offer, pause-menu countdown reason, settings description throttle, Weekly Challenge open and mode change, lobby pause version, replay mode and speed, 1-1 intro text, Tempo (curse on H; found the countdown was already spoken, removed the duplicate), timer on L. Not heard by the user yet.
 - 2026-11-24 (Claude): release v0.3.2 published with tools/release.ps1 (first full run of the script): package CryptAccess-0.3.2.necromod 67 files, zip 88 entries, installer sandbox install/uninstall ok from the local zip and from GitHub (82 files, version 0.3.2, config patched and restored). https://github.com/gomods1/crypt_access/releases/tag/v0.3.2
 - 2026-11-24 (Claude): calibration end announces the audio latency (both paths, simulated finish); latency.audio reset to 0.
