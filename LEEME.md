@@ -82,7 +82,9 @@ Durante el juego:
 - Los enemigos zumban, los objetos tintinean, las paredes suenan sordas después de cada paso.
 - Izquierda y derecha en estéreo. Más agudo significa más arriba en el mapa, más grave más abajo. Más fuerte
   es más cerca.
-- Un sonido agudo ascendente significa que un enemigo a tu lado actúa en el próximo pulso.
+- Un doble pitido agudo significa que un enemigo actúa en el próximo pulso. Por defecto solo suena para
+  un enemigo a tu lado; el ajuste "Sonido de enemigo a punto de actuar" puede hacerlo sonar para todos
+  los enemigos al alcance (útil para emboscarlos), o nunca.
 
 ## Descripciones de lo que hay en pantalla
 
@@ -105,7 +107,7 @@ Durante el juego:
 ## Ajustes
 
 En el juego: Opciones, Ajustes de mods, Crypt Access. Ahí puedes activar o desactivar los sonidos de
-enemigos, objetos y paredes, ajustar su alcance y volumen, añadir un tic de metrónomo, congelar al empezar
+enemigos, objetos y paredes, elegir qué enemigos avisan antes de actuar, ajustar su alcance y volumen, añadir un tic de metrónomo, congelar al empezar
 cada nivel y elegir si se anuncian los golpes a enemigos y la posición en los menús. Cuatro interruptores
 activan o desactivan las descripciones: cinemáticas y pantallas de título, tipos nuevos de enemigos,
 combates, y zonas, niveles de jefe y jefes.

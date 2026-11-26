@@ -2,6 +2,7 @@
 -- in the game's own settings menus under this mod, are saved by the game and need no file editing.
 
 local Settings = require("necro.config.Settings")
+local Enum = require("system.utils.Enum")
 
 local Strings = require("CryptAccess.Strings")
 
@@ -15,6 +16,19 @@ cueEnemies = Settings.user.bool({
 	id = "cues.enemies",
 	name = name("cueEnemies"),
 	default = true,
+})
+-- When an enemy that acts on the next beat plays the "danger" sound instead of "enemy" (user, 2026-11-26:
+-- hearing it at any distance helps to ambush enemies).
+Config.Warn = Enum.sequence({
+	ADJACENT = Enum.entry(1, { name = name("cueWarn.adjacent") }),
+	IN_RANGE = Enum.entry(2, { name = name("cueWarn.inRange") }),
+	OFF = Enum.entry(3, { name = name("cueWarn.off") }),
+})
+cueWarn = Settings.user.enum({
+	id = "cues.enemyWarning",
+	name = name("cueWarn"),
+	enum = Config.Warn,
+	default = Config.Warn.ADJACENT,
 })
 cueItems = Settings.user.bool({
 	id = "cues.items",
@@ -124,6 +138,8 @@ end
 function Config.get(key)
 	if key == "cueEnemies" then
 		return cueEnemies
+	elseif key == "cueWarn" then
+		return cueWarn
 	elseif key == "cueItems" then
 		return cueItems
 	elseif key == "cueTraps" then

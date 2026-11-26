@@ -2,7 +2,8 @@
 --   Left/right: stereo position from the horizontal offset.  Up/down: pitch (higher = above you,
 --   lower = below you).  Distance: volume.
 -- On every beat (or after every turn in no-beat mode): the nearest visible enemies in range, each with
--- the "enemy" sound, or "danger" when it is next to you and acts on the next beat; items in range
+-- the "enemy" sound, or "danger" when it acts on the next beat (setting cues.enemyWarning: next to you
+-- only, every enemy in range, or never); items in range
 -- with the "item" sound; traps within 2 tiles ("trap"). After each of the player's moves, and when a
 -- neighbouring wall changes: walls on the four sides, "wall" when your digging breaks it, "wallsolid" when
 -- it does not (walking into a solid tile drops the coin multiplier: GrooveChain.lua updateGrooveChain).
@@ -63,6 +64,11 @@ function Cues.play(name, dx, dy, volume, flat)
 	pcall(Audio.play, id)
 	stats.played = stats.played + 1
 	stats.last = string.format("%s dx=%d dy=%d", name, dx, dy)
+	stats.recent = stats.recent or {}
+	table.insert(stats.recent, stats.last)
+	if #stats.recent > 20 then
+		table.remove(stats.recent, 1)
+	end
 end
 
 --- Plays a non-positional cue (freeze, metronome).
@@ -93,10 +99,17 @@ local function enemyCues(px, py)
 	table.sort(found, function(a, b)
 		return a.d < b.d
 	end)
+	local warn = Config.get("cueWarn") or Config.Warn.ADJACENT
 	for i = 1, math.min(#found, MAX_ENEMY_CUES) do
 		local f = found[i]
-		local soon = f.e.beatDelay and (f.e.beatDelay.counter or 1) <= 0
-		local name = (f.d == 1 and soon) and "danger" or "enemy"
+		-- Acts on the next beat: beat delay counter 0 (the game's own test, SoundTrigger.lua), and not
+		-- stunned or in stasis (a stunned or dormant enemy with counter 0 does not act).
+		local e = f.e
+		local soon = e.beatDelay and (e.beatDelay.counter or 1) <= 0
+			and not (e.stun and (e.stun.counter or 0) > 0)
+			and not (e.stasis and e.stasis.active)
+		local warnHere = warn == Config.Warn.IN_RANGE or (warn == Config.Warn.ADJACENT and f.d == 1)
+		local name = (soon and warnHere) and "danger" or "enemy"
 		Cues.play(name, f.dx, f.dy, 1)
 	end
 end

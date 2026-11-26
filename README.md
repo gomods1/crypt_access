@@ -80,7 +80,9 @@ While playing:
 - Enemies buzz, items chime, walls make a soft thud after each of your moves.
 - Left and right are stereo. Higher pitch means above you on the map, lower pitch below you. Louder is
   closer.
-- A sharp rising sound means an enemy next to you acts on the next beat.
+- A high double beep means an enemy acts on the next beat. By default you hear it only for an enemy
+  next to you; the setting "Enemy about to act sound" can play it for every enemy in range (good for
+  ambushes), or never.
 
 ## Descriptions of what is on screen
 
@@ -103,7 +105,7 @@ While playing:
 ## Settings
 
 In the game: Options, Mod settings, Crypt Access. There you can turn the enemy, item and wall sounds on or
-off, set their range and volume, add a metronome tick, freeze automatically at the start of each floor,
+off, choose which enemies give the about-to-act warning, set their range and volume, add a metronome tick, freeze automatically at the start of each floor,
 and choose whether hits on enemies and menu positions are spoken. Four switches turn the descriptions on
 or off: cutscenes and title screens, new kinds of enemies, fights, and zones, boss arenas and bosses.
 
